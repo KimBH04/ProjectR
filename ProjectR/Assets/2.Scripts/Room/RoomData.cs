@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RoomData : MonoBehaviour
 {
-    public RoomType type;
+    public RoomType type = RoomType.Battle;
+    public int depth = 0;
 
-    private Vector3 position;
     private RoomData left;
     private RoomData up;
     private RoomData right;
@@ -30,9 +30,6 @@ public class RoomData : MonoBehaviour
 
                 left = room;
                 room.right = this;
-                
-                room.position = position;
-                room.position.x--;
                 break;
 
             case Direction.Up:
@@ -43,9 +40,6 @@ public class RoomData : MonoBehaviour
 
                 up = room;
                 room.down = this;
-
-                room.position = position;
-                room.position.z++;
                 break;
 
             case Direction.Right:
@@ -56,9 +50,6 @@ public class RoomData : MonoBehaviour
 
                 right = room;
                 room.left = this;
-
-                room.position = position;
-                room.position.x++;
                 break;
 
             case Direction.Down:
@@ -69,13 +60,8 @@ public class RoomData : MonoBehaviour
 
                 down = room;
                 room.up = this;
-
-                room.position = position;
-                room.position.z--;
                 break;
         }
-
-        room.transform.position = new Vector3(room.position.x * 17f, 0f, room.position.z * 10f);
         return true;
     }
 }
