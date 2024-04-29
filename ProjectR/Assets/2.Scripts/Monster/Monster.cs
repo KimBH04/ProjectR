@@ -2,26 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Monster : MonoBehaviour
+public  class Monster
+{ 
+    public MonsterData data;
+    public MonsterController controller;
+
+}
+
+public class MonsterData
 {
-    public virtual void Attack()
-    {
-        
-    }
-
-    public virtual void Move()
-    {
-        
-    }
-
-    public virtual void TakeDamage(float damage)
-    {
-        
-    }
-
-    public virtual void Die()
-    {
-        
-    }
     
 }
