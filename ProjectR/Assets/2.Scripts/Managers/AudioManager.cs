@@ -3,19 +3,33 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
+
+    [Header("Master")] 
+    
+    [Range(0,1)]
+    public float masterVolume;
     
     [Header("#BGM")]
-    public AudioClip bgmClip;
+    public AudioClip[] bgmClip;
+    [Range(0,1)]
     public float bgmVolume;
     AudioSource bgmPlayer;
 
     [Header("#SFX")]
     public AudioClip[] sfxClips;
+    
+    [Range(0,1)]
     public float sfxVolume;
     public int channels;
     AudioSource[] sfxPlayers;
     int channelIndex;
 
+
+    public enum EBgm
+    {
+        MAIN
+    }
+    
     public enum ESfx
     {
         
@@ -24,20 +38,11 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
-        
-        
+        Singleton();
         Init();
-        PlayBgm(true);
+        
+        Instance.PlayBgm(EBgm.MAIN);
+        //PlayBgm(true);
     }
 
     void Init()
@@ -48,8 +53,8 @@ public class AudioManager : MonoBehaviour
         bgmPlayer = bgmObject.AddComponent<AudioSource>();
         bgmPlayer.playOnAwake = false;
         bgmPlayer.loop = true;
-        bgmPlayer.volume = bgmVolume;
-        bgmPlayer.clip = bgmClip;
+        bgmPlayer.volume = bgmVolume * masterVolume;
+        // bgmPlayer.clip = bgmClip;
 
         GameObject sfxObject = new GameObject("SfxPlayer");
         sfxObject.transform.parent = transform;
@@ -59,9 +64,21 @@ public class AudioManager : MonoBehaviour
         {
             sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
             sfxPlayers[index].playOnAwake = false;
-            sfxPlayers[index].bypassListenerEffects = true;
-            sfxPlayers[index].volume = sfxVolume;
+            sfxPlayers[index].volume = sfxVolume * masterVolume;
         }
+    }
+    
+    private void Singleton()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayBgm(bool isPlay)
@@ -83,7 +100,7 @@ public class AudioManager : MonoBehaviour
     public void SetBgmVolume(float volume)
     {
         bgmVolume = volume;
-        bgmPlayer.volume = bgmVolume;
+        bgmPlayer.volume = bgmVolume * masterVolume;
     }
 
     public float GetBgmVolume()
@@ -96,7 +113,36 @@ public class AudioManager : MonoBehaviour
         sfxVolume = volume;
         foreach (AudioSource sfxPlayer in sfxPlayers)
         {
-            sfxPlayer.volume = sfxVolume;
+            sfxPlayer.volume = sfxVolume * masterVolume;
+        }
+    }
+    
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = volume;
+        UpdateAllVolumes();
+    }
+
+    private void UpdateAllVolumes()
+    {
+        bgmPlayer.volume = bgmVolume * masterVolume;
+        foreach (AudioSource sfxPlayer in sfxPlayers)
+        {
+            sfxPlayer.volume = sfxVolume * masterVolume;
+        }
+    }
+
+    public void PlayBgm(EBgm eBgm)
+    {
+        int bgmIndex = (int)eBgm;
+        if (bgmIndex >= 0 && bgmIndex < bgmClip.Length) 
+        {
+            bgmPlayer.clip = bgmClip[bgmIndex];
+            bgmPlayer.Play();
+        }
+        else
+        {
+            Debug.LogWarning("헉");
         }
     }
 
