@@ -4,25 +4,26 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
-    [Header("Master")] 
-    
+    [Header("#Volume")] 
     [Range(0,1)]
     public float masterVolume;
+    [Range(0,1)]
+    public float bgmVolume;
+    [Range(0,1)]
+    public float sfxVolume;
+    
+    
     
     [Header("#BGM")]
     public AudioClip[] bgmClip;
-    [Range(0,1)]
-    public float bgmVolume;
-    AudioSource bgmPlayer;
+    private AudioSource _bgmPlayer;
 
     [Header("#SFX")]
     public AudioClip[] sfxClips;
     
-    [Range(0,1)]
-    public float sfxVolume;
     public int channels;
-    AudioSource[] sfxPlayers;
-    int channelIndex;
+    private AudioSource[] _sfxPlayers;
+    private int _channelIndex;
 
 
     public enum EBgm
@@ -50,21 +51,21 @@ public class AudioManager : MonoBehaviour
         
         GameObject bgmObject = new GameObject("BgmPlayer");
         bgmObject.transform.parent = transform;
-        bgmPlayer = bgmObject.AddComponent<AudioSource>();
-        bgmPlayer.playOnAwake = false;
-        bgmPlayer.loop = true;
-        bgmPlayer.volume = bgmVolume * masterVolume;
+        _bgmPlayer = bgmObject.AddComponent<AudioSource>();
+        _bgmPlayer.playOnAwake = false;
+        _bgmPlayer.loop = true;
+        _bgmPlayer.volume = bgmVolume * masterVolume;
         // bgmPlayer.clip = bgmClip;
 
         GameObject sfxObject = new GameObject("SfxPlayer");
         sfxObject.transform.parent = transform;
-        sfxPlayers = new AudioSource[channels];
+        _sfxPlayers = new AudioSource[channels];
 
-        for (int index = 0; index < sfxPlayers.Length; index++)
+        for (int index = 0; index < _sfxPlayers.Length; index++)
         {
-            sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
-            sfxPlayers[index].playOnAwake = false;
-            sfxPlayers[index].volume = sfxVolume * masterVolume;
+            _sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
+            _sfxPlayers[index].playOnAwake = false;
+            _sfxPlayers[index].volume = sfxVolume * masterVolume;
         }
     }
     
@@ -85,14 +86,14 @@ public class AudioManager : MonoBehaviour
     {
         if (isPlay)
         {
-            if (!bgmPlayer.isPlaying)
+            if (!_bgmPlayer.isPlaying)
             {
-                bgmPlayer.Play();
+                _bgmPlayer.Play();
             }
         }
         else
         {
-            bgmPlayer.Stop();
+            _bgmPlayer.Stop();
         }
     }
     
@@ -100,7 +101,7 @@ public class AudioManager : MonoBehaviour
     public void SetBgmVolume(float volume)
     {
         bgmVolume = volume;
-        bgmPlayer.volume = bgmVolume * masterVolume;
+        _bgmPlayer.volume = bgmVolume * masterVolume;
     }
 
     public float GetBgmVolume()
@@ -111,7 +112,7 @@ public class AudioManager : MonoBehaviour
     public void SetSfxVolume(float volume)
     {
         sfxVolume = volume;
-        foreach (AudioSource sfxPlayer in sfxPlayers)
+        foreach (AudioSource sfxPlayer in _sfxPlayers)
         {
             sfxPlayer.volume = sfxVolume * masterVolume;
         }
@@ -125,8 +126,8 @@ public class AudioManager : MonoBehaviour
 
     private void UpdateAllVolumes()
     {
-        bgmPlayer.volume = bgmVolume * masterVolume;
-        foreach (AudioSource sfxPlayer in sfxPlayers)
+        _bgmPlayer.volume = bgmVolume * masterVolume;
+        foreach (AudioSource sfxPlayer in _sfxPlayers)
         {
             sfxPlayer.volume = sfxVolume * masterVolume;
         }
@@ -137,8 +138,8 @@ public class AudioManager : MonoBehaviour
         int bgmIndex = (int)eBgm;
         if (bgmIndex >= 0 && bgmIndex < bgmClip.Length) 
         {
-            bgmPlayer.clip = bgmClip[bgmIndex];
-            bgmPlayer.Play();
+            _bgmPlayer.clip = bgmClip[bgmIndex];
+            _bgmPlayer.Play();
         }
         else
         {
@@ -148,16 +149,16 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySfx(ESfx eSfx)
     {
-        for (int index = 0; index < sfxPlayers.Length; index++)
+        for (int index = 0; index < _sfxPlayers.Length; index++)
         {
-            int loopIndex = (index + channelIndex) % sfxPlayers.Length;
+            int loopIndex = (index + _channelIndex) % _sfxPlayers.Length;
 
-            if (sfxPlayers[loopIndex].isPlaying)
+            if (_sfxPlayers[loopIndex].isPlaying)
                 continue;
 
-            channelIndex = loopIndex;
-            sfxPlayers[loopIndex].clip = sfxClips[(int)eSfx];
-            sfxPlayers[loopIndex].Play();
+            _channelIndex = loopIndex;
+            _sfxPlayers[loopIndex].clip = sfxClips[(int)eSfx];
+            _sfxPlayers[loopIndex].Play();
             break;
         }
     }

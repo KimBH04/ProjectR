@@ -17,14 +17,6 @@ public class Enemy : MonoBehaviour
         Shield,
     }
     
-    public enum EState
-    {
-        Idle,
-        Chase,
-        Attack,
-        Hit,
-        Dead,
-    }
     
     [Header("Enemy Stats")]
     public EType type;
@@ -32,7 +24,8 @@ public class Enemy : MonoBehaviour
     public float maxHp;
     public float currentHp;
 
-    [Space(10)] [Header("Enemy Components")]
+    [Space(10)] 
+    [Header("Enemy Components")]
     private Rigidbody rb;
     private NavMeshAgent agent;
     private Animator anim;
@@ -50,6 +43,7 @@ public class Enemy : MonoBehaviour
     public bool isAttack;
     public bool isDead;
     public bool isHit;
+    public bool isClose;
     
     [Header("Enemy Renderers")]
     public Material dissolveMaterial;
@@ -68,9 +62,12 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        
+        ClosePlayer();
     }
-
+    private void FixedUpdate()
+    {
+        FreezeVelocity();
+    }
     private void Init()
     {
         rb.GetComponent<Rigidbody>();
@@ -85,10 +82,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void ClosePlayer()
     {
-        FreezeVelocity();
+        float distanceToPlayer = Vector3.Distance(transform.position, target.position);
+
+        if (distanceToPlayer < 10f && !isClose)
+        {
+            isClose = true;
+            isChase = true;
+            // 애니
+        }
+        else
+        {
+            isClose = false;
+            isChase = false;
+            // 애니
+        }
     }
+
+    
 
     private void FreezeVelocity()
     {
@@ -158,13 +170,69 @@ public class Enemy : MonoBehaviour
         // 애니메이션
     }
 
+    private void TakeDamage(float damage)
+    {
+        currentHp -= damage;
+        if (currentHp < 0)
+        {
+            currentHp = 0;
+        }
+        
+        if(maxHp<currentHp)
+        {
+            currentHp = maxHp;
+        }
+        
+        hpBar.fillAmount = currentHp / maxHp;
+        GameObject hudText = Instantiate(hudDamageText);
+        // hudText.transform.position = hudText.position;
+        
+
+
+    }
+
     private IEnumerator OnDamage()
     {
+        isHit = true;
         yield return null;
+    }
+
+    private void OnDie()
+    {
+        StopAllCoroutines();
+        StartCoroutine(nameof(Dissovle));
+        // 애니
+        isDead = true;
+        agent.enabled = false;
+        gameObject.layer = 0;
+        rb.isKinematic= true;
+        isChase = false;
+        Destroy(gameObject,1f);
+    }
+
+    private IEnumerator Dissovle()
+    {
+        foreach (SkinnedMeshRenderer mesh in meshRenderers)
+        {
+            Material[] materials = mesh.materials;
+            
+            for(int index =0; index < materials.Length; index++)
+            {
+                materials[index] = dissolveMaterial;
+            }
+            mesh.materials = materials;
+        }
+
+        dissolveMaterial.DOFloat(1, "_Float",2);
+        yield break;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (!isDead && other.CompareTag("Skill") && !isHit)
+        {
+            // 피격
+            
+        }
     }
 }
