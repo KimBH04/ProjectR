@@ -12,6 +12,11 @@ public class RoomData : MonoBehaviour
     private RoomData right;
     private RoomData down;
 
+    public bool ConnectedLeft => left != null;
+    public bool ConnectedUp => up != null;
+    public bool ConnectedRight => right != null;
+    public bool ConnectedDown => down != null;
+
     /// <summary>
     /// 방과 방끼리 연결하기
     /// </summary>

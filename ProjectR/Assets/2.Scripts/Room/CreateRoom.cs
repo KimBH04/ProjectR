@@ -8,21 +8,27 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private int roomCount = 10;
     [Space]
     [SerializeField] private Vector3 roomScale = Vector3.one;
-    [SerializeField] private Vector3 loadScale = Vector3.one;
+    [SerializeField] private Vector3 roadScale = Vector3.one;
     [SerializeField] private float padding = 1f;
 
     [Header("Objects")]
     [SerializeField] private GameObject roomObject;
-    [SerializeField] private GameObject loadObject;
+    [SerializeField] private GameObject roadObject;
+    [Space]
+    [SerializeField] private GameObject openedVerticalWall;
+    [SerializeField] private GameObject blockedVerticalWall;
+    [SerializeField] private GameObject openedHorizontalWall;
+    [SerializeField] private GameObject blockedHorizontalWall;
 
     private List<RoomData> roomDatas;
 
     private void Start()
     {
         roomObject.transform.localScale = roomScale;
-        loadObject.transform.localScale = loadScale;
+        roadObject.transform.localScale = roadScale;
 
         CreateRooms();
+        CreateWalls();
     }
 
     private void CreateRooms()
@@ -42,40 +48,41 @@ public class CreateRoom : MonoBehaviour
 
         //두 번 째 방 생성
         int rand = Random.Range(0, 3);
-        RoomData nextStart = Instantiate(roomObject,
+        RoomData nextRoom = Instantiate(roomObject,
             new Vector3(
                 directions[rand].x * roomScale.x * 10 + directions[rand].x * padding,
                 0f,
                 directions[rand].z * roomScale.z * 10 + directions[rand].z * padding),
             Quaternion.identity)
             .GetComponent<RoomData>();
-        startRoom.ConnectRoom(nextStart, (Direction)rand);
-        nextStart.depth = 1;
+        startRoom.ConnectRoom(nextRoom, (Direction)rand);
+        nextRoom.depth = 1;
 
         // 방과 방 사이 길 생성
-        Instantiate(loadObject,
-            (startRoom.transform.position + nextStart.transform.position) / 2f,
+        Instantiate(roadObject,
+            (startRoom.transform.position + nextRoom.transform.position) / 2f,
             Quaternion.identity);
 
         visited[roomCount + directions[rand].x, roomCount + directions[rand].z] = true;
-        
+
         // 처음 생성된 방과 방 위치
-        roomDatas = new List<RoomData>(roomCount) { nextStart };
+        roomDatas = new List<RoomData>(roomCount) { startRoom, nextRoom };
         List<(int r, int c)> roomPositions = new List<(int r, int c)>()
         {
-            (roomCount + directions[rand].x, roomCount + directions[rand].z)
+            (roomCount, roomCount),                                             // start
+            (roomCount + directions[rand].x, roomCount + directions[rand].z)    // next
         };
 
         // 보스방 생성하기
-        RoomData bossRoom = nextStart;
+        RoomData bossRoom = nextRoom;
         int maxDepth = 0;
 
-        for (int max = 1; max < roomCount; max++)
+        for (int max = 2; max < roomCount; max++)
         {
             RoomData newRoom = Instantiate(roomObject).GetComponent<RoomData>();
 
         ReTry:
-            int randIdx = Random.Range(0, max);
+            int randIdx = Random.Range(1, max);
             int randDir = Random.Range(0, 4);
 
             var (x, z) = roomPositions[randIdx];
@@ -97,7 +104,7 @@ public class CreateRoom : MonoBehaviour
                         directions[randDir].z * roomScale.z * 10 + directions[randDir].z * padding);
 
                 // 방과 방 사이 길 생성
-                Instantiate(loadObject,
+                Instantiate(roadObject,
                     (newRoom.transform.position + anyRoom.transform.position) / 2f,
                     Quaternion.identity);
 
@@ -115,5 +122,47 @@ public class CreateRoom : MonoBehaviour
         }
 
         bossRoom.type = RoomType.Boss;
+    }
+
+    private void CreateWalls()
+    {
+        foreach (RoomData room in roomDatas)
+        {
+            if (room.ConnectedLeft)
+            {
+                Instantiate(openedVerticalWall, room.transform.position, Quaternion.Euler(0f, 180f, 0f));
+            }
+            else
+            {
+                Instantiate(blockedVerticalWall, room.transform.position, Quaternion.Euler(0f, 180f, 0f));
+            }
+
+            if (room.ConnectedUp)
+            {
+                Instantiate(openedHorizontalWall, room.transform.position, Quaternion.Euler(0f, 180f, 0f));
+            }
+            else
+            {
+                Instantiate(blockedHorizontalWall, room.transform.position, Quaternion.Euler(0f, 180f, 0f));
+            }
+
+            if (room.ConnectedRight)
+            {
+                Instantiate(openedVerticalWall, room.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(blockedVerticalWall, room.transform.position, Quaternion.identity);
+            }
+
+            if (room.ConnectedDown)
+            {
+                Instantiate(openedHorizontalWall, room.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(blockedHorizontalWall, room.transform.position, Quaternion.identity);
+            }
+        }
     }
 }
