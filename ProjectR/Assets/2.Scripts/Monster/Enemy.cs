@@ -21,14 +21,15 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Stats")]
     public EType type;
 
+    public float damage;
     public float maxHp;
     public float currentHp;
 
     [Space(10)] 
     [Header("Enemy Components")]
-    private Rigidbody rb;
-    private NavMeshAgent agent;
-    private Animator anim;
+    private Rigidbody _rb;
+    private NavMeshAgent _agent;
+    private Animator _anim;
     
     public Transform target;
     public Collider attackCollider;
@@ -70,9 +71,9 @@ public class Enemy : MonoBehaviour
     }
     private void Init()
     {
-        rb.GetComponent<Rigidbody>();
-        agent.GetComponent<NavMeshAgent>();
-        anim.GetComponent<Animator>();
+        _rb.GetComponent<Rigidbody>();
+        _agent.GetComponent<NavMeshAgent>();
+        _anim.GetComponent<Animator>();
         meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         dissolveMaterial = new Material(dissolveMaterial);
 
@@ -106,8 +107,8 @@ public class Enemy : MonoBehaviour
     {
         if (isChase)
         {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
         }
     }
     
@@ -176,7 +177,7 @@ public class Enemy : MonoBehaviour
         if (currentHp < 0)
         {
             currentHp = 0;
-            StartCoroutine(nameof(OnDie));
+            
         }
         
         if(maxHp<currentHp)
@@ -186,17 +187,34 @@ public class Enemy : MonoBehaviour
         
         hpBar.fillAmount = currentHp / maxHp;
         GameObject hudText = Instantiate(hudDamageText);
-        // hudText.transform.position = hudText.position;
-        
-        
-        
+        hudText.transform.position = hudText.transform.position; // 맞나? 체크 필요
+        // 데미지 데이터 필요
 
-
+        StartCoroutine(nameof(OnDamage));
     }
 
     private IEnumerator OnDamage()
     {
-        isHit = true;
+        if (currentHp > 0)
+        {
+            isHit = true;
+
+            foreach (SkinnedMeshRenderer mesh in meshRenderers)
+            {
+                mesh.material.DOColor(Color.red, 0.1f).OnComplete(() =>
+                {
+                    mesh.material.DOColor(originalColors[mesh], 0.1f);
+                });
+            }
+
+            yield return new WaitForSeconds(0.1f);
+            isHit = false;
+        }
+        else
+        {
+            OnDie();
+        }
+
         yield return null;
     }
 
@@ -206,9 +224,9 @@ public class Enemy : MonoBehaviour
         StartCoroutine(nameof(Dissovle));
         // 애니
         isDead = true;
-        agent.enabled = false;
+        _agent.enabled = false;
         gameObject.layer = 0;
-        rb.isKinematic= true;
+        _rb.isKinematic= true;
         isChase = false;
         Destroy(gameObject,1f);
     }
