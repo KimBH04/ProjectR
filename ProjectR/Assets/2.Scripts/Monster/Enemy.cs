@@ -176,6 +176,7 @@ public class Enemy : MonoBehaviour
         if (currentHp < 0)
         {
             currentHp = 0;
+            StartCoroutine(nameof(OnDie));
         }
         
         if(maxHp<currentHp)
@@ -186,6 +187,8 @@ public class Enemy : MonoBehaviour
         hpBar.fillAmount = currentHp / maxHp;
         GameObject hudText = Instantiate(hudDamageText);
         // hudText.transform.position = hudText.position;
+        
+        
         
 
 
