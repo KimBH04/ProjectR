@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9210891190893210266}
   - component: {fileID: -3691237513980031083}
+  - component: {fileID: 4893542627045738905}
   m_Layer: 0
   m_Name: RoomFloor
   m_TagString: Untagged
@@ -48,6 +49,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   depth: 0
+--- !u!65 &4893542627045738905
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386914363506407359}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 5, z: 10}
+  m_Center: {x: 0, y: -2.5, z: 0}
 --- !u!1 &2884307509118602871
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +81,6 @@ GameObject:
   - component: {fileID: 803192630552645153}
   - component: {fileID: 3938829689645156911}
   - component: {fileID: 5014444910328582593}
-  - component: {fileID: 8318196988775681765}
   m_Layer: 0
   m_Name: Dirt
   m_TagString: Untagged
@@ -76,8 +97,8 @@ Transform:
   m_GameObject: {fileID: 2884307509118602871}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.4, z: 0}
-  m_LocalScale: {x: 10, y: 4.7, z: 10}
+  m_LocalPosition: {x: 0, y: -2.5, z: 0}
+  m_LocalScale: {x: 10, y: 5, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9210891190893210266}
@@ -132,27 +153,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8318196988775681765
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2884307509118602871}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4060078550721604885
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +164,6 @@ GameObject:
   - component: {fileID: 6702891298842076959}
   - component: {fileID: 681404443771492485}
   - component: {fileID: 5587971518798877132}
-  - component: {fileID: 6842950642666695537}
   - component: {fileID: 3583837705857691949}
   m_Layer: 0
   m_Name: Grass
@@ -182,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 4060078550721604885}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -238,28 +237,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6842950642666695537
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4060078550721604885}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &3583837705857691949
 MonoBehaviour:
   m_ObjectHideFlags: 0

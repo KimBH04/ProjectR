@@ -8,12 +8,12 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private int roomCount = 10;
     [Space]
     [SerializeField] private Vector3 roomScale = Vector3.one;
-    [SerializeField] private Vector3 roadScale = Vector3.one;
+    //[SerializeField] private Vector3 roadScale = Vector3.one;
     [SerializeField] private float padding = 1f;
 
     [Header("Objects")]
     [SerializeField] private GameObject roomObject;
-    [SerializeField] private GameObject roadObject;
+    //[SerializeField] private GameObject roadObject;
     [Space]
     [SerializeField] private GameObject openedVerticalWall;
     [SerializeField] private GameObject blockedVerticalWall;
@@ -25,7 +25,7 @@ public class CreateRoom : MonoBehaviour
     private void Start()
     {
         roomObject.transform.localScale = roomScale;
-        roadObject.transform.localScale = roadScale;
+        //roadObject.transform.localScale = roadScale;
 
         CreateRooms();
         CreateWalls();
@@ -59,9 +59,9 @@ public class CreateRoom : MonoBehaviour
         nextRoom.depth = 1;
 
         // 방과 방 사이 길 생성
-        Instantiate(roadObject,
-            (startRoom.transform.position + nextRoom.transform.position) / 2f,
-            Quaternion.identity);
+        //Instantiate(roadObject,
+        //    (startRoom.transform.position + nextRoom.transform.position) / 2f,
+        //    Quaternion.identity);
 
         visited[roomCount + directions[rand].x, roomCount + directions[rand].z] = true;
 
@@ -104,9 +104,9 @@ public class CreateRoom : MonoBehaviour
                         directions[randDir].z * roomScale.z * 10 + directions[randDir].z * padding);
 
                 // 방과 방 사이 길 생성
-                Instantiate(roadObject,
-                    (newRoom.transform.position + anyRoom.transform.position) / 2f,
-                    Quaternion.identity);
+                //Instantiate(roadObject,
+                //    (newRoom.transform.position + anyRoom.transform.position) / 2f,
+                //    Quaternion.identity);
 
                 newRoom.depth = anyRoom.depth + 1;
                 if (maxDepth < newRoom.depth)
