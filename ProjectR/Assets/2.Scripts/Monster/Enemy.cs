@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,7 +73,11 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-       
+        if(_agent.enabled)
+        {
+            _agent.SetDestination(target.position);
+            _agent.isStopped = !isChase;
+        }
     }
     
     private void FixedUpdate()
@@ -133,8 +136,8 @@ public class Enemy : MonoBehaviour
             switch (type)
             {
                 case EType.Warrior:
-                    targetRadius = 1f;
-                    targetRange = 2f;
+                    targetRadius = 2f;
+                    targetRange = 3f;
                     break;
                 
                 case EType.Shield:
@@ -158,6 +161,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        
         isChase = false;
         isAttack = true;
         // 애니메이션
@@ -165,22 +169,24 @@ public class Enemy : MonoBehaviour
         switch (type)
         {
             case EType.Warrior:
-                yield return null;
+                yield return new WaitForSeconds(0.5f);
+                
                 break;
             
             case EType.Shield:
-                yield return null;
                 break;
             
             case EType.Archer:
-                yield return null;
                 break;
         }
 
         isChase = true;
         isAttack = false;
         // 애니메이션
+        
     }
+
+    
 
     private void TakeDamage(float damage)
     {
