@@ -21,9 +21,11 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Stats")]
     public EType type;
 
-    public float damage;
+    
     public float maxHp;
     public float currentHp;
+    public float damage;
+    
 
     [Space(10)] 
     [Header("Enemy Components")]
@@ -53,37 +55,46 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        Init();
-    }
-    
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        ClosePlayer();
-    }
-    private void FixedUpdate()
-    {
-        FreezeVelocity();
-    }
-    private void Init()
-    {
-        _rb.GetComponent<Rigidbody>();
-        _agent.GetComponent<NavMeshAgent>();
-        _anim.GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody>();
+        _agent = GetComponent<NavMeshAgent>();
+        _anim = GetComponent<Animator>();
         meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         dissolveMaterial = new Material(dissolveMaterial);
-
+    
         foreach (SkinnedMeshRenderer mesh in meshRenderers)
         {
             originalColors[mesh] = mesh.material.color;
         }
     }
+    
+    private void Start()
+    {
+        Invoke(nameof(ChaseStart),2f); // 1초 뒤 추적 시작
+    }
 
-    private void ClosePlayer()
+    private void Update()
+    {
+       
+    }
+    
+    private void FixedUpdate()
+    {
+        Targeting();
+        FreezeVelocity();
+    }
+    
+    private void Init()
+    {
+       
+    }
+
+    private void ChaseStart()
+    {
+        // 애니메이션
+        isChase = true;
+    }
+
+    private void ClosePlayer() // 맵이 좁기 때문에 쓰지 않을 듯
     {
         float distanceToPlayer = Vector3.Distance(transform.position, target.position);
 
@@ -244,7 +255,7 @@ public class Enemy : MonoBehaviour
             mesh.materials = materials;
         }
 
-        dissolveMaterial.DOFloat(1, "_Float",2);
+        dissolveMaterial.DOFloat(1, "_DissolveAmount",2);
         yield break;
     }
 
