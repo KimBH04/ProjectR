@@ -45,7 +45,6 @@ public class Enemy : MonoBehaviour
     public bool isAttack;
     public bool isDead;
     public bool isHit;
-    public bool isClose;
     
     [Header("Enemy Renderers")]
     public Material dissolveMaterial;
@@ -101,15 +100,13 @@ public class Enemy : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, target.position);
 
-        if (distanceToPlayer < 10f && !isClose)
+        if (distanceToPlayer < 10f )
         {
-            isClose = true;
             isChase = true;
             // 애니
         }
         else
         {
-            isClose = false;
             isChase = false;
             // 애니
         }
@@ -161,7 +158,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        
+        yield return null;
         isChase = false;
         isAttack = true;
         // 애니메이션
@@ -169,8 +166,7 @@ public class Enemy : MonoBehaviour
         switch (type)
         {
             case EType.Warrior:
-                yield return new WaitForSeconds(0.5f);
-                
+                StartCoroutine(Think());
                 break;
             
             case EType.Shield:
@@ -180,10 +176,45 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        isChase = true;
-        isAttack = false;
+        
         // 애니메이션
         
+    }
+
+    private IEnumerator Think()
+    {
+        yield return null;
+        int ranAction = Random.Range(1, 1);
+
+        switch (ranAction)
+        {
+            case 0:
+                StartCoroutine(Sword1());
+                break;
+            case 1:
+                StartCoroutine(Sword2());
+                break;
+        }
+    }
+
+    private IEnumerator Sword1()
+    {
+        _anim.SetTrigger("onSpinAttack");
+        yield return new WaitForSeconds(2f);
+        isChase = true;
+        isAttack = false;
+    }
+    
+    private IEnumerator Sword2()
+    {
+        _rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
+        _anim.SetTrigger("onSlideAttack");
+        yield return new WaitForSeconds(2f);
+        _anim.SetTrigger("onRiderKick");
+        yield return new WaitForSeconds(2f);
+        _rb.velocity = Vector3.zero;
+        isChase = true;
+        isAttack = false;
     }
 
     
