@@ -49,7 +49,14 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Renderers")]
     public Material dissolveMaterial;
     public SkinnedMeshRenderer[] meshRenderers;
-    private Dictionary<SkinnedMeshRenderer,Color> originalColors = new Dictionary<SkinnedMeshRenderer, Color>();
+    private readonly Dictionary<SkinnedMeshRenderer,Color> _originalColors = new Dictionary<SkinnedMeshRenderer, Color>();
+    
+    // 애니메이션
+    private static readonly int OnHit = Animator.StringToHash("onHit");
+    private static readonly int Die = Animator.StringToHash("onDie");
+    private static readonly int OnSlideAttack = Animator.StringToHash("onSlideAttack");
+    private static readonly int OnRiderKick = Animator.StringToHash("onRiderKick");
+    private static readonly int OnSpinAttack = Animator.StringToHash("onSpinAttack");
 
     private void Awake()
     {
@@ -61,7 +68,7 @@ public class Enemy : MonoBehaviour
     
         foreach (SkinnedMeshRenderer mesh in meshRenderers)
         {
-            originalColors[mesh] = mesh.material.color;
+            _originalColors[mesh] = mesh.material.color;
         }
     }
     
@@ -199,7 +206,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Sword1()
     {
-        _anim.SetTrigger("onSpinAttack");
+        _anim.SetTrigger(OnSpinAttack);
         yield return new WaitForSeconds(2f);
         isChase = true;
         isAttack = false;
@@ -208,9 +215,9 @@ public class Enemy : MonoBehaviour
     private IEnumerator Sword2()
     {
         _rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
-        _anim.SetTrigger("onSlideAttack");
+        _anim.SetTrigger(OnSlideAttack);
         yield return new WaitForSeconds(2f);
-        _anim.SetTrigger("onRiderKick");
+        _anim.SetTrigger(OnRiderKick);
         yield return new WaitForSeconds(2f);
         _rb.velocity = Vector3.zero;
         isChase = true;
@@ -243,15 +250,17 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator OnDamage()
     {
+        
         if (currentHp > 0)
         {
+            _anim.SetTrigger(OnHit);
             isHit = true;
 
             foreach (SkinnedMeshRenderer mesh in meshRenderers)
             {
                 mesh.material.DOColor(Color.red, 0.1f).OnComplete(() =>
                 {
-                    mesh.material.DOColor(originalColors[mesh], 0.1f);
+                    mesh.material.DOColor(_originalColors[mesh], 0.1f);
                 });
             }
 
@@ -269,17 +278,18 @@ public class Enemy : MonoBehaviour
     private void OnDie()
     {
         StopAllCoroutines();
-        StartCoroutine(nameof(Dissovle));
-        // 애니
+        StartCoroutine(nameof(Dissolve));
+        _anim.SetTrigger(Die);
         isDead = true;
         _agent.enabled = false;
-        gameObject.layer = 0;
+        var o = gameObject;
+        o.layer = 0;
         _rb.isKinematic= true;
         isChase = false;
-        Destroy(gameObject,1f);
+        Destroy(o,1f);
     }
 
-    private IEnumerator Dissovle()
+    private IEnumerator Dissolve()
     {
         foreach (SkinnedMeshRenderer mesh in meshRenderers)
         {
@@ -301,7 +311,7 @@ public class Enemy : MonoBehaviour
         if (!isDead && other.CompareTag("Skill") && !isHit)
         {
             // 피격
-            
+            Debug.Log("피격");
         }
     }
 }
