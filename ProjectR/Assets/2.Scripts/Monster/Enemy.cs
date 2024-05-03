@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     public float maxHp;
     public float currentHp;
     public float damage;
+    public float exp;
+    public float coin;
     
 
     [Space(10)] 
@@ -57,6 +59,8 @@ public class Enemy : MonoBehaviour
     private static readonly int OnSlideAttack = Animator.StringToHash("onSlideAttack");
     private static readonly int OnRiderKick = Animator.StringToHash("onRiderKick");
     private static readonly int OnSpinAttack = Animator.StringToHash("onSpinAttack");
+    private static readonly int IsWalk = Animator.StringToHash("isWalk");
+    private static readonly int OnSwordSlash = Animator.StringToHash("onSwordSlash");
 
     private void Awake()
     {
@@ -79,6 +83,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        
         if(_agent.enabled)
         {
             _agent.SetDestination(target.position);
@@ -92,14 +97,11 @@ public class Enemy : MonoBehaviour
         FreezeVelocity();
     }
     
-    private void Init()
-    {
-       
-    }
+   
 
     private void ChaseStart()
     {
-        // 애니메이션
+        _anim.SetBool(IsWalk,true);
         isChase = true;
     }
 
@@ -140,8 +142,8 @@ public class Enemy : MonoBehaviour
             switch (type)
             {
                 case EType.Warrior:
-                    targetRadius = 2f;
-                    targetRange = 3f;
+                    targetRadius = 1f;
+                    targetRange = 1f;
                     break;
                 
                 case EType.Shield:
@@ -173,7 +175,8 @@ public class Enemy : MonoBehaviour
         switch (type)
         {
             case EType.Warrior:
-                StartCoroutine(Think());
+               _anim.SetTrigger(OnSwordSlash);
+                yield return new WaitForSeconds(1.1f);
                 break;
             
             case EType.Shield:
@@ -184,45 +187,12 @@ public class Enemy : MonoBehaviour
         }
 
         
-        // 애니메이션
+        isChase = true;
+        isAttack = false;
         
     }
 
-    private IEnumerator Think()
-    {
-        yield return null;
-        int ranAction = Random.Range(1, 1);
-
-        switch (ranAction)
-        {
-            case 0:
-                StartCoroutine(Sword1());
-                break;
-            case 1:
-                StartCoroutine(Sword2());
-                break;
-        }
-    }
-
-    private IEnumerator Sword1()
-    {
-        _anim.SetTrigger(OnSpinAttack);
-        yield return new WaitForSeconds(2f);
-        isChase = true;
-        isAttack = false;
-    }
     
-    private IEnumerator Sword2()
-    {
-        _rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
-        _anim.SetTrigger(OnSlideAttack);
-        yield return new WaitForSeconds(2f);
-        _anim.SetTrigger(OnRiderKick);
-        yield return new WaitForSeconds(2f);
-        _rb.velocity = Vector3.zero;
-        isChase = true;
-        isAttack = false;
-    }
 
     
 
@@ -310,8 +280,10 @@ public class Enemy : MonoBehaviour
     {
         if (!isDead && other.CompareTag("Skill") && !isHit)
         {
+            
             // 피격
             Debug.Log("피격");
+            TakeDamage(10f);
         }
     }
 }
