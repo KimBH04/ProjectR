@@ -56,11 +56,9 @@ public class Enemy : MonoBehaviour
     // 애니메이션
     private static readonly int OnHit = Animator.StringToHash("onHit");
     private static readonly int Die = Animator.StringToHash("onDie");
-    private static readonly int OnSlideAttack = Animator.StringToHash("onSlideAttack");
-    private static readonly int OnRiderKick = Animator.StringToHash("onRiderKick");
-    private static readonly int OnSpinAttack = Animator.StringToHash("onSpinAttack");
     private static readonly int IsWalk = Animator.StringToHash("isWalk");
-    private static readonly int OnSwordSlash = Animator.StringToHash("onSwordSlash");
+    private static readonly int OnAttack = Animator.StringToHash("onAttack");
+    private static readonly int OnDraw = Animator.StringToHash("onDraw");
 
     private void Awake()
     {
@@ -175,7 +173,7 @@ public class Enemy : MonoBehaviour
         switch (type)
         {
             case EType.Warrior:
-               _anim.SetTrigger(OnSwordSlash);
+               _anim.SetTrigger(OnAttack);
                 yield return new WaitForSeconds(1.1f);
                 break;
             
@@ -183,6 +181,10 @@ public class Enemy : MonoBehaviour
                 break;
             
             case EType.Archer:
+                _anim.SetTrigger("onDraw");
+                yield return new WaitForSeconds(1f);
+                _anim.SetTrigger(OnAttack);
+                yield return new WaitForSeconds(1f);
                 break;
         }
 
