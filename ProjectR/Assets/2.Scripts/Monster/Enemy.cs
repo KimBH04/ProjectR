@@ -33,7 +33,9 @@ public class Enemy : MonoBehaviour
     private Rigidbody _rb;
     private NavMeshAgent _agent;
     private Animator _anim;
-    
+
+    public GameObject arrow;
+    public Transform bulletPos;
     public Transform target;
     public Collider attackCollider;
     public Image hpBar;
@@ -158,6 +160,7 @@ public class Enemy : MonoBehaviour
 
             if (rayHits.Length > 0 && !isAttack)
             {
+                StopCoroutine(nameof(Attack));
                 StartCoroutine(Attack());
             }
         }
@@ -181,10 +184,14 @@ public class Enemy : MonoBehaviour
                 break;
             
             case EType.Archer:
-                _anim.SetTrigger("onDraw");
-                yield return new WaitForSeconds(1f);
+                _anim.SetTrigger(OnDraw);
+                yield return new WaitForSeconds(0.5f);
                 _anim.SetTrigger(OnAttack);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.3f);
+                GameObject instantArrow = Instantiate(arrow, bulletPos.position, bulletPos.rotation);
+                Rigidbody arrowRb = instantArrow.GetComponent<Rigidbody>();
+                arrowRb.velocity = transform.forward * 20f;
+                yield return new WaitForSeconds(1.4f);
                 break;
         }
 
