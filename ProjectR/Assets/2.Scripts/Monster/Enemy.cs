@@ -23,8 +23,7 @@ public class Enemy : MonoBehaviour
     public float maxHp;
     public float currentHp;
     public float damage;
-    public float exp;
-    public float coin;
+    public GameObject[] EXPStone;
     
 
     [Space(10)] 
@@ -330,6 +329,8 @@ public class Enemy : MonoBehaviour
         _rb.isKinematic= true;
         isChase = false;
         Destroy(o,1f);
+        int randomIndex = Random.Range(0,EXPStone.Length);
+        Instantiate(EXPStone[randomIndex],transform.position,Quaternion.identity);
     }
 
     private IEnumerator Dissolve()
