@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour
     private static readonly int IsWalk = Animator.StringToHash("isWalk");
     private static readonly int OnAttack = Animator.StringToHash("onAttack");
     private static readonly int OnDraw = Animator.StringToHash("onDraw");
+    private static readonly int OnCharge = Animator.StringToHash("onCharge");
 
     private void Awake()
     {
@@ -95,6 +96,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         CheckHp();
+        LevelUpPlayer();
         
         if(_agent.enabled)
         {
@@ -140,6 +142,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+    private void LevelUpPlayer()
+    {
+        // 플레이어 레벨업
+        // currentHp = currentHp +(PlayerLevel *2);
+        // maxHp = maxHp + (PlayerLevel *2);
+    }
+
     
 
     private void FreezeVelocity()
@@ -172,7 +182,7 @@ public class Enemy : MonoBehaviour
                 
                 case EType.Archer:
                     targetRadius = 0.5f;
-                    targetRange = 25f;
+                    targetRange = 10f;
                     break;
             }
             RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("Player"));
@@ -210,8 +220,9 @@ public class Enemy : MonoBehaviour
             case EType.Archer:
                 _anim.SetTrigger(OnDraw);
                 yield return new WaitForSeconds(0.5f);
+                _anim.SetTrigger(OnCharge);
+                yield return new WaitForSeconds(1f);
                 _anim.SetTrigger(OnAttack);
-                yield return new WaitForSeconds(0.3f);
                 GameObject instantArrow = Instantiate(arrow, bulletPos.position, bulletPos.rotation);
                 Rigidbody arrowRb = instantArrow.GetComponent<Rigidbody>();
                 arrowRb.velocity = transform.forward * 20f;
