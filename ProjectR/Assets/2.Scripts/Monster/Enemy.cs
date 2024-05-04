@@ -64,6 +64,17 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
+        GameObject targetPlayer = GameObject.FindWithTag("Player");
+        if(targetPlayer!=null)
+        {
+            target = targetPlayer.transform;
+        }
+        else
+        {
+            Debug.LogError("플레이어 클론이면 못 찾음");
+        }
+        
+        
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
         _anim = GetComponent<Animator>();
@@ -83,6 +94,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        CheckHp();
         
         if(_agent.enabled)
         {
@@ -96,7 +108,14 @@ public class Enemy : MonoBehaviour
         Targeting();
         FreezeVelocity();
     }
-    
+
+    private void CheckHp()
+    {
+        if (currentHp > maxHp)
+        {
+            currentHp = maxHp;
+        }
+    }
    
 
     private void ChaseStart()
@@ -262,6 +281,7 @@ public class Enemy : MonoBehaviour
     private void OnDie()
     {
         StopAllCoroutines();
+        _anim.SetTrigger(Die);
         StartCoroutine(nameof(Dissolve));
         _anim.SetTrigger(Die);
         isDead = true;
