@@ -1,18 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static GameManager instance;
+
+    public static GameManager Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+            }
+
+            if (instance == null)
+            {
+                instance = Instantiate(Resources.Load<GameObject>("ManagerObjects/GameManager")).GetComponent<GameManager>();
+            }
+
+            Debug.Log("GameManager");
+            return instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        Application.targetFrameRate = 60;
     }
 }
