@@ -168,16 +168,17 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        yield return null;
+        _anim.SetBool(IsWalk,false);
         isChase = false;
         isAttack = true;
-        // 애니메이션
 
         switch (type)
         {
             case EType.Warrior:
                _anim.SetTrigger(OnAttack);
+               attackCollider.enabled = true;
                 yield return new WaitForSeconds(1.1f);
+                attackCollider.enabled = false;
                 break;
             
             case EType.Shield:
@@ -191,14 +192,14 @@ public class Enemy : MonoBehaviour
                 GameObject instantArrow = Instantiate(arrow, bulletPos.position, bulletPos.rotation);
                 Rigidbody arrowRb = instantArrow.GetComponent<Rigidbody>();
                 arrowRb.velocity = transform.forward * 20f;
-                yield return new WaitForSeconds(1.4f);
+                yield return new WaitForSeconds(0.6f);
                 break;
         }
 
         
         isChase = true;
         isAttack = false;
-        
+        _anim.SetBool(IsWalk,true);
     }
 
     
