@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
                 
                 case EType.Shield:
                     targetRadius = 1f;
-                    targetRange = 2f;
+                    targetRange = 1f;
                     break;
                 
                 case EType.Archer:
@@ -182,6 +182,10 @@ public class Enemy : MonoBehaviour
                 break;
             
             case EType.Shield:
+                _anim.SetTrigger(OnAttack);
+                attackCollider.enabled = true;
+                yield return new WaitForSeconds(1.1f);
+                attackCollider.enabled = false;
                 break;
             
             case EType.Archer:
