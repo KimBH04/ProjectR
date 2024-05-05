@@ -98,42 +98,46 @@ public class Enemy : MonoBehaviour
         CheckHp();
         LevelUpPlayer();
 
-        if (type == EType.Archer && target != null)
+        if (_agent.enabled && target != null && _agent.isOnNavMesh)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
-       
-            if (distanceToTarget <= 5 &&  _agent.isStopped == false)
+            if (type == EType.Archer && target != null)
             {
-                
-                Vector3 targetDirection = target.position - transform.position;
-                targetDirection.y = 0; 
+                float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-                Vector3 fleePosition = transform.position - targetDirection.normalized * 5;
+                if (distanceToTarget <= 5 && _agent.isStopped == false && !isDead)
+                {
 
-                transform.rotation = Quaternion.LookRotation(targetDirection);
+                    Vector3 targetDirection = target.position - transform.position;
+                    targetDirection.y = 0;
 
-                isBack = true;
-                
-                _agent.SetDestination(fleePosition);
-                _agent.isStopped = false;
-                
+                    Vector3 fleePosition = transform.position - targetDirection.normalized * 5;
+
+                    transform.rotation = Quaternion.LookRotation(targetDirection);
+
+                    isBack = true;
+
+                    _agent.SetDestination(fleePosition);
+                    _agent.isStopped = false;
+
+                }
+                else if (_agent.enabled && target != null)
+                {
+
+                    isBack = false;
+                    _agent.SetDestination(target.position);
+                    _agent.isStopped = !isChase;
+
+                }
             }
-            else
+            else if (_agent.enabled && target != null)
             {
-               
-                isBack = false;
                 _agent.SetDestination(target.position);
                 _agent.isStopped = !isChase;
-
             }
         }
-        else if(_agent.enabled && target != null)
-        {
-            _agent.SetDestination(target.position);
-            _agent.isStopped = !isChase;
-        }
     }
-    
+
+
     private void FixedUpdate()
     {
         Targeting();
@@ -352,6 +356,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("작동은 하나?");
         if (!isDead && other.CompareTag("Skill") && !isHit)
         {
             
