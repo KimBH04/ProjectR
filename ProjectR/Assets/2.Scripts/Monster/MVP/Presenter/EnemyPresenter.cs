@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
@@ -13,7 +15,10 @@ public class EnemyPresenter : MonoBehaviour
     private Animator _animator;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
-
+    private SkinnedMeshRenderer[] _meshRenderers;
+    private readonly Dictionary<SkinnedMeshRenderer, Color> _originalMeshRenderers = new Dictionary<SkinnedMeshRenderer, Color>();
+    public Material dissolveMaterial;
+    
     public bool isChase;
     public bool isAttack;
     public bool isHit;
@@ -28,15 +33,22 @@ public class EnemyPresenter : MonoBehaviour
     
     private void Awake()
     {
-        _model = new EnemyModel(data.maxHp, data.damage, data.targetRadius, data.targetRange);
+        _model = new EnemyModel(data.maxHp, data.damage, data.speed, data.targetRadius, data.targetRange);
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
         _view = GetComponent<EnemyView>();
+        _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        dissolveMaterial = new Material(dissolveMaterial);
+        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+        {
+            _originalMeshRenderers[mesh] = mesh.material.color;
+        }
     }
 
     private void Start()
     {
+        _agent.speed = _model.Speed;
         Invoke(nameof(ChaseStart), 2f);
 
     }
@@ -87,7 +99,7 @@ public class EnemyPresenter : MonoBehaviour
         isChase = false;
         isAttack = true;
         _animator.SetTrigger(Attack);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         isAttack = false;
         isChase = true;
         
@@ -106,12 +118,63 @@ public class EnemyPresenter : MonoBehaviour
             _model.CurrentHp = _model.MaxHp;
         }
         _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
+        _view.ShowDamageText(damage);
+        if(_model.CurrentHp <= 0)
+        {
+            DieEnemy();
+        }
+        else
+        {
+            StartCoroutine(OnDamage());
+        }
+       
+    }
+
+    IEnumerator OnDamage()
+    {
+        _animator.SetTrigger(Hit);
+        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+        {
+            mesh.material.color = Color.red;
+        }
+
+        yield return new WaitForSeconds(0.1f);
         
+        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+        {
+            mesh.material.color = _originalMeshRenderers[mesh];
+        }
     }
     
-    public void DieEnemy()
+    private void DieEnemy()
     {
-        Destroy(gameObject,2f);
+        StartCoroutine(OnDie());
+        _animator.SetTrigger(Die);
+        isChase = false;
+        isAttack = false;
+        isDead = true;
+        _agent.enabled = false;
+        _rb.isKinematic = true;
+        Destroy(gameObject,1f);
+    }
+
+    IEnumerator OnDie()
+    {
+        foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
+        {
+            Material[] materials = meshRenderer.materials;
+        
+            for(int index = 0; index < materials.Length; index++)
+            {
+                materials[index] = dissolveMaterial;
+            }
+        
+            meshRenderer.materials = materials;
+        }
+        
+        dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+       
+        yield break;
     }
 
     
