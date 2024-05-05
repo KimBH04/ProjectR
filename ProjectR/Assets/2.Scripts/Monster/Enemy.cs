@@ -127,7 +127,7 @@ public class Enemy : MonoBehaviour
 
             }
         }
-        else
+        else if(_agent.enabled && target != null)
         {
             _agent.SetDestination(target.position);
             _agent.isStopped = !isChase;
