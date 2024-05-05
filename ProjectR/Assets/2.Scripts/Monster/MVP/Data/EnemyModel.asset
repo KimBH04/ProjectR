@@ -15,3 +15,5 @@ MonoBehaviour:
   maxHp: 40
   currentHp: 40
   damage: 20
+  targetRadius: 0.6
+  targetRange: 1.2

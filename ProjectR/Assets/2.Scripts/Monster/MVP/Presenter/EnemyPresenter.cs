@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyPresenter : MonoBehaviour , IPresenter
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Rigidbody))]
+public class EnemyPresenter : MonoBehaviour 
 {
-    public GameObject player;
+    public Transform player;
     public EnemyData data;
     private EnemyModel _model;
     private EnemyView _view;
@@ -21,15 +24,7 @@ public class EnemyPresenter : MonoBehaviour , IPresenter
     private static readonly int Chase = Animator.StringToHash("Chase");
     private static readonly int Hit = Animator.StringToHash("Hit");
     private static readonly int Die = Animator.StringToHash("Die");
-
-    public enum EState
-    {
-        Idle,
-        Attack,
-        Chase,
-        Hit,
-        Die
-    }
+    
     
     private void Awake()
     {
@@ -42,22 +37,15 @@ public class EnemyPresenter : MonoBehaviour , IPresenter
 
     private void Start()
     {
-        if (player != null)
-        {
-            player = GameObject.FindWithTag("Player");
-        }
-        else
-        {
-            Debug.LogError("플레이어를 못 찾았어요 ㅠ");
-        }
-        
+        Invoke(nameof(ChaseStart), 2f);
+
     }
 
     private void Update()
     {
         if (_agent.enabled)
         {
-            _agent.SetDestination(player.transform.position);
+            _agent.SetDestination(player.position);
             _agent.isStopped = !isChase;
         }
     }
@@ -67,14 +55,21 @@ public class EnemyPresenter : MonoBehaviour , IPresenter
         Targeting();
         FreezeVelocity();
     }
+
+    private void ChaseStart()
+    {
+        isChase = true;
+        _animator.SetBool(Chase,true);
+    }
     
     private void Targeting()
     {
         RaycastHit[] rayHits = new RaycastHit[10];
-        int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, _model.TargetRange, LayerMask.GetMask("Player"));
+        int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, 
+            _model.TargetRange, LayerMask.GetMask("Player"));
         if (hitCount > 0 && !isAttack)
         {
-            // 공격
+            StartCoroutine(AttackPlayer());
         }
     }
 
@@ -87,14 +82,19 @@ public class EnemyPresenter : MonoBehaviour , IPresenter
         }
     }
 
-    public void AttackPlayer()
+    IEnumerator AttackPlayer()
     {
-        PlayAnimation(EState.Attack);
+        isChase = false;
+        isAttack = true;
+        _animator.SetTrigger(Attack);
+        yield return new WaitForSeconds(2f);
+        isAttack = false;
+        isChase = true;
+        
     }
 
     public void TakeDamage(float damage)
     {
-        PlayAnimation(EState.Hit);
         _model.CurrentHp -= damage;
         print(_model.CurrentHp);
         if (_model.CurrentHp <= 0)
@@ -114,29 +114,7 @@ public class EnemyPresenter : MonoBehaviour , IPresenter
         Destroy(gameObject,2f);
     }
 
-    public void PlayAnimation(EState state)
-    {
-        switch (state)
-        {
-            case EState.Idle:
-                _animator.Play(Idle);
-                break;
-            case EState.Attack:
-                _animator.Play(Attack);
-                break;
-            case EState.Chase:
-                _animator.Play(Chase);
-                break;
-            case EState.Hit:
-                _animator.Play(Hit);
-                break;
-            case EState.Die:
-                _animator.Play(Die);
-                break;
-            default:
-                break;
-        }
-    }
+    
 
     private void OnTriggerEnter(Collider other)
     {
