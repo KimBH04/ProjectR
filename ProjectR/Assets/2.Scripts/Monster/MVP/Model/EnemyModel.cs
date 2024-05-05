@@ -1,11 +1,18 @@
 public class EnemyModel 
 {
-    public float maxHp;
-    public float currentHp;
+    public float MaxHp;
+    public float CurrentHp;
+    public float Damage;
+    public float TargetRadius;
+    public float TargetRange;
 
-    public EnemyModel(float maxHp)
+    public EnemyModel(float maxHp, float damage, float targetRadius, float targetRange)
     {
-        this.maxHp = maxHp;
-        currentHp = maxHp;
+        MaxHp = maxHp;
+        CurrentHp = maxHp;
+        Damage = damage;
+        TargetRadius = targetRadius;
+        TargetRange = targetRange;
+        
     }
 }

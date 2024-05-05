@@ -1,52 +1,141 @@
-// Presenter
-// MonoBehaviour
-// Model의 직접 레퍼런스와 View의 인터페이스 레퍼런스를 가진다.
-// Model과 View를 이벤트로 연결해준다.
-// 다른 Presenter나 Model의 레퍼런스를 가지기도 한다.
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.AI;
 
-// 로직과 Model-View간의 통신을 담당 
-// 본질적으로는 MVC의 컨트롤러와 같지만, 뷰에 연결되는 것이 아니라
-// 그냥 인터페이스라는 점이 다르다.
-// Presenter는 View에서 분리되어있다.
-// View를 interface를 통해 조작
-public class EnemyPresenter : MonoBehaviour
+public class EnemyPresenter : MonoBehaviour , IPresenter
 {
+    public GameObject player;
     public EnemyData data;
     private EnemyModel _model;
     private EnemyView _view;
     private Animator _animator;
+    private Rigidbody _rb;
+    private NavMeshAgent _agent;
 
+    public bool isChase;
+    public bool isAttack;
+    public bool isHit;
+    public bool isDead;
+    
+    private static readonly int Idle = Animator.StringToHash("Idle");
+    private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int Chase = Animator.StringToHash("Chase");
+    private static readonly int Hit = Animator.StringToHash("Hit");
+    private static readonly int Die = Animator.StringToHash("Die");
+
+    public enum EState
+    {
+        Idle,
+        Attack,
+        Chase,
+        Hit,
+        Die
+    }
+    
     private void Awake()
     {
-        _model = new EnemyModel(data.maxHp);
+        _model = new EnemyModel(data.maxHp, data.damage, data.targetRadius, data.targetRange);
         _animator = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody>();
+        _agent = GetComponent<NavMeshAgent>();
+        _view = GetComponent<EnemyView>();
     }
 
-    public void Attack()
+    private void Start()
     {
+        if (player != null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+        else
+        {
+            Debug.LogError("플레이어를 못 찾았어요 ㅠ");
+        }
         
+    }
+
+    private void Update()
+    {
+        if (_agent.enabled)
+        {
+            _agent.SetDestination(player.transform.position);
+            _agent.isStopped = !isChase;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Targeting();
+        FreezeVelocity();
+    }
+    
+    private void Targeting()
+    {
+        RaycastHit[] rayHits = new RaycastHit[10];
+        int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, _model.TargetRange, LayerMask.GetMask("Player"));
+        if (hitCount > 0 && !isAttack)
+        {
+            // 공격
+        }
+    }
+
+    private void FreezeVelocity()
+    {
+        if (isChase)
+        {
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+        }
+    }
+
+    public void AttackPlayer()
+    {
+        PlayAnimation(EState.Attack);
     }
 
     public void TakeDamage(float damage)
     {
-        _model.currentHp -= damage;
-        print(_model.currentHp);
-        if (_model.currentHp < 0)
+        PlayAnimation(EState.Hit);
+        _model.CurrentHp -= damage;
+        print(_model.CurrentHp);
+        if (_model.CurrentHp <= 0)
         {
-            _model.currentHp = 0;
+            _model.CurrentHp = 0;
         }
-        if(_model.currentHp > _model.maxHp)
+        if(_model.CurrentHp > _model.MaxHp)
         {
-            _model.currentHp = _model.maxHp;
+            _model.CurrentHp = _model.MaxHp;
         }
-        //view.UpdateHpBar(_model.currentHp,_model.maxHp);
+        _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
         
+    }
+    
+    public void DieEnemy()
+    {
+        Destroy(gameObject,2f);
+    }
+
+    public void PlayAnimation(EState state)
+    {
+        switch (state)
+        {
+            case EState.Idle:
+                _animator.Play(Idle);
+                break;
+            case EState.Attack:
+                _animator.Play(Attack);
+                break;
+            case EState.Chase:
+                _animator.Play(Chase);
+                break;
+            case EState.Hit:
+                _animator.Play(Hit);
+                break;
+            case EState.Die:
+                _animator.Play(Die);
+                break;
+            default:
+                break;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

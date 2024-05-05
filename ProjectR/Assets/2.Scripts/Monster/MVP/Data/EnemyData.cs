@@ -5,4 +5,8 @@ public class EnemyData :ScriptableObject
 {
     public float maxHp;
     public float currentHp;
+    public float damage;
+    public float targetRadius;
+    public float targetRange;
+    
 }

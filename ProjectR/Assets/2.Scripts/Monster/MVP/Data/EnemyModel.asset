@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 40
   currentHp: 40
+  damage: 20
