@@ -5,35 +5,28 @@ using UnityEngine;
 
 // 프리젠터는 모델과 뷰 사이의 중간자 역할
 // 상호 작용하고 , 비즈니스 로직을 처리
-public class EnemyPresenter : MonoBehaviour
+public class EnemyPresenter : IEnemyPresenter
 {
+    private IEnemyView _view;
     private EnemyModel _model;
-    private EnemyView _view;
 
-    private void Awake()
+    public EnemyPresenter(IEnemyView view)
     {
-        _model = new EnemyModel(maxHp: 10f);
-        _view = GetComponent<EnemyView>();
+        _model = new EnemyModel();
+        _view = view;
     }
-
-    private void Start()
-    {
-        Invoke(nameof(ChaseStart),2f);
-    }
-
-    private void Update()
-    {
-        
-    }
-
-    private void ChaseStart()
+    public void Attack()
     {
         
     }
 
     public void TakeDamage(float damage)
     {
-        _model.TakeDamage(damage);
-        _view.UpdateHpBar(_model.currentHp, _model.maxHp);
+        
+    }
+
+    public void Die()
+    {
+        
     }
 }

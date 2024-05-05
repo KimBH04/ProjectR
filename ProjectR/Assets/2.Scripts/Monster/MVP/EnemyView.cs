@@ -5,14 +5,46 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-// 뷰는 정보를 보여주는 곳
-// GameObject의 활성화 / 비활성화 동작을 담당 
-public class EnemyView : MonoBehaviour
+public class EnemyView : MonoBehaviour, IEnemyView
 {
     public Image hpBar;
+    private IEnemyPresenter _presenter;
+    private Animator _animator;
+
+    private void Start()
+    {
+        _presenter = new EnemyPresenter(this);
+        _animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        
+    }
+
+
+    #region 이벤트 트리거 사회자 함수
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+
+    #endregion
+    
+    #region 뷰 함수를 사회자를 통해 호출
 
     public void UpdateHpBar(float currentHp, float maxHp)
     {
-        hpBar.fillAmount = currentHp / maxHp;
+        
     }
+
+    public void PlayAnimation(string name)
+    {
+        
+    }
+    
+
+    #endregion
+    
 }
