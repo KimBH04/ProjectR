@@ -14,8 +14,13 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
     public GameObject arrow;
     public Transform firePos;
     public GameObject[] expStone;
+    
+    [HideInInspector]
     public EnemyModel _model;
+    
+    [HideInInspector]
     public EnemyView _view;
+    
     private Animator _animator;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
@@ -71,7 +76,24 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
 
     private void Update()
     {
-        if (_agent.enabled)
+        
+       float distance = Vector3.Distance(transform.position, player.position);
+      
+       Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
+       
+        if (distance <= 5f)
+        {
+            Vector3 direction = player.position - transform.position;
+            direction.y = 0;
+
+            Vector3 fleePosition = direction.normalized -direction.normalized * 5f;
+            
+            transform.rotation = Quaternion.LookRotation(direction);
+            
+            _agent.SetDestination(fleePosition);
+            _agent.isStopped = false;
+        }
+        else if (_agent.enabled)
         {
             _agent.SetDestination(player.position);
             _agent.isStopped = !isChase;
