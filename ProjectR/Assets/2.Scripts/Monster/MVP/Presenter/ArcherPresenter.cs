@@ -13,6 +13,7 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
     public EnemyData data;
     public GameObject arrow;
     public Transform firePos;
+    public GameObject[] expStone;
     private EnemyModel _model;
     private EnemyView _view;
     private Animator _animator;
@@ -177,6 +178,8 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
         _agent.enabled = false;
         _rb.isKinematic = true;
         Destroy(gameObject,1f);
+        int randomIndex = Random.Range(0, expStone.Length);
+        Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
 
     public IEnumerator OnDie()
