@@ -141,7 +141,7 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
         }
         _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
         _view.ShowDamageText(damage);
-        if(_model.CurrentHp <= 0)
+        if (_model.CurrentHp <= 0 && !isDead) 
         {
             DieEnemy();
         }

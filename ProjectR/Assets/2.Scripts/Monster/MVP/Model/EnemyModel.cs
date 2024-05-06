@@ -1,4 +1,4 @@
-public class EnemyModel 
+public struct EnemyModel 
 {
     public float MaxHp;
     public float CurrentHp;
