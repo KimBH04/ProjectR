@@ -12,23 +12,39 @@ public sealed class PlayerController : MonoBehaviour
     private Vector3 lastFixedPos;
     private Vector3 nextFixedPos;
 
+    [SerializeField] private Transform pointer;
+    private Plane plane;
+
     private void Awake()
     {
-        _ = GameManager.Instance;
         controller = GetComponent<CharacterController>();
     }
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+
+        plane = new Plane(transform.up, transform.position);
     }
 
     private void Update()
     {
+        //movement
 #pragma warning disable UNT0004 // Time.fixedDeltaTime used with Update
         float interpolation = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
 #pragma warning restore UNT0004 // Time.fixedDeltaTime used with Update
         controller.Move(Vector3.Lerp(lastFixedPos, nextFixedPos, interpolation));
+
+        //rotation
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (plane.Raycast(ray, out float enter))
+        {
+            Vector3 point = ray.GetPoint(enter);
+            transform.LookAt(point);
+
+            point.y += 0.1f;
+            pointer.position = point;
+        }
     }
 
     private void FixedUpdate()
