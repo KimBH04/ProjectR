@@ -80,24 +80,24 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
        float distance = Vector3.Distance(transform.position, player.position);
       
        Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
-       
-        if (distance <= 5f)
-        {
-            Vector3 direction = player.position - transform.position;
-            direction.y = 0;
 
-            Vector3 fleePosition = direction.normalized -direction.normalized * 5f;
+       if (distance <= 5f && !isDead) 
+       {
+           Vector3 direction = player.position - transform.position;
+           direction.y = 0;
+
+           Vector3 fleePosition = direction.normalized -direction.normalized * 5f;
             
-            transform.rotation = Quaternion.LookRotation(direction);
+           transform.rotation = Quaternion.LookRotation(direction);
             
-            _agent.SetDestination(fleePosition);
-            _agent.isStopped = false;
-        }
-        else if (_agent.enabled)
-        {
-            _agent.SetDestination(player.position);
-            _agent.isStopped = !isChase;
-        }
+           _agent.SetDestination(fleePosition);
+           _agent.isStopped = false;
+       }
+       else if (_agent.enabled)
+       {
+           _agent.SetDestination(player.position);
+           _agent.isStopped = !isChase;
+       }
     }
 
     private void FixedUpdate()

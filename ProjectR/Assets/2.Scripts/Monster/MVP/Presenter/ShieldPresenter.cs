@@ -9,6 +9,7 @@ using DG.Tweening;
 public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 {
     public Transform player;
+    public Transform archer;
     public EnemyData data;
     public GameObject[] expStone;
     
@@ -65,6 +66,15 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     private void Start()
     {
+        GameObject archerPos = GameObject.FindWithTag("Archer");
+        if (archerPos != null)
+        {
+            archer = archerPos.transform;
+        }
+        else
+        {
+            print("아처 없쩌염 뿌우");
+        }
         
         Invoke(nameof(ChaseStart), 2f);
 
@@ -72,7 +82,30 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     private void Update()
     {
-        if (_agent.enabled)
+        if (archer && _agent.enabled)
+        {
+            Vector3 directionToArcher = archer.position - transform.position;
+            directionToArcher.y = 0; 
+            
+            float distanceToArcher = directionToArcher.magnitude;
+            Vector3 direction = player.position - transform.position;
+            direction.y = 0;
+            
+            if (distanceToArcher > 1.5f)
+            {
+                
+                transform.rotation = Quaternion.LookRotation(direction);
+                _agent.SetDestination(archer.position);
+                _agent.isStopped = !isChase;
+            }
+            else
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+                _agent.isStopped = true;
+            }
+            
+        }
+        else if (_agent.enabled)
         {
             _agent.SetDestination(player.position);
             _agent.isStopped = !isChase;

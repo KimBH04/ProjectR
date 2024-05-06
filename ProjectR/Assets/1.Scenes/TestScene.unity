@@ -1414,41 +1414,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &461668473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461668471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d2bb780d36544990a16c3840af63d6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
-  maxHp: 70
-  currentHp: 70
-  damage: 10
-  EXPStone:
-  - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
-  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
-  - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
-  arrow: {fileID: 0}
-  bulletPos: {fileID: 0}
-  target: {fileID: 553785882}
-  attackCollider: {fileID: 1097578796}
-  hpBar: {fileID: 2066544087}
-  hudDamageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
-    type: 3}
-  damageTextPos: {fileID: 1936356750}
-  isChase: 0
-  isAttack: 0
-  isDead: 0
-  isHit: 0
-  isBack: 0
-  dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
-  meshRenderers: []
 --- !u!54 &461668474
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1504,6 +1469,47 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1090855034}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &461668479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461668471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c086fa3248e404e3a83a4c354cfd4b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBar: {fileID: 2066544087}
+  damageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
+    type: 3}
+  damageTextPos: {fileID: 1936356750}
+--- !u!114 &461668480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461668471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61abd8fa2207a444784bf4a98de36069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  archer: {fileID: 0}
+  data: {fileID: 11400000, guid: 8decb313fb7c24b999d1a0faca3f3fef, type: 2}
+  expStone:
+  - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
+  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
+  - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
+  _view: {fileID: 0}
+  dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
+  isChase: 0
+  isAttack: 0
+  isHit: 0
+  isDead: 0
 --- !u!4 &494854669 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1300326425237808287, guid: 2cc9b245f68399d43b74737cf9a25f30,
@@ -2807,7 +2813,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4926dab9eb6bfcf40859129c8eb49e3b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4926dab9eb6bfcf40859129c8eb49e3b,
         type: 3}
@@ -2850,11 +2856,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4926dab9eb6bfcf40859129c8eb49e3b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 461668473}
+      addedObject: {fileID: 461668472}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4926dab9eb6bfcf40859129c8eb49e3b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 461668472}
+      addedObject: {fileID: 461668480}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4926dab9eb6bfcf40859129c8eb49e3b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 461668479}
   m_SourcePrefab: {fileID: 100100000, guid: 4926dab9eb6bfcf40859129c8eb49e3b, type: 3}
 --- !u!1 &1097578795 stripped
 GameObject:
@@ -4584,6 +4594,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2cc9b245f68399d43b74737cf9a25f30,
+        type: 3}
+      propertyPath: m_TagString
+      value: Archer
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 2cc9b245f68399d43b74737cf9a25f30,
         type: 3}
       propertyPath: m_Controller
@@ -5660,8 +5675,8 @@ SceneRoots:
   - {fileID: 1979383422}
   - {fileID: 454634461}
   - {fileID: 1989928880}
-  - {fileID: 1090855034}
   - {fileID: 1224492596}
   - {fileID: 277209924}
   - {fileID: 852816152}
   - {fileID: 1859746988}
+  - {fileID: 1090855034}
