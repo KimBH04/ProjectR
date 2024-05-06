@@ -14,8 +14,8 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
     public GameObject arrow;
     public Transform firePos;
     public GameObject[] expStone;
-    private EnemyModel _model;
-    private EnemyView _view;
+    public EnemyModel _model;
+    public EnemyView _view;
     private Animator _animator;
     private Rigidbody _rb;
     private NavMeshAgent _agent;

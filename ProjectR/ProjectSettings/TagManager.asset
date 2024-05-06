@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Skill
   - Enemy
+  - Warrior
   layers:
   - Default
   - TransparentFX
