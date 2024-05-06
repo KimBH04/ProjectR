@@ -11,8 +11,13 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
     public Transform player;
     public EnemyData data;
     public GameObject[] expStone;
+    
+    [HideInInspector]
     public EnemyModel _model;
+    
+    [HideInInspector]
     public EnemyView _view;
+    
     private Animator _animator;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
