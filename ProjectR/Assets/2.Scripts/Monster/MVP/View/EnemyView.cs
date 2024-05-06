@@ -1,7 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class EnemyView : MonoBehaviour
+public class EnemyView : MonoBehaviour , IEnemyView
 {
     public Image hpBar;
     public GameObject damageText;

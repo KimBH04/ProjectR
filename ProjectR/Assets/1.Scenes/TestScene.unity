@@ -723,7 +723,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cefab1ec995a4cb49b7957bf7618e7b6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: cefab1ec995a4cb49b7957bf7618e7b6,
         type: 3}
@@ -4745,7 +4745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2997e465cdbf14beba9ac4b3c0c47388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 553785882}
+  player: {fileID: 0}
   data: {fileID: 11400000, guid: 985f1c29413734be18e3bbab3c0bad5a, type: 2}
   dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
   isChase: 0

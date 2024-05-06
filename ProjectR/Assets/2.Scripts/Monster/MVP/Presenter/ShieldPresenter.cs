@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class EnemyPresenter : MonoBehaviour 
+public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 {
     public Transform player;
     public EnemyData data;
@@ -33,13 +33,24 @@ public class EnemyPresenter : MonoBehaviour
     
     private void Awake()
     {
-        _model = new EnemyModel(data.maxHp, data.damage, data.speed, data.targetRadius, data.targetRange);
+        GameObject playerPos = GameObject.FindWithTag("Player");
+        if (playerPos != null)
+        {
+            player = playerPos.transform;
+        }
+        else
+        {
+            print("플레이어 업성");
+        }
+
+        _model = new EnemyModel(data.maxHp * 2, data.damage, data.speed, data.targetRadius, data.targetRange);
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
         _view = GetComponent<EnemyView>();
         _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         dissolveMaterial = new Material(dissolveMaterial);
+        _agent.speed = _model.Speed;
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             _originalMeshRenderers[mesh] = mesh.material.color;
@@ -48,7 +59,7 @@ public class EnemyPresenter : MonoBehaviour
 
     private void Start()
     {
-        _agent.speed = _model.Speed;
+        
         Invoke(nameof(ChaseStart), 2f);
 
     }
@@ -74,7 +85,7 @@ public class EnemyPresenter : MonoBehaviour
         _animator.SetBool(Chase,true);
     }
     
-    private void Targeting()
+    public void Targeting()
     {
         RaycastHit[] rayHits = new RaycastHit[10];
         int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, 
@@ -94,7 +105,7 @@ public class EnemyPresenter : MonoBehaviour
         }
     }
 
-    IEnumerator AttackPlayer()
+    public IEnumerator AttackPlayer()
     {
         isChase = false;
         isAttack = true;
@@ -130,7 +141,7 @@ public class EnemyPresenter : MonoBehaviour
        
     }
 
-    IEnumerator OnDamage()
+    public IEnumerator OnDamage()
     {
         _animator.SetTrigger(Hit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
@@ -146,7 +157,7 @@ public class EnemyPresenter : MonoBehaviour
         }
     }
     
-    private void DieEnemy()
+    public void DieEnemy()
     {
         StartCoroutine(OnDie());
         _animator.SetTrigger(Die);
@@ -158,7 +169,7 @@ public class EnemyPresenter : MonoBehaviour
         Destroy(gameObject,1f);
     }
 
-    IEnumerator OnDie()
+    public IEnumerator OnDie()
     {
         foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
         {
