@@ -50,11 +50,35 @@ public class Totem : MonoBehaviour
 
         foreach (Collider collider in enemies)
         {
-            Enemy enemy = collider.GetComponent<Enemy>();
-            if(enemy != null)
+            if (collider.CompareTag("Warrior"))
             {
-                enemy.currentHp += 10;
+                WarriorPresenter enemy = collider.GetComponent<WarriorPresenter>();
+                if (enemy != null)
+                {
+                    enemy._model.CurrentHp += 10;
+                    enemy._view.UpdateHpBar(enemy._model.CurrentHp, enemy._model.MaxHp);
+                }
             }
+            else if (collider.CompareTag("Archer"))
+            {
+                ArcherPresenter enemy = collider.GetComponent<ArcherPresenter>();
+                if (enemy != null)
+                {
+                    enemy._model.CurrentHp += 10;
+                    enemy._view.UpdateHpBar(enemy._model.CurrentHp, enemy._model.MaxHp);
+                }
+            }
+            else if (collider.CompareTag("Shield"))
+            {
+                ShieldPresenter enemy = collider.GetComponent<ShieldPresenter>();
+                if (enemy != null)
+                {
+                    enemy._model.CurrentHp += 10;
+                    enemy._view.UpdateHpBar(enemy._model.CurrentHp, enemy._model.MaxHp);
+                }
+            }
+
+
         }
     }
 
@@ -64,7 +88,9 @@ public class Totem : MonoBehaviour
         {
             StartCoroutine(OnHit());
         }
+        
     }
+    
 
     private IEnumerator OnHit()
     {

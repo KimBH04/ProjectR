@@ -19,13 +19,11 @@ public class Enemy : MonoBehaviour
     
     [Header("Enemy Stats")]
     public EType type;
-
     
     public float maxHp;
     public float currentHp;
     public float damage;
-    public float exp;
-    public float coin;
+    public GameObject[] EXPStone;
     
 
     [Space(10)] 
@@ -49,6 +47,7 @@ public class Enemy : MonoBehaviour
     public bool isAttack;
     public bool isDead;
     public bool isHit;
+    public bool isBack;
     
     [Header("Enemy Renderers")]
     public Material dissolveMaterial;
@@ -61,6 +60,8 @@ public class Enemy : MonoBehaviour
     private static readonly int IsWalk = Animator.StringToHash("isWalk");
     private static readonly int OnAttack = Animator.StringToHash("onAttack");
     private static readonly int OnDraw = Animator.StringToHash("onDraw");
+    private static readonly int OnCharge = Animator.StringToHash("onCharge");
+    private static readonly int OnMoveAttack = Animator.StringToHash("onMoveAttack");
 
     private void Awake()
     {
@@ -95,14 +96,48 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         CheckHp();
-        
-        if(_agent.enabled)
+        LevelUpPlayer();
+
+        if (_agent.enabled && target != null && _agent.isOnNavMesh)
         {
-            _agent.SetDestination(target.position);
-            _agent.isStopped = !isChase;
+            if (type == EType.Archer && target != null)
+            {
+                float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+                if (distanceToTarget <= 5 && _agent.isStopped == false && !isDead)
+                {
+
+                    Vector3 targetDirection = target.position - transform.position;
+                    targetDirection.y = 0;
+
+                    Vector3 fleePosition = transform.position - targetDirection.normalized * 5;
+
+                    transform.rotation = Quaternion.LookRotation(targetDirection);
+
+                    isBack = true;
+
+                    _agent.SetDestination(fleePosition);
+                    _agent.isStopped = false;
+
+                }
+                else if (_agent.enabled && target != null)
+                {
+
+                    isBack = false;
+                    _agent.SetDestination(target.position);
+                    _agent.isStopped = !isChase;
+
+                }
+            }
+            else if (_agent.enabled && target != null)
+            {
+                _agent.SetDestination(target.position);
+                _agent.isStopped = !isChase;
+            }
         }
     }
-    
+
+
     private void FixedUpdate()
     {
         Targeting();
@@ -123,21 +158,15 @@ public class Enemy : MonoBehaviour
         _anim.SetBool(IsWalk,true);
         isChase = true;
     }
+    
+    
 
-    private void ClosePlayer() // 맵이 좁기 때문에 쓰지 않을 듯
+
+    private void LevelUpPlayer()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, target.position);
-
-        if (distanceToPlayer < 10f )
-        {
-            isChase = true;
-            // 애니
-        }
-        else
-        {
-            isChase = false;
-            // 애니
-        }
+        // 플레이어 레벨업
+        // currentHp = currentHp +(PlayerLevel *2);
+        // maxHp = maxHp + (PlayerLevel *2);
     }
 
     
@@ -172,12 +201,12 @@ public class Enemy : MonoBehaviour
                 
                 case EType.Archer:
                     targetRadius = 0.5f;
-                    targetRange = 25f;
+                    targetRange = 15f;
                     break;
             }
             RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("Player"));
 
-            if (rayHits.Length > 0 && !isAttack)
+            if (rayHits.Length > 0 && !isAttack ) 
             {
                 StopCoroutine(nameof(Attack));
                 StartCoroutine(Attack());
@@ -208,15 +237,28 @@ public class Enemy : MonoBehaviour
                 break;
             
             case EType.Archer:
-                _anim.SetTrigger(OnDraw);
-                yield return new WaitForSeconds(0.5f);
-                _anim.SetTrigger(OnAttack);
-                yield return new WaitForSeconds(0.3f);
-                GameObject instantArrow = Instantiate(arrow, bulletPos.position, bulletPos.rotation);
-                Rigidbody arrowRb = instantArrow.GetComponent<Rigidbody>();
-                arrowRb.velocity = transform.forward * 20f;
-                yield return new WaitForSeconds(0.6f);
-                break;
+                if (isBack)
+                {
+                    _anim.SetTrigger(OnMoveAttack);
+                    yield return new WaitForSeconds(1f);  
+                    break;
+                }
+                else
+                {
+                    _agent.isStopped = true;
+                    _anim.SetTrigger(OnDraw);
+                    yield return new WaitForSeconds(0.5f);
+                    _anim.SetTrigger(OnCharge);
+                    yield return new WaitForSeconds(1f);
+                    _anim.SetTrigger(OnAttack);
+                    GameObject instantArrow = Instantiate(arrow, bulletPos.position, bulletPos.rotation);
+                    Rigidbody arrowRb = instantArrow.GetComponent<Rigidbody>();
+                    arrowRb.velocity = transform.forward * 20f;
+                    yield return new WaitForSeconds(0.6f);  
+                    _agent.isStopped = false;
+                    break;
+                }
+                
         }
 
         
@@ -291,6 +333,8 @@ public class Enemy : MonoBehaviour
         _rb.isKinematic= true;
         isChase = false;
         Destroy(o,1f);
+        int randomIndex = Random.Range(0,EXPStone.Length);
+        Instantiate(EXPStone[randomIndex],transform.position,Quaternion.identity);
     }
 
     private IEnumerator Dissolve()
@@ -312,6 +356,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("작동은 하나?");
         if (!isDead && other.CompareTag("Skill") && !isHit)
         {
             
