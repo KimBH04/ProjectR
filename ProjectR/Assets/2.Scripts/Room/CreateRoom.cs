@@ -7,7 +7,7 @@ public class CreateRoom : MonoBehaviour
     [Header("Value settings")]
     [SerializeField, Min(2)] private int roomCount = 10;
     [Space]
-    [SerializeField] private Vector3 roomScale = Vector3.one;
+    [SerializeField] private Vector3 standardScale = Vector3.one;
     [SerializeField] private float padding = 1f;
 
     [Header("Objects")]
@@ -99,9 +99,9 @@ public class CreateRoom : MonoBehaviour
                             Instantiate(
                                 startRoom,
                                 new Vector3(
-                                    xpos * 10 * roomScale.x + xpos * padding,
+                                    xpos * 10 * standardScale.x + xpos * padding,
                                     0f,
-                                    zpos * 10 * roomScale.z + zpos * padding),
+                                    zpos * 10 * standardScale.z + zpos * padding),
                                 Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
                             break;
 
@@ -109,9 +109,9 @@ public class CreateRoom : MonoBehaviour
                             Instantiate(
                                 battleRoom,
                                 new Vector3(
-                                    xpos * 10 * roomScale.x + xpos * padding,
+                                    xpos * 10 * standardScale.x + xpos * padding,
                                     0f,
-                                    zpos * 10 * roomScale.z + zpos * padding),
+                                    zpos * 10 * standardScale.z + zpos * padding),
                                 Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
                             break;
 
@@ -119,9 +119,9 @@ public class CreateRoom : MonoBehaviour
                             Instantiate(
                                 shopRoom,
                                 new Vector3(
-                                    xpos * 10 * roomScale.x + xpos * padding,
+                                    xpos * 10 * standardScale.x + xpos * padding,
                                     0f,
-                                    zpos * 10 * roomScale.z + zpos * padding),
+                                    zpos * 10 * standardScale.z + zpos * padding),
                                 Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
                             break;
 
@@ -129,9 +129,9 @@ public class CreateRoom : MonoBehaviour
                             Instantiate(
                                 bossRoom,
                                 new Vector3(
-                                    xpos * 10 * roomScale.x + xpos * padding,
+                                    xpos * 10 * standardScale.x + xpos * padding,
                                     0f,
-                                    zpos * 10 * roomScale.z + zpos * padding),
+                                    zpos * 10 * standardScale.z + zpos * padding),
                                 Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
                             break;
 

@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomCount: 10
-  roomScale: {x: 4, y: 1, z: 2.4}
+  standardScale: {x: 4, y: 1, z: 2.4}
   padding: 1
   startRoom: {fileID: 7471143491778548163, guid: c2b153e98ac3044418ed476eb5f1747f,
     type: 3}
