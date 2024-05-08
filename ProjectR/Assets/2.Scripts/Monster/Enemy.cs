@@ -348,10 +348,17 @@ public class Enemy : MonoBehaviour
                 materials[index] = dissolveMaterial;
             }
             mesh.materials = materials;
-        }
 
-        dissolveMaterial.DOFloat(1, "_DissolveAmount",2);
-        yield break;
+            foreach (Material material in mesh.materials)
+            {
+                material.DOFloat(1, "_DissolveAmount", 2);
+            }
+        }
+        
+        
+
+        
+        yield return null;
     }
 
     private void OnTriggerEnter(Collider other)

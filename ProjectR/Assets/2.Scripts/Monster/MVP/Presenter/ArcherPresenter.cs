@@ -199,7 +199,7 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
         isDead = true;
         _agent.enabled = false;
         _rb.isKinematic = true;
-        Destroy(gameObject,1f);
+        Destroy(gameObject,2f);
         int randomIndex = Random.Range(0, expStone.Length);
         Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
@@ -216,9 +216,14 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
             }
         
             meshRenderer.materials = materials;
+            
+            foreach (Material material in meshRenderer.materials)
+            {
+                material.DOFloat(1, "_DissolveAmount", 2);
+            }
         }
         
-        dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+        //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
        
         yield break;
     }

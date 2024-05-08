@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
+public class MinoPresenter : MonoBehaviour
 {
     public Transform player;
     public EnemyData data;
@@ -97,7 +97,7 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
             _model.TargetRange, LayerMask.GetMask("Player"));
         if (hitCount > 0 && !isAttack)
         {
-            StartCoroutine(AttackPlayer());
+            StartCoroutine(Think());
         }
     }
 
@@ -110,15 +110,47 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
         }
     }
 
-    public IEnumerator AttackPlayer()
+    public IEnumerator Think()
     {
+        yield return null;
         isChase = false;
         isAttack = true;
-        _animator.SetTrigger(Attack);
-        yield return new WaitForSeconds(3f);
+        int ranAction = Random.Range(0, 2);
+
+        switch (ranAction)
+        {
+            case 0:
+
+                break;
+            
+            case 1:
+
+                break;
+            
+            case 2:
+
+                break;
+            
+        }
+        
         isAttack = false;
         isChase = true;
         
+    }
+
+    private IEnumerator Pattern1()
+    {
+        yield return null;
+    }
+    
+    private IEnumerator Pattern2()
+    {
+        yield return null;
+    }
+    
+    private IEnumerator Pattern3()
+    {
+        yield return null;
     }
 
     public void TakeDamage(float damage)
@@ -171,7 +203,7 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
         isDead = true;
         _agent.enabled = false;
         _rb.isKinematic = true;
-        Destroy(gameObject,2f);
+        Destroy(gameObject,1f);
         int randomIndex = Random.Range(0, expStone.Length);
         Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
@@ -195,7 +227,7 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
             }
         }
         
-        // dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+        //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
        
         yield break;
     }
@@ -204,7 +236,7 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Skill") && !isHit && !isDead)
+        if (other.CompareTag("Skill") && !isHit && !isDead) 
         {
             TakeDamage(10f);
         }

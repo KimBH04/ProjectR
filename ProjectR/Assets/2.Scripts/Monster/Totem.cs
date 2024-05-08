@@ -77,6 +77,15 @@ public class Totem : MonoBehaviour
                     enemy._view.UpdateHpBar(enemy._model.CurrentHp, enemy._model.MaxHp);
                 }
             }
+            else if (collider.CompareTag("Mino"))
+            {
+                MinoPresenter enemy = collider.GetComponent<MinoPresenter>();
+                if (enemy != null)
+                {
+                    enemy._model.CurrentHp += 10;
+                    enemy._view.UpdateHpBar(enemy._model.CurrentHp, enemy._model.MaxHp);
+                }
+            }
 
 
         }
