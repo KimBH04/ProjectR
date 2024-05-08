@@ -410,6 +410,8 @@ MonoBehaviour:
   roomCount: 10
   roomScale: {x: 4, y: 1, z: 2.4}
   padding: 1
+  startRoom: {fileID: 7471143491778548163, guid: c2b153e98ac3044418ed476eb5f1747f,
+    type: 3}
   battleRoom: {fileID: 3652397007537422574, guid: 5e9a80548ab2f9a428f04acbe035adfb,
     type: 3}
   bossRoom: {fileID: 8577124786000839784, guid: c5476e1ec647e344aa490ecd616ced0b,

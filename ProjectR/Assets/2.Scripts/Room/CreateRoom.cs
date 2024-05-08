@@ -11,6 +11,7 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private float padding = 1f;
 
     [Header("Objects")]
+    [SerializeField] private GameObject startRoom;
     [SerializeField] private GameObject battleRoom;
     [SerializeField] private GameObject bossRoom;
     [SerializeField] private GameObject shopRoom;
@@ -94,9 +95,19 @@ public class CreateRoom : MonoBehaviour
                     int xpos = x - roomCount, zpos = z - roomCount;
                     switch (rooms[z, x].type)
                     {
-                        case Room.RoomType.Boss:
+                        case Room.RoomType.Start:
                             Instantiate(
-                                bossRoom,
+                                startRoom,
+                                new Vector3(
+                                    xpos * 10 * roomScale.x + xpos * padding,
+                                    0f,
+                                    zpos * 10 * roomScale.z + zpos * padding),
+                                Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
+                            break;
+
+                        case Room.RoomType.Battle:
+                            Instantiate(
+                                battleRoom,
                                 new Vector3(
                                     xpos * 10 * roomScale.x + xpos * padding,
                                     0f,
@@ -114,14 +125,18 @@ public class CreateRoom : MonoBehaviour
                                 Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
                             break;
 
-                        default:
+                        case Room.RoomType.Boss:
                             Instantiate(
-                                battleRoom,
+                                bossRoom,
                                 new Vector3(
                                     xpos * 10 * roomScale.x + xpos * padding,
                                     0f,
                                     zpos * 10 * roomScale.z + zpos * padding),
                                 Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
+                            break;
+
+                        default:
+                            Debug.Log($"Uknown Room Type {xpos} {zpos}");
                             break;
                     }
                 }
