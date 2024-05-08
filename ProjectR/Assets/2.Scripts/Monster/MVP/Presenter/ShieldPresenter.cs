@@ -198,6 +198,7 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
     
     public void DieEnemy()
     {
+        StopAllCoroutines();
         StartCoroutine(OnDie());
         _animator.SetTrigger(Die);
         isChase = false;

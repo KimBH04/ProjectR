@@ -196,6 +196,7 @@ public class MinoPresenter : MonoBehaviour
     
     public void DieEnemy()
     {
+        StopAllCoroutines();
         StartCoroutine(OnDie());
         _animator.SetTrigger(Die);
         isChase = false;

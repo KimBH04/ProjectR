@@ -2291,6 +2291,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minotauros
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2c36e05eec7884ab28a8003d8ac3c2e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8447082967072642302, guid: 2c36e05eec7884ab28a8003d8ac3c2e7,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -2675,6 +2680,37 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1976930363}
   m_SourcePrefab: {fileID: 100100000, guid: cefab1ec995a4cb49b7957bf7618e7b6, type: 3}
+--- !u!1 &899143929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 899143930}
+  m_Layer: 0
+  m_Name: ==============
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &899143930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899143929}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.38, y: -1.27, z: 2.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &931097476 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4926dab9eb6bfcf40859129c8eb49e3b,
@@ -6276,6 +6312,7 @@ SceneRoots:
   - {fileID: 1989928880}
   - {fileID: 1224492596}
   - {fileID: 277209924}
+  - {fileID: 899143930}
   - {fileID: 852816152}
   - {fileID: 1859746988}
   - {fileID: 1090855034}
