@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,14 +52,6 @@ public sealed class PlayerController : MonoBehaviour
     {
         lastFixedPos = nextFixedPos;
         nextFixedPos = speed * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("CameraCall"))
-        {
-            Camera.main.transform.position = other.GetComponentInParent<RoomData>().CamPos;
-        }
     }
 
     #region New Input Systems
