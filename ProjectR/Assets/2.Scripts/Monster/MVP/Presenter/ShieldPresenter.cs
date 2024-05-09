@@ -82,6 +82,10 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     private void Update()
     {
+        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
+
+        Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
+        
         if (archer && _agent.enabled)
         {
             Vector3 directionToArcher = archer.position - transform.position;
@@ -146,13 +150,15 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     public IEnumerator AttackPlayer()
     {
+        _animator.SetBool(Chase,false);
         isChase = false;
         isAttack = true;
-        _animator.SetTrigger(Attack);
-        yield return new WaitForSeconds(3f);
+        _animator.SetBool(Attack,true);
+        yield return new WaitForSeconds(1.2f);
         isAttack = false;
         isChase = true;
-        
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,true);
     }
 
     public void TakeDamage(float damage)
@@ -182,7 +188,13 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     public IEnumerator OnDamage()
     {
+        StartCoroutine(AttackPlayer());
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,false);
         _animator.SetTrigger(Hit);
+        isHit = true;
+        isChase = false;
+        isAttack = false;
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
@@ -194,6 +206,11 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
         {
             mesh.material.color = _originalMeshRenderers[mesh];
         }
+        
+        yield return new WaitForSeconds(0.13f);
+        isHit = false;
+        isChase = true;
+        _animator.SetBool(Chase,true);
     }
     
     public void DieEnemy()

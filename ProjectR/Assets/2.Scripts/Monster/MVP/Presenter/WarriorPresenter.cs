@@ -71,6 +71,10 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
 
     private void Update()
     {
+        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
+
+        Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
+        
         if (_agent.enabled)
         {
             _agent.SetDestination(player.position);
@@ -112,12 +116,15 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
 
     public IEnumerator AttackPlayer()
     {
+        _animator.SetBool(Chase,false);
         isChase = false;
         isAttack = true;
-        _animator.SetTrigger(Attack);
-        yield return new WaitForSeconds(3f);
+        _animator.SetBool(Attack,true);
+        yield return new WaitForSeconds(1.2f);
         isAttack = false;
         isChase = true;
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,true);
         
     }
 
@@ -143,11 +150,16 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
         {
             StartCoroutine(OnDamage());
         }
-       
     }
 
     public IEnumerator OnDamage()
     {
+        StopCoroutine(AttackPlayer());
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,false);
+        isHit = true;
+        isChase = false;
+        isAttack = false;
         _animator.SetTrigger(Hit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
@@ -160,12 +172,19 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
         {
             mesh.material.color = _originalMeshRenderers[mesh];
         }
+        
+        yield return new WaitForSeconds(0.13f);
+        isHit = false;
+        isChase = true;
+        _animator.SetBool(Chase,true);
     }
     
     public void DieEnemy()
     {
         StopAllCoroutines();
         StartCoroutine(OnDie());
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,false);
         _animator.SetTrigger(Die);
         isChase = false;
         isAttack = false;

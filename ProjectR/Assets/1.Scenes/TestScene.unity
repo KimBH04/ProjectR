@@ -1778,9 +1778,12 @@ MonoBehaviour:
   masterVolume: 1
   bgmVolume: 0.3
   sfxVolume: 0.5
-  bgmClip:
-  - {fileID: 8300000, guid: 746662f146aa4460e948cee8a53509c2, type: 3}
-  sfxClips: []
+  bgmClip: []
+  sfxClips:
+  - {fileID: 8300000, guid: 558c11f2b5515d545a7f886912888de8, type: 3}
+  - {fileID: 8300000, guid: e7714ee943cacb841b2482cc5482831d, type: 3}
+  - {fileID: 8300000, guid: 200c9a48f99b045428cd68345e95d3dc, type: 3}
+  - {fileID: 8300000, guid: e15b72f0430c0e847a7daf85e13f7040, type: 3}
   channels: 10
 --- !u!4 &634112764
 Transform:
@@ -3226,7 +3229,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4926dab9eb6bfcf40859129c8eb49e3b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4926dab9eb6bfcf40859129c8eb49e3b,
         type: 3}
@@ -5227,7 +5230,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2cc9b245f68399d43b74737cf9a25f30,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2cc9b245f68399d43b74737cf9a25f30,
         type: 3}
@@ -6146,6 +6149,7 @@ MonoBehaviour:
   isAttack: 0
   isHit: 0
   isDead: 0
+  isClose: 0
 --- !u!114 &2056134856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6304,7 +6308,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1796301961}
   - {fileID: 179996342}
-  - {fileID: 634112764}
   - {fileID: 644677827}
   - {fileID: 553785882}
   - {fileID: 1979383422}
@@ -6317,3 +6320,4 @@ SceneRoots:
   - {fileID: 1859746988}
   - {fileID: 1090855034}
   - {fileID: 821203732}
+  - {fileID: 634112764}
