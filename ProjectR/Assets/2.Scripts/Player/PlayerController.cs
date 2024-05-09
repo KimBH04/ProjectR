@@ -53,6 +53,14 @@ public sealed class PlayerController : MonoBehaviour
         nextFixedPos = speed * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CameraCall"))
+        {
+            Camera.main.transform.position = other.GetComponentInParent<RoomData>().CamPos;
+        }
+    }
+
     #region New Input Systems
 #pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
     private void OnMove(InputValue value)
