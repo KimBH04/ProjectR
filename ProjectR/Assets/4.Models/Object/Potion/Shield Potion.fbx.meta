@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2353bfecec0c855499e31251bef1a35e
+guid: 6ed2465c56c270a42b3c0f64d334e373
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: HP
-    second: {fileID: 2100000, guid: b88d5240e3527494b99f92854dd4a34e, type: 2}
+      name: Shield
+    second: {fileID: 2100000, guid: cd883c42c4cf30a4a804d575962ccde5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MP
-    second: {fileID: 2100000, guid: c0be747f144f6bb47bd0cf540ee958aa, type: 2}
+      name: cork
+    second: {fileID: 2100000, guid: c547785ffe89522478d8289050241ed4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: e9efb2fb050cfed47b69c2a07cf25c10, type: 2}
+      name: glass_bottle
+    second: {fileID: 2100000, guid: 5cf4a61c14be50e4fb503f52bb153010, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
