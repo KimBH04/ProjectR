@@ -749,7 +749,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1.1, y: 0.744, z: 0.8}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: -0.6}
   m_TimeToStationary: 0.5
@@ -765,7 +765,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 2.7280002, y: 2.25, z: 1}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.054, z: -0.45}
   m_TimeToStationary: 0.5
@@ -2396,7 +2396,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4351de30251e96e4488e622cdebfb9d3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7
+      value: 14.09
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4351de30251e96e4488e622cdebfb9d3,
         type: 3}
