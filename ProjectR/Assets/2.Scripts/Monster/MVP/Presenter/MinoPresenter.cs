@@ -47,8 +47,9 @@ public class MinoPresenter : MonoBehaviour
         {
             print("플레이어 업성");
         }
-
-        _model = new EnemyModel(data.maxHp * 2, data.damage, data.speed, data.targetRadius, data.targetRange);
+        
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        _model = new EnemyModel(data.maxHp +(playerController.Level* 2), data.damage, data.speed, data.targetRadius, data.targetRange);
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
