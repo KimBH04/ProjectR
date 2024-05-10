@@ -30,6 +30,7 @@ public class ShieldPresenter : MonoBehaviour
     public bool isAttack;
     public bool isHit;
     public bool isDead;
+    public bool isStart;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Attack = Animator.StringToHash("Attack");
@@ -79,11 +80,8 @@ public class ShieldPresenter : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
-
-        Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
         
-        if (archer && _agent.enabled)
+        if (archer && _agent.enabled && isStart)
         {
             Vector3 directionToArcher = archer.position - transform.position;
             directionToArcher.y = 0; 
@@ -92,22 +90,24 @@ public class ShieldPresenter : MonoBehaviour
             Vector3 direction = player.position - transform.position;
             direction.y = 0;
             
-            if (distanceToArcher > 1.5f)
+            if (distanceToArcher > 1.5f && isStart&&!isAttack&&!isDead)
             {
-                
+                _animator.SetBool(Chase,true);
                 transform.rotation = Quaternion.LookRotation(direction);
                 _agent.SetDestination(archer.position);
                 _agent.isStopped = !isChase;
             }
             else
             {
+                _animator.SetBool(Chase,false);
                 transform.rotation = Quaternion.LookRotation(direction);
                 _agent.isStopped = true;
             }
             
         }
-        else if (_agent.enabled)
+        else if (_agent.enabled && isStart)
         {
+            _animator.SetBool(Chase,true);
             _agent.SetDestination(player.position);
             _agent.isStopped = !isChase;
         }
@@ -121,6 +121,7 @@ public class ShieldPresenter : MonoBehaviour
 
     private void ChaseStart()
     {
+        isStart = true;
         isChase = true;
         _animator.SetBool(Chase,true);
     }
@@ -147,7 +148,7 @@ public class ShieldPresenter : MonoBehaviour
 
     public IEnumerator AttackPlayer()
     {
-        //_animator.SetBool(Chase,false);
+        _animator.SetBool(Chase,false);
         isChase = false;
         isAttack = true;
         _animator.SetBool(Attack,true);

@@ -33,6 +33,7 @@ public class ArcherPresenter : MonoBehaviour
     public bool isHit;
     public bool isDead;
     public bool isClose;
+    public bool isStart;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Draw = Animator.StringToHash("Draw");
@@ -78,12 +79,12 @@ public class ArcherPresenter : MonoBehaviour
         
        float distance = Vector3.Distance(transform.position, player.position);
       
-       RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
+       // RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
+       //
+       // // DrawRay로 레이 시각화
+       // Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
 
-       // DrawRay로 레이 시각화
-       Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
-
-       if (distance <= 5f && !isDead && !isHit && !isAttack)  
+       if (distance <= 5f && !isDead && !isHit && !isAttack && isStart)  
        {
            Vector3 direction = player.position - transform.position;
            direction.y = 0;
@@ -96,7 +97,7 @@ public class ArcherPresenter : MonoBehaviour
            _agent.isStopped = false;
            isClose = true;
        }
-       else if (_agent.enabled)
+       else if (_agent.enabled && isStart)
        {
            isClose = false;
            _agent.SetDestination(player.position);
@@ -112,6 +113,7 @@ public class ArcherPresenter : MonoBehaviour
 
     private void ChaseStart()
     {
+        isStart = true;
         isChase = true;
         _animator.SetBool(Chase,true);
     }
