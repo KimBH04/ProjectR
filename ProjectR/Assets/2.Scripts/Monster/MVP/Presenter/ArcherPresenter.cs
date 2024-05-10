@@ -246,7 +246,7 @@ public class ArcherPresenter : MonoBehaviour
     //     _animator.SetBool(Chase,true);
     // }
     
-    public void DieEnemy()
+    private void DieEnemy()
     {
         StopAllCoroutines();
         StartCoroutine(OnDie());

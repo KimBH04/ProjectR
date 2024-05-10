@@ -201,6 +201,7 @@ public class WarriorPresenter : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(OnDie());
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyDead);
         _animator.SetBool(Attack,false);
         _animator.SetBool(Chase,false);
         _animator.SetTrigger(Die);

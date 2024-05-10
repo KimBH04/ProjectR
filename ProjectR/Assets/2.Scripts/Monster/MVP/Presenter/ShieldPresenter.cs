@@ -236,6 +236,7 @@ public class ShieldPresenter : MonoBehaviour
     {
         StopAllCoroutines();
         //StartCoroutine(OnDie());
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyDead);
         _animator.SetTrigger(Die);
         isChase = false;
         isAttack = false;

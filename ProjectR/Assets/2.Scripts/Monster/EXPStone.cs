@@ -24,7 +24,7 @@ public class EXPStone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //other.GetComponent<Player>().ExpUp(expAmount);
+            //other.GetComponent<PlayerController>().Exp += expAmount;
         }
         
     }
