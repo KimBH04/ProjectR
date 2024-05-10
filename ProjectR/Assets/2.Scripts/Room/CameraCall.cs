@@ -6,7 +6,7 @@ public class CameraCall : MonoBehaviour
     [SerializeField] private Transform cameraPos;
     private RoomData roomData;
 
-    private void Start()
+    private void Awake()
     {
         roomData = GetComponentInParent<RoomData>();
     }
@@ -14,5 +14,6 @@ public class CameraCall : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Camera.main.transform.DOMove(cameraPos.position, 0.5f).SetEase(Ease.Linear);
+        roomData.MovedHere();
     }
 }

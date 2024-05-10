@@ -1,16 +1,49 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RoomData : MonoBehaviour
 {
-    public Room data;
+    [SerializeField] private GameObject mapDisplay;
+    [SerializeField] private MeshRenderer displayMesh;
+    private Room data;
+
+    private bool visited = false;
+
+    public Room Data
+    {
+        get
+        {
+            return data;
+        }
+        set
+        {
+            data = value;
+            data.mapDisplay = mapDisplay;
+            data.MovedHere.AddListener(() =>
+            {
+                displayMesh.material.color = Color.white;
+            });
+        }
+    }
+
+    public void MovedHere()
+    {
+        if (visited)
+        {
+            return;
+        }
+        data.MovedHere.Invoke();
+        visited = true;
+    }
 }
 
-[System.Serializable]
 public class Room
 {
     public RoomType type = RoomType.Battle;
     public int depth = 0;
-    public Room left, up, right, down;
+
+    public UnityEvent MovedHere = new UnityEvent();
+    public GameObject mapDisplay;
 
     private readonly Room[] dirForRooms = new Room[4];
 
@@ -22,20 +55,12 @@ public class Room
                      RIGHT = 2,
                      DOWN = 3;
 
-    public Room()
-    {
-        dirForRooms[0] = left;
-        dirForRooms[1] = up;
-        dirForRooms[2] = right;
-        dirForRooms[3] = down;
-    }
-
     public bool ConnectRoom(Room to, int dir)
     {
         if (dirForRooms[dir] == null)
         {
             dirForRooms[dir] = to;
-            to.dirForRooms[(dir + 2) % 4] = this;
+            MovedHere.AddListener(() => to.mapDisplay.SetActive(true));
             return true;
         }
         return false;

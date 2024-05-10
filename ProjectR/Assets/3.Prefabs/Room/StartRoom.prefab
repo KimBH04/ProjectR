@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 855166875646253441}
-  - component: {fileID: -2545268961627203821}
   m_Layer: 0
   m_Name: StartRoom
   m_TagString: Untagged
@@ -34,19 +33,6 @@ Transform:
   - {fileID: 4846619213043645625}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2545268961627203821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7471143491778548163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88862f651c46a964c96386045bf20ff0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  depth: 0
 --- !u!1001 &4956245490178054994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -238,6 +224,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoomFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747577478321452745, guid: b4e11ff94f61f764a9af28e314a82642,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6425048971216255089, guid: b4e11ff94f61f764a9af28e314a82642,
         type: 3}
