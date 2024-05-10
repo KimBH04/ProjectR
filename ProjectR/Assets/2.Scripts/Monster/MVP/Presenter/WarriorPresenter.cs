@@ -38,15 +38,12 @@ public class WarriorPresenter : MonoBehaviour
     
     private void Awake()
     {
-        GameObject playerPos = GameObject.FindWithTag("Player");
-        if (playerPos != null)
-        {
-            player = playerPos.transform;
-        }
-        else
+        player= GameObject.FindWithTag("Player").GetComponent<Transform>();
+        if (!player)
         {
             print("플레이어 업성");
         }
+        
         PlayerController playerController = player.GetComponent<PlayerController>();
         _model = new EnemyModel(data.maxHp +(playerController.Level* 2), data.damage, data.speed, data.targetRadius, data.targetRange);
         _animator = GetComponent<Animator>();
