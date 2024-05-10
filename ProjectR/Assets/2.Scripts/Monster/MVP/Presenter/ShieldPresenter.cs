@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
+public class ShieldPresenter : MonoBehaviour
 {
     public Transform player;
     public Transform archer;
@@ -30,6 +30,7 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
     public bool isAttack;
     public bool isHit;
     public bool isDead;
+    public bool isStart;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Attack = Animator.StringToHash("Attack");
@@ -40,17 +41,14 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
     
     private void Awake()
     {
-        GameObject playerPos = GameObject.FindWithTag("Player");
-        if (playerPos != null)
-        {
-            player = playerPos.transform;
-        }
-        else
+        player= GameObject.FindWithTag("Player").GetComponent<Transform>();
+        if (!player)
         {
             print("플레이어 업성");
         }
-
-        _model = new EnemyModel(data.maxHp * 2, data.damage, data.speed, data.targetRadius, data.targetRange);
+        
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        _model = new EnemyModel(data.maxHp +(playerController.Level* 2), data.damage, data.speed, data.targetRadius, data.targetRange);
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
@@ -82,7 +80,8 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     private void Update()
     {
-        if (archer && _agent.enabled)
+        
+        if (archer && _agent.enabled && isStart)
         {
             Vector3 directionToArcher = archer.position - transform.position;
             directionToArcher.y = 0; 
@@ -91,22 +90,24 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
             Vector3 direction = player.position - transform.position;
             direction.y = 0;
             
-            if (distanceToArcher > 1.5f)
+            if (distanceToArcher > 1.5f && isStart&&!isAttack&&!isDead)
             {
-                
+                _animator.SetBool(Chase,true);
                 transform.rotation = Quaternion.LookRotation(direction);
                 _agent.SetDestination(archer.position);
                 _agent.isStopped = !isChase;
             }
             else
             {
+                _animator.SetBool(Chase,false);
                 transform.rotation = Quaternion.LookRotation(direction);
                 _agent.isStopped = true;
             }
             
         }
-        else if (_agent.enabled)
+        else if (_agent.enabled && isStart)
         {
+            _animator.SetBool(Chase,true);
             _agent.SetDestination(player.position);
             _agent.isStopped = !isChase;
         }
@@ -120,6 +121,7 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     private void ChaseStart()
     {
+        isStart = true;
         isChase = true;
         _animator.SetBool(Chase,true);
     }
@@ -137,7 +139,7 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     private void FreezeVelocity()
     {
-        if (isChase)
+        if (isChase && !isDead) 
         {
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
@@ -146,13 +148,15 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     public IEnumerator AttackPlayer()
     {
+        _animator.SetBool(Chase,false);
         isChase = false;
         isAttack = true;
-        _animator.SetTrigger(Attack);
-        yield return new WaitForSeconds(3f);
+        _animator.SetBool(Attack,true);
+        yield return new WaitForSeconds(1.4f);
         isAttack = false;
         isChase = true;
-        
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,true);
     }
 
     public void TakeDamage(float damage)
@@ -176,18 +180,24 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
         else
         {
             StartCoroutine(OnDamage());
+            // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+            // {
+            //     mesh.material.DOColor(Color.red, 0.1f).SetDelay(0.1f).OnComplete(() =>
+            //     {
+            //         mesh.material.DOColor(_originalMeshRenderers[mesh], 0.1f);
+            //
+            //     });
+            // }
         }
-       
     }
 
-    public IEnumerator OnDamage()
+    private IEnumerator OnDamage()
     {
-        _animator.SetTrigger(Hit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
         }
-
+        
         yield return new WaitForSeconds(0.1f);
         
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
@@ -195,45 +205,98 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
             mesh.material.color = _originalMeshRenderers[mesh];
         }
     }
+    // public IEnumerator OnDamage()
+    // {
+    //     StartCoroutine(AttackPlayer());
+    //     _animator.SetBool(Attack,false);
+    //     _animator.SetBool(Chase,false);
+    //     _animator.SetTrigger(Hit);
+    //     isHit = true;
+    //     isChase = false;
+    //     isAttack = false;
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = Color.red;
+    //     }
+    //
+    //     yield return new WaitForSeconds(0.1f);
+    //     
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = _originalMeshRenderers[mesh];
+    //     }
+    //     
+    //     yield return new WaitForSeconds(0.13f);
+    //     isHit = false;
+    //     isChase = true;
+    //     _animator.SetBool(Chase,true);
+    // }
     
     public void DieEnemy()
     {
-        StartCoroutine(OnDie());
+        StopAllCoroutines();
+        //StartCoroutine(OnDie());
         _animator.SetTrigger(Die);
         isChase = false;
         isAttack = false;
         isDead = true;
+        OnDie();
         _agent.enabled = false;
         _rb.isKinematic = true;
-        Destroy(gameObject,1f);
+        Destroy(gameObject,2f);
         int randomIndex = Random.Range(0, expStone.Length);
         Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
 
-    public IEnumerator OnDie()
+    private void OnDie()
     {
         foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
         {
             Material[] materials = meshRenderer.materials;
-        
-            for(int index = 0; index < materials.Length; index++)
+
+            for (int index = 0; index < materials.Length; index++)
             {
                 materials[index] = dissolveMaterial;
             }
-        
+
             meshRenderer.materials = materials;
+
+            foreach (Material material in meshRenderer.materials)
+            {
+                material.DOFloat(1, "_DissolveAmount", 2);
+            }
         }
-        
-        dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
-       
-        yield break;
     }
+
+    // public IEnumerator OnDie()
+    // {
+    //     foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
+    //     {
+    //         Material[] materials = meshRenderer.materials;
+    //     
+    //         for(int index = 0; index < materials.Length; index++)
+    //         {
+    //             materials[index] = dissolveMaterial;
+    //         }
+    //     
+    //         meshRenderer.materials = materials;
+    //         
+    //         foreach (Material material in meshRenderer.materials)
+    //         {
+    //             material.DOFloat(1, "_DissolveAmount", 2);
+    //         }
+    //     }
+    //     
+    //     //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+    //    
+    //     yield break;
+    // }
 
     
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Skill"))
+        if (other.CompareTag("Skill") && !isHit && !isDead) 
         {
             TakeDamage(10f);
         }

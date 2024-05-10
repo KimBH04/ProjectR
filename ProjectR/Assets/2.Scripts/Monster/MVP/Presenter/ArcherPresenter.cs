@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
+public class ArcherPresenter : MonoBehaviour
 {
     public float arrowSpeed;
     public Transform player;
@@ -32,9 +32,12 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
     public bool isAttack;
     public bool isHit;
     public bool isDead;
+    public bool isClose;
+    public bool isStart;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Draw = Animator.StringToHash("Draw");
+    private static readonly int Charge = Animator.StringToHash("Charge");
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Chase = Animator.StringToHash("Chase");
     private static readonly int Hit = Animator.StringToHash("Hit");
@@ -43,17 +46,14 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
     
     private void Awake()
     {
-        GameObject playerPos = GameObject.FindWithTag("Player");
-        if (playerPos != null)
-        {
-            player = playerPos.transform;
-        }
-        else
+        player= GameObject.FindWithTag("Player").GetComponent<Transform>();
+        if (!player)
         {
             print("플레이어 업성");
         }
-
-        _model = new EnemyModel(data.maxHp * 2, data.damage, data.speed, data.targetRadius, data.targetRange);
+        
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        _model = new EnemyModel(data.maxHp +(playerController.Level* 2), data.damage, data.speed, data.targetRadius, data.targetRange);
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
@@ -79,22 +79,27 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
         
        float distance = Vector3.Distance(transform.position, player.position);
       
-       Debug.DrawRay(transform.position, transform.forward * 5f, Color.red);
+       // RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
+       //
+       // // DrawRay로 레이 시각화
+       // Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
 
-       if (distance <= 5f && !isDead) 
+       if (distance <= 5f && !isDead && !isHit && !isAttack && isStart)  
        {
            Vector3 direction = player.position - transform.position;
            direction.y = 0;
 
-           Vector3 fleePosition = direction.normalized -direction.normalized * 5f;
+           Vector3 fleePosition = direction.normalized - direction.normalized * 4f;
             
            transform.rotation = Quaternion.LookRotation(direction);
             
            _agent.SetDestination(fleePosition);
            _agent.isStopped = false;
+           isClose = true;
        }
-       else if (_agent.enabled)
+       else if (_agent.enabled && isStart)
        {
+           isClose = false;
            _agent.SetDestination(player.position);
            _agent.isStopped = !isChase;
        }
@@ -108,16 +113,17 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
 
     private void ChaseStart()
     {
+        isStart = true;
         isChase = true;
         _animator.SetBool(Chase,true);
     }
     
     public void Targeting()
     {
-        RaycastHit[] rayHits = new RaycastHit[10];
+        RaycastHit[] rayHits = new RaycastHit[1];
         int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, 
             _model.TargetRange, LayerMask.GetMask("Player"));
-        if (hitCount > 0 && !isAttack)
+        if (hitCount > 0 && !isAttack && !isHit && !isDead)
         {
             StartCoroutine(AttackPlayer());
         }
@@ -134,19 +140,31 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
 
     public IEnumerator AttackPlayer()
     {
-        isChase = false;
-        isAttack = true;
+        if (!isClose && !isDead && !isHit && !isAttack)
+        {
+            _animator.SetBool(Chase, false);
+            isChase = false;
+            isAttack = true;
+            AudioManager.Instance.PlaySfx(AudioManager.ESfx.ChargingArrow);
+            _animator.SetBool(Draw, true);
+            yield return new WaitForSeconds(0.7f);
+            _animator.SetBool(Charge, true);
+            _animator.SetBool(Draw, false);
+            yield return new WaitForSeconds(1f);
+            AudioManager.Instance.PlaySfx(AudioManager.ESfx.ShootArrow);
+            _animator.SetBool(Attack, true);
+            _animator.SetBool(Charge, false);
+            GameObject instanceArrow = Instantiate(arrow, firePos.position, firePos.rotation);
+            Rigidbody arrowRb = instanceArrow.GetComponent<Rigidbody>();
+            arrowRb.velocity = firePos.forward * arrowSpeed;
+            yield return new WaitForSeconds(1.0f);
+            isAttack = false;
+            isChase = true;
+            _animator.SetBool(Attack, false);
+            _animator.SetBool(Chase, true);
+        }
        
-        _animator.SetTrigger(Attack);
-        
-        GameObject instanceArrow = Instantiate(arrow, firePos.position, firePos.rotation);
-        Rigidbody arrowRb = instanceArrow.GetComponent<Rigidbody>();
-        arrowRb.velocity = firePos.forward * arrowSpeed;
-        
-        yield return new WaitForSeconds(3f);
-        isAttack = false;
-        isChase = true;
-        
+
     }
 
     public void TakeDamage(float damage)
@@ -170,18 +188,25 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
         else
         {
             StartCoroutine(OnDamage());
+            // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+            // {
+            //     mesh.material.DOColor(Color.red, 0.1f).SetDelay(0.1f).OnComplete(() =>
+            //     {
+            //         mesh.material.DOColor(_originalMeshRenderers[mesh], 0.1f);
+            //
+            //     });
+            // }
         }
        
     }
-
-    public IEnumerator OnDamage()
+    
+    private IEnumerator OnDamage()
     {
-        _animator.SetTrigger(Hit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
         }
-
+        
         yield return new WaitForSeconds(0.1f);
         
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
@@ -189,17 +214,50 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
             mesh.material.color = _originalMeshRenderers[mesh];
         }
     }
+
+    // public IEnumerator OnDamage()
+    // {
+    //     StopCoroutine(AttackPlayer());
+    //     _animator.SetBool(Chase,false);
+    //     _animator.SetBool(Draw,false);
+    //     _animator.SetBool(Charge,false);
+    //     _animator.SetBool(Attack,false);
+    //     
+    //     AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyHit);
+    //     isHit = true;
+    //     isChase = false;
+    //     isAttack = false;
+    //     _animator.SetTrigger(Hit);
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = Color.red;
+    //     }
+    //
+    //     yield return new WaitForSeconds(0.1f);
+    //     
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = _originalMeshRenderers[mesh];
+    //     }
+    //     
+    //     yield return new WaitForSeconds(0.13f);
+    //     isChase = true;
+    //     isHit = false;
+    //     _animator.SetBool(Chase,true);
+    // }
     
     public void DieEnemy()
     {
+        StopAllCoroutines();
         StartCoroutine(OnDie());
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyDead);
         _animator.SetTrigger(Die);
         isChase = false;
         isAttack = false;
         isDead = true;
         _agent.enabled = false;
         _rb.isKinematic = true;
-        Destroy(gameObject,1f);
+        Destroy(gameObject,2f);
         int randomIndex = Random.Range(0, expStone.Length);
         Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
@@ -216,9 +274,14 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
             }
         
             meshRenderer.materials = materials;
+            
+            foreach (Material material in meshRenderer.materials)
+            {
+                material.DOFloat(1, "_DissolveAmount", 2);
+            }
         }
         
-        dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+        //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
        
         yield break;
     }

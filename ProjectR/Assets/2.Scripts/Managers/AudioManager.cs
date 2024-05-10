@@ -28,13 +28,15 @@ public class AudioManager : MonoBehaviour
 
     public enum EBgm
     {
-        MAIN
+        
     }
     
     public enum ESfx
     {
-        
-        
+        ChargingArrow,
+        EnemyDead,
+        EnemyHit,
+        ShootArrow
     }
 
     void Awake()
@@ -42,7 +44,6 @@ public class AudioManager : MonoBehaviour
         Singleton();
         Init();
         
-        Instance.PlayBgm(EBgm.MAIN);
         //PlayBgm(true);
     }
 

@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class WarriorPresenter : MonoBehaviour
+public class MinoPresenter : MonoBehaviour
 {
     public Transform player;
     public EnemyData data;
@@ -68,10 +68,6 @@ public class WarriorPresenter : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
-
-        Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
-        
         if (_agent.enabled)
         {
             _agent.SetDestination(player.position);
@@ -98,7 +94,7 @@ public class WarriorPresenter : MonoBehaviour
             _model.TargetRange, LayerMask.GetMask("Player"));
         if (hitCount > 0 && !isAttack)
         {
-            StartCoroutine(AttackPlayer());
+            StartCoroutine(Think());
         }
     }
 
@@ -111,18 +107,47 @@ public class WarriorPresenter : MonoBehaviour
         }
     }
 
-    public IEnumerator AttackPlayer()
+    public IEnumerator Think()
     {
-        //_animator.SetBool(Chase,false);
+        yield return null;
         isChase = false;
         isAttack = true;
-        _animator.SetBool(Attack,true);
-        yield return new WaitForSeconds(1.2f);
+        int ranAction = Random.Range(0, 2);
+
+        switch (ranAction)
+        {
+            case 0:
+
+                break;
+            
+            case 1:
+
+                break;
+            
+            case 2:
+
+                break;
+            
+        }
+        
         isAttack = false;
         isChase = true;
-        _animator.SetBool(Attack,false);
-        _animator.SetBool(Chase,true);
         
+    }
+
+    private IEnumerator Pattern1()
+    {
+        yield return null;
+    }
+    
+    private IEnumerator Pattern2()
+    {
+        yield return null;
+    }
+    
+    private IEnumerator Pattern3()
+    {
+        yield return null;
     }
 
     public void TakeDamage(float damage)
@@ -146,26 +171,18 @@ public class WarriorPresenter : MonoBehaviour
         else
         {
             StartCoroutine(OnDamage());
-            // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-            // {
-            //     mesh.material.DOColor(Color.red, 0.1f).SetDelay(0.1f).OnComplete(() =>
-            //     {
-            //         mesh.material.DOColor(_originalMeshRenderers[mesh], 0.1f);
-            //
-            //     });
-            // }
-            
-            
         }
+       
     }
-    
-    private IEnumerator OnDamage()
+
+    public IEnumerator OnDamage()
     {
+        _animator.SetTrigger(Hit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
         }
-        
+
         yield return new WaitForSeconds(0.1f);
         
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
@@ -173,43 +190,18 @@ public class WarriorPresenter : MonoBehaviour
             mesh.material.color = _originalMeshRenderers[mesh];
         }
     }
-
-    // public IEnumerator OnDamage()
-    // {
-    //     isHit = true;
-    //     isChase = false;
-    //     isAttack = false;
-    //     _animator.SetBool(Hit,true);
-    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-    //     {
-    //         mesh.material.color = Color.red;
-    //     }
-    //
-    //     yield return new WaitForSeconds(0.1f);
-    //     
-    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-    //     {
-    //         mesh.material.color = _originalMeshRenderers[mesh];
-    //     }
-    //     
-    //     yield return new WaitForSeconds(0.13f);
-    //     isHit = false;
-    //     isChase = true;
-    // }
     
     public void DieEnemy()
     {
         StopAllCoroutines();
         StartCoroutine(OnDie());
-        _animator.SetBool(Attack,false);
-        _animator.SetBool(Chase,false);
         _animator.SetTrigger(Die);
         isChase = false;
         isAttack = false;
         isDead = true;
         _agent.enabled = false;
         _rb.isKinematic = true;
-        Destroy(gameObject,2f);
+        Destroy(gameObject,1f);
         int randomIndex = Random.Range(0, expStone.Length);
         Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
@@ -233,7 +225,7 @@ public class WarriorPresenter : MonoBehaviour
             }
         }
         
-        // dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+        //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
        
         yield break;
     }
@@ -242,7 +234,7 @@ public class WarriorPresenter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Skill") && !isHit && !isDead)
+        if (other.CompareTag("Skill") && !isHit && !isDead) 
         {
             TakeDamage(10f);
         }
