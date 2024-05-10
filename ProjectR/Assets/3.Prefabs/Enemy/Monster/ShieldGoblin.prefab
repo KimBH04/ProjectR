@@ -454,6 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61abd8fa2207a444784bf4a98de36069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeArea: {fileID: 6086580518507475793}
   player: {fileID: 0}
   archer: {fileID: 0}
   data: {fileID: 11400000, guid: 8decb313fb7c24b999d1a0faca3f3fef, type: 2}
@@ -1304,7 +1305,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: -0.00000021964972, y: 0.30630684, z: -0.000000063672275}

@@ -1134,6 +1134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2997e465cdbf14beba9ac4b3c0c47388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeArea: {fileID: 1198412442998589663}
   player: {fileID: 0}
   data: {fileID: 11400000, guid: 985f1c29413734be18e3bbab3c0bad5a, type: 2}
   expStone:

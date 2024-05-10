@@ -8,6 +8,7 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody))]
 public class WarriorPresenter : MonoBehaviour
 {
+    public Collider meleeArea;
     public Transform player;
     public EnemyData data;
     public GameObject[] expStone;
@@ -114,10 +115,12 @@ public class WarriorPresenter : MonoBehaviour
     public IEnumerator AttackPlayer()
     {
         //_animator.SetBool(Chase,false);
+        meleeArea.enabled = true;
         isChase = false;
         isAttack = true;
         _animator.SetBool(Attack,true);
         yield return new WaitForSeconds(1.2f);
+        meleeArea.enabled = false;
         isAttack = false;
         isChase = true;
         _animator.SetBool(Attack,false);

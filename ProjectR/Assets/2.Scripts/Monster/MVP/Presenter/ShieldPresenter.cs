@@ -8,6 +8,7 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody))]
 public class ShieldPresenter : MonoBehaviour
 {
+    public Collider meleeArea;
     public Transform player;
     public Transform archer;
     public EnemyData data;
@@ -149,12 +150,14 @@ public class ShieldPresenter : MonoBehaviour
     public IEnumerator AttackPlayer()
     {
         _animator.SetBool(Chase,false);
+        meleeArea.enabled = true;
         isChase = false;
         isAttack = true;
         _animator.SetBool(Attack,true);
         yield return new WaitForSeconds(1.4f);
         isAttack = false;
         isChase = true;
+        meleeArea.enabled = false;
         _animator.SetBool(Attack,false);
         _animator.SetBool(Chase,true);
     }
