@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
+public class ArcherPresenter : MonoBehaviour
 {
     public float arrowSpeed;
     public Transform player;
@@ -189,40 +189,63 @@ public class ArcherPresenter : MonoBehaviour, IEnemyPresenter
         else
         {
             StartCoroutine(OnDamage());
+            // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+            // {
+            //     mesh.material.DOColor(Color.red, 0.1f).SetDelay(0.1f).OnComplete(() =>
+            //     {
+            //         mesh.material.DOColor(_originalMeshRenderers[mesh], 0.1f);
+            //
+            //     });
+            // }
         }
        
     }
-
-    public IEnumerator OnDamage()
+    
+    private IEnumerator OnDamage()
     {
-        StopCoroutine(AttackPlayer());
-        _animator.SetBool(Chase,false);
-        _animator.SetBool(Draw,false);
-        _animator.SetBool(Charge,false);
-        _animator.SetBool(Attack,false);
-        
-        AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyHit);
-        isHit = true;
-        isChase = false;
-        isAttack = false;
-        _animator.SetTrigger(Hit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
         }
-
+        
         yield return new WaitForSeconds(0.1f);
         
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = _originalMeshRenderers[mesh];
         }
-        
-        yield return new WaitForSeconds(0.13f);
-        isChase = true;
-        isHit = false;
-        _animator.SetBool(Chase,true);
     }
+
+    // public IEnumerator OnDamage()
+    // {
+    //     StopCoroutine(AttackPlayer());
+    //     _animator.SetBool(Chase,false);
+    //     _animator.SetBool(Draw,false);
+    //     _animator.SetBool(Charge,false);
+    //     _animator.SetBool(Attack,false);
+    //     
+    //     AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyHit);
+    //     isHit = true;
+    //     isChase = false;
+    //     isAttack = false;
+    //     _animator.SetTrigger(Hit);
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = Color.red;
+    //     }
+    //
+    //     yield return new WaitForSeconds(0.1f);
+    //     
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = _originalMeshRenderers[mesh];
+    //     }
+    //     
+    //     yield return new WaitForSeconds(0.13f);
+    //     isChase = true;
+    //     isHit = false;
+    //     _animator.SetBool(Chase,true);
+    // }
     
     public void DieEnemy()
     {

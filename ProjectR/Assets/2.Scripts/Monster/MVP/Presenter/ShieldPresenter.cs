@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
+public class ShieldPresenter : MonoBehaviour
 {
     public Transform player;
     public Transform archer;
@@ -141,7 +141,7 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     private void FreezeVelocity()
     {
-        if (isChase)
+        if (isChase && !isDead) 
         {
             _rb.velocity = Vector3.zero;
             _rb.angularVelocity = Vector3.zero;
@@ -150,11 +150,11 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
 
     public IEnumerator AttackPlayer()
     {
-        _animator.SetBool(Chase,false);
+        //_animator.SetBool(Chase,false);
         isChase = false;
         isAttack = true;
         _animator.SetBool(Attack,true);
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.4f);
         isAttack = false;
         isChase = true;
         _animator.SetBool(Attack,false);
@@ -182,45 +182,67 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
         else
         {
             StartCoroutine(OnDamage());
+            // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+            // {
+            //     mesh.material.DOColor(Color.red, 0.1f).SetDelay(0.1f).OnComplete(() =>
+            //     {
+            //         mesh.material.DOColor(_originalMeshRenderers[mesh], 0.1f);
+            //
+            //     });
+            // }
         }
-       
     }
 
-    public IEnumerator OnDamage()
+    private IEnumerator OnDamage()
     {
-        StartCoroutine(AttackPlayer());
-        _animator.SetBool(Attack,false);
-        _animator.SetBool(Chase,false);
-        _animator.SetTrigger(Hit);
-        isHit = true;
-        isChase = false;
-        isAttack = false;
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
         }
-
+        
         yield return new WaitForSeconds(0.1f);
         
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = _originalMeshRenderers[mesh];
         }
-        
-        yield return new WaitForSeconds(0.13f);
-        isHit = false;
-        isChase = true;
-        _animator.SetBool(Chase,true);
     }
+    // public IEnumerator OnDamage()
+    // {
+    //     StartCoroutine(AttackPlayer());
+    //     _animator.SetBool(Attack,false);
+    //     _animator.SetBool(Chase,false);
+    //     _animator.SetTrigger(Hit);
+    //     isHit = true;
+    //     isChase = false;
+    //     isAttack = false;
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = Color.red;
+    //     }
+    //
+    //     yield return new WaitForSeconds(0.1f);
+    //     
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = _originalMeshRenderers[mesh];
+    //     }
+    //     
+    //     yield return new WaitForSeconds(0.13f);
+    //     isHit = false;
+    //     isChase = true;
+    //     _animator.SetBool(Chase,true);
+    // }
     
     public void DieEnemy()
     {
         StopAllCoroutines();
-        StartCoroutine(OnDie());
+        //StartCoroutine(OnDie());
         _animator.SetTrigger(Die);
         isChase = false;
         isAttack = false;
         isDead = true;
+        OnDie();
         _agent.enabled = false;
         _rb.isKinematic = true;
         Destroy(gameObject,2f);
@@ -228,29 +250,49 @@ public class ShieldPresenter : MonoBehaviour, IEnemyPresenter
         Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
 
-    public IEnumerator OnDie()
+    private void OnDie()
     {
         foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
         {
             Material[] materials = meshRenderer.materials;
-        
-            for(int index = 0; index < materials.Length; index++)
+
+            for (int index = 0; index < materials.Length; index++)
             {
                 materials[index] = dissolveMaterial;
             }
-        
+
             meshRenderer.materials = materials;
-            
+
             foreach (Material material in meshRenderer.materials)
             {
                 material.DOFloat(1, "_DissolveAmount", 2);
             }
         }
-        
-        //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
-       
-        yield break;
     }
+
+    // public IEnumerator OnDie()
+    // {
+    //     foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
+    //     {
+    //         Material[] materials = meshRenderer.materials;
+    //     
+    //         for(int index = 0; index < materials.Length; index++)
+    //         {
+    //             materials[index] = dissolveMaterial;
+    //         }
+    //     
+    //         meshRenderer.materials = materials;
+    //         
+    //         foreach (Material material in meshRenderer.materials)
+    //         {
+    //             material.DOFloat(1, "_DissolveAmount", 2);
+    //         }
+    //     }
+    //     
+    //     //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+    //    
+    //     yield break;
+    // }
 
     
 

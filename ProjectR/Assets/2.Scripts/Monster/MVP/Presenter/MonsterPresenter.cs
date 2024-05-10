@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
@@ -18,38 +20,38 @@ public class MonsterPresenter : MonoBehaviour
     }
     
     [HideInInspector]
-    public EnemyModel _model;   // 슬픈 사연이 있는 EnemyModel 클래스
+    public EnemyModel _model;   
     
     [HideInInspector]
-    public EnemyView _view;     // 슬픈 사연이 있는 EnemyView 클래스
+    public EnemyView _view;    
     
-    // 적의 현재 상태
+    
     public EState state = EState.Idle;
     
-    public EnemyData data;               // 적 데이터
-    public GameObject[] expStone;        // 경험치 돌 배열
-    public float tranceDist = 10.0f;    // 추적 사거리
-    public float attackDist = 2.0f;     // 공격 사거리
+    public EnemyData data;               
+    public GameObject[] expStone;       
+    public float tranceDist = 10.0f;   
+    public float attackDist = 2.0f;     
     
-    // 몬스터 상태 여부
+    
     public bool isChase;
     public bool isAttack;
     public bool isHit;
     public bool isDead;
 
-    // 컴포넌트 캐시 처리
+   
     private Transform _monsterTr;
     private Transform _playerTr;
     private NavMeshAgent _agent;
     private Animator _anim;
     private Rigidbody _rb;
     
-    // 스킨 메쉬 렌더러 배열
+    
     private SkinnedMeshRenderer[] _meshRenderers;
     private readonly Dictionary<SkinnedMeshRenderer, Color> _originalMeshRenderers = new Dictionary<SkinnedMeshRenderer, Color>();
     public Material dissolveMaterial;
     
-    // 애니메이션 해시값
+    
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Chase = Animator.StringToHash("Chase");
@@ -213,7 +215,7 @@ public class MonsterPresenter : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    private void TakeDamage(float damage)
     {
         _model.CurrentHp -= damage;
         if (_model.CurrentHp <= 0 && !isDead)
@@ -225,5 +227,12 @@ public class MonsterPresenter : MonoBehaviour
             state = EState.Hit;
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Skill") && !isHit && !isDead)
+        {
+            TakeDamage(10f);
+        }
+    }
 }

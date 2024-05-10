@@ -6,7 +6,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
+public class WarriorPresenter : MonoBehaviour
 {
     public Transform player;
     public EnemyData data;
@@ -116,7 +116,7 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
 
     public IEnumerator AttackPlayer()
     {
-        _animator.SetBool(Chase,false);
+        //_animator.SetBool(Chase,false);
         isChase = false;
         isAttack = true;
         _animator.SetBool(Attack,true);
@@ -149,35 +149,56 @@ public class WarriorPresenter : MonoBehaviour, IEnemyPresenter
         else
         {
             StartCoroutine(OnDamage());
+            // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+            // {
+            //     mesh.material.DOColor(Color.red, 0.1f).SetDelay(0.1f).OnComplete(() =>
+            //     {
+            //         mesh.material.DOColor(_originalMeshRenderers[mesh], 0.1f);
+            //
+            //     });
+            // }
+            
+            
         }
     }
-
-    public IEnumerator OnDamage()
+    
+    private IEnumerator OnDamage()
     {
-        StopCoroutine(AttackPlayer());
-        _animator.SetBool(Attack,false);
-        _animator.SetBool(Chase,false);
-        isHit = true;
-        isChase = false;
-        isAttack = false;
-        _animator.SetTrigger(Hit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
         }
-
+        
         yield return new WaitForSeconds(0.1f);
         
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = _originalMeshRenderers[mesh];
         }
-        
-        yield return new WaitForSeconds(0.13f);
-        isHit = false;
-        isChase = true;
-        _animator.SetBool(Chase,true);
     }
+
+    // public IEnumerator OnDamage()
+    // {
+    //     isHit = true;
+    //     isChase = false;
+    //     isAttack = false;
+    //     _animator.SetBool(Hit,true);
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = Color.red;
+    //     }
+    //
+    //     yield return new WaitForSeconds(0.1f);
+    //     
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = _originalMeshRenderers[mesh];
+    //     }
+    //     
+    //     yield return new WaitForSeconds(0.13f);
+    //     isHit = false;
+    //     isChase = true;
+    // }
     
     public void DieEnemy()
     {
