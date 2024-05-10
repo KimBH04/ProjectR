@@ -9,6 +9,7 @@ TagManager:
   - Warrior
   - Archer
   - Shield
+  - CameraCall
   layers:
   - Default
   - TransparentFX

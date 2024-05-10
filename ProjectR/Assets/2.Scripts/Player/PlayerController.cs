@@ -3,6 +3,10 @@ using UnityEngine.InputSystem;
 
 public sealed class PlayerController : MonoBehaviour
 {
+    [Header("Stats")]
+    [SerializeField] private int level;
+    [SerializeField] private int atk;
+    [SerializeField] private int hp;
     [SerializeField] private float speed;
 
     private CharacterController controller;
@@ -12,8 +16,21 @@ public sealed class PlayerController : MonoBehaviour
     private Vector3 lastFixedPos;
     private Vector3 nextFixedPos;
 
+    [Header("Objects")]
     [SerializeField] private Transform pointer;
     private Plane plane;
+
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+        set
+        {
+            level = value;
+        }
+    }
 
     private void Awake()
     {
