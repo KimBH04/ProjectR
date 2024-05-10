@@ -4,6 +4,12 @@ using UnityEngine;
 public class CameraCall : MonoBehaviour
 {
     [SerializeField] private Transform cameraPos;
+    private RoomData roomData;
+
+    private void Start()
+    {
+        roomData = GetComponentInParent<RoomData>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {

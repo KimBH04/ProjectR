@@ -78,8 +78,8 @@ public class CreateRoom : MonoBehaviour
             }
         }
 
-        var makeingShop = rooms.Cast<Room>().Where(x => x != null && x.depth > 1).ToArray();
-        makeingShop[Random.Range(0, makeingShop.Length)].type = Room.RoomType.Shop;
+        var makingShop = rooms.Cast<Room>().Where(x => x != null && x.depth > 1).ToArray();
+        makingShop[Random.Range(0, makingShop.Length)].type = Room.RoomType.Shop;
 
         bossRoom.type = Room.RoomType.Boss;
     }
@@ -93,95 +93,22 @@ public class CreateRoom : MonoBehaviour
                 if (rooms[z, x] != null)
                 {
                     int xpos = x - roomCount, zpos = z - roomCount;
-                    switch (rooms[z, x].type)
-                    {
-                        case Room.RoomType.Start:
-                            Instantiate(
-                                startRoom,
-                                new Vector3(
-                                    xpos * 10 * standardScale.x + xpos * padding,
-                                    0f,
-                                    zpos * 10 * standardScale.z + zpos * padding),
-                                Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
-                            break;
-
-                        case Room.RoomType.Battle:
-                            Instantiate(
-                                battleRoom,
-                                new Vector3(
-                                    xpos * 10 * standardScale.x + xpos * padding,
-                                    0f,
-                                    zpos * 10 * standardScale.z + zpos * padding),
-                                Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
-                            break;
-
-                        case Room.RoomType.Shop:
-                            Instantiate(
-                                shopRoom,
-                                new Vector3(
-                                    xpos * 10 * standardScale.x + xpos * padding,
-                                    0f,
-                                    zpos * 10 * standardScale.z + zpos * padding),
-                                Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
-                            break;
-
-                        case Room.RoomType.Boss:
-                            Instantiate(
-                                bossRoom,
-                                new Vector3(
-                                    xpos * 10 * standardScale.x + xpos * padding,
-                                    0f,
-                                    zpos * 10 * standardScale.z + zpos * padding),
-                                Quaternion.identity).GetComponent<RoomData>().depth = rooms[z, x].depth;
-                            break;
-
-                        default:
-                            Debug.Log($"Uknown Room Type {xpos} {zpos}");
-                            break;
-                    }
+                    Instantiate(
+                        rooms[z, x].type switch
+                        {
+                            Room.RoomType.Start => startRoom,
+                            Room.RoomType.Battle => battleRoom,
+                            Room.RoomType.Shop => shopRoom,
+                            Room.RoomType.Boss => bossRoom,
+                            _ => throw new UnityException($"Uknown Room Type: {xpos} {zpos}")
+                        },
+                        new Vector3(
+                            xpos * 10 * standardScale.x + xpos * padding,
+                            0f, // 10 : Default plane size
+                            zpos * 10 * standardScale.z + zpos * padding),
+                        Quaternion.identity).GetComponent<RoomData>().data = rooms[z, x];
                 }
             }
-        }
-    }
-
-    private class Room
-    {
-        public RoomType type = RoomType.Battle;
-        public int depth = 0;
-        public Room left, up, right, down;
-
-        private readonly Room[] dirForRooms = new Room[4];
-
-        public const int LEFT = 0,
-                         UP = 1,
-                         RIGHT = 2,
-                         DOWN = 3;
-
-        public Room()
-        {
-            dirForRooms[0] = left;
-            dirForRooms[1] = up;
-            dirForRooms[2] = right;
-            dirForRooms[3] = down;
-        }
-
-        public bool ConnectRoom(Room to, int dir)
-        {
-            if (dirForRooms[dir] == null)
-            {
-                dirForRooms[dir] = to;
-                to.dirForRooms[(dir + 2) % 4] = this;
-                return true;
-            }
-            return false;
-        }
-
-        public enum RoomType
-        {
-            Start,
-            Battle,
-            Shop,
-            Boss
         }
     }
 }
