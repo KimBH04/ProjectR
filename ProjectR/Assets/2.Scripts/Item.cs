@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Potion : MonoBehaviour
+public class Item : MonoBehaviour
 {
     public enum  EType
     {
         Hp,
         Mp,
         Elixir,
-        Shield
+        Shield,
+        Exp 
     }
     
     public EType type;
@@ -46,6 +47,12 @@ public class Potion : MonoBehaviour
                     break;
                 case EType.Shield:
                     //other.GetComponent<PlayerController>().Shield += value;
+                    break;
+                case EType.Exp:
+                    //other.GetComponent<PlayerController>().Exp += value;
+                    break;
+                default:
+                    print("????");
                     break;
             }
         }

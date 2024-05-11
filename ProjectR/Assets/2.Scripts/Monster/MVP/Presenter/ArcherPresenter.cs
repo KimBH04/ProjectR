@@ -34,6 +34,7 @@ public class ArcherPresenter : MonoBehaviour
     public bool isDead;
     public bool isClose;
     public bool isStart;
+    public bool isHeal;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Draw = Animator.StringToHash("Draw");

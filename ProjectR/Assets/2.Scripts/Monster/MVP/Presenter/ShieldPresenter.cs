@@ -32,6 +32,7 @@ public class ShieldPresenter : MonoBehaviour
     public bool isHit;
     public bool isDead;
     public bool isStart;
+    public bool isHeal;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Attack = Animator.StringToHash("Attack");

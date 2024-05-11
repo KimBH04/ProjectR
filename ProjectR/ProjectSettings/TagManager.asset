@@ -10,6 +10,7 @@ TagManager:
   - Archer
   - Shield
   - CameraCall
+  - Mino
   layers:
   - Default
   - TransparentFX

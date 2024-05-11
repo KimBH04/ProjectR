@@ -28,6 +28,7 @@ public class MinoPresenter : MonoBehaviour
     public bool isAttack;
     public bool isHit;
     public bool isDead;
+    public bool isHeal;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Attack = Animator.StringToHash("Attack");

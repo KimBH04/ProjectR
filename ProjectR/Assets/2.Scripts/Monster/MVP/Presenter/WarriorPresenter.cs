@@ -29,6 +29,7 @@ public class WarriorPresenter : MonoBehaviour
     public bool isAttack;
     public bool isHit;
     public bool isDead;
+    public bool isHeal;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Attack = Animator.StringToHash("Attack");
@@ -62,16 +63,17 @@ public class WarriorPresenter : MonoBehaviour
 
     private void Start()
     {
-        
+        StartCoroutine(IsHeal());
         Invoke(nameof(ChaseStart), 2f);
 
     }
 
     private void Update()
     {
-        RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
-
-        Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
+        
+        // RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
+        //
+        // Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
         
         if (_agent.enabled)
         {
@@ -84,6 +86,19 @@ public class WarriorPresenter : MonoBehaviour
     {
         Targeting();
         FreezeVelocity();
+    }
+
+    private IEnumerator IsHeal()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (isHeal)
+            {
+                _model.CurrentHp += 10;
+                _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
+            }
+        }
     }
 
     private void ChaseStart()
