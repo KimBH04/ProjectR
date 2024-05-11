@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b1673b13730a9458eb0f723eb8bd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomCount: 20
+  roomCount: 10
   standardScale: {x: 8, y: 1, z: 5}
   padding: 0
   startRoom: {fileID: 7471143491778548163, guid: c2b153e98ac3044418ed476eb5f1747f,

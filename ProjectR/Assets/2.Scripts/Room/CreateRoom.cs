@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,11 +24,28 @@ public class CreateRoom : MonoBehaviour
 
     private Room[,] rooms;
 
-    private void Start()
+    private int RoomMaxSize => roomCount * 2 + 1;
+
+    private IEnumerator Start()
     {
-        rooms = new Room[roomCount * 2 + 1, roomCount * 2 + 1];
+        rooms = new Room[RoomMaxSize, RoomMaxSize];
         SettingRooms();
-        BuildRooms();
+        Coroutine buildRoom = StartCoroutine(BuildRooms());
+        Coroutine buildWall = StartCoroutine(BuildWalls());
+
+        // 대기
+        yield return buildRoom;
+        yield return buildWall;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = Vector3.up;
+        }
+        else
+        {
+            Debug.Log("It is debugging mode");
+        }
     }
 
     private void SettingRooms()
@@ -84,11 +102,11 @@ public class CreateRoom : MonoBehaviour
         bossRoom.type = Room.RoomType.Boss;
     }
 
-    private void BuildRooms()
+    private IEnumerator BuildRooms()
     {
-        for (int z = roomCount * 2; z >= 0; z--)
+        for (int z = 0; z < RoomMaxSize; z++)
         {
-            for (int x = roomCount * 2; x >= 0; x--)
+            for (int x = 0; x < RoomMaxSize; x++)
             {
                 if (rooms[z, x] != null)
                 {
@@ -103,11 +121,74 @@ public class CreateRoom : MonoBehaviour
                             _ => throw new UnityException($"Uknown Room Type: {xpos} {zpos}")
                         },
                         new Vector3(
-                            xpos * 10 * standardScale.x + xpos * padding,
+                            xpos * 10f * standardScale.x + xpos * padding,
                             0f, // 10 : Default plane size
-                            zpos * 10 * standardScale.z + zpos * padding),
+                            zpos * 10f * standardScale.z + zpos * padding),
                         Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
                 }
+                yield return null;
+            }
+        }
+    }
+
+    private IEnumerator BuildWalls()
+    {
+        for (int i = 0; i < RoomMaxSize; i++)
+        {
+            for (int j = 1; j < RoomMaxSize; j++)
+            {
+                int ipos = i - roomCount, jpos = j - roomCount;
+
+                // i = x, j = z
+                if (rooms[j, i] == null)
+                {
+                    if (rooms[j - 1, i] != null)
+                    {
+                        Instantiate(
+                            blockedHorizontalWall,
+                            new Vector3(
+                                ipos * 10f * standardScale.x + ipos * padding,
+                                0f,
+                                jpos * 10f * standardScale.z + jpos * padding - standardScale.z * 5f),
+                            Quaternion.identity);
+                    }
+                }
+                else
+                {
+                    Instantiate(
+                        rooms[j, i][Room.DOWN] == null ? blockedHorizontalWall : openedHorizontalWall,
+                        new Vector3(
+                            ipos * 10f * standardScale.x + ipos * padding,
+                            0f,
+                            jpos * 10f * standardScale.z + jpos * padding - standardScale.z * 5f),
+                        Quaternion.identity);
+                }
+
+                // i = z, j = x
+                if (rooms[i, j] == null)
+                {
+                    if (rooms[i, j - 1] != null)
+                    {
+                        Instantiate(
+                            blockedVerticalWall,
+                            new Vector3(
+                                jpos * 10f * standardScale.x + jpos * padding - standardScale.x * 5f,
+                                0f,
+                                ipos * 10f * standardScale.z + ipos * padding),
+                            Quaternion.identity);
+                    }
+                }
+                else
+                {
+                    Instantiate(
+                        rooms[i, j][Room.LEFT] == null ? blockedVerticalWall : openedVerticalWall,
+                        new Vector3(
+                            jpos * 10f * standardScale.x + jpos * padding - standardScale.x * 5f,
+                            0f,
+                            ipos * 10f * standardScale.z + ipos * padding),
+                        Quaternion.identity);
+                }
+                yield return null;
             }
         }
     }

@@ -55,11 +55,20 @@ public class Room
                      RIGHT = 2,
                      DOWN = 3;
 
+    public Room this[int idx] => dirForRooms[idx];
+
+    /// <summary>
+    /// 방 연결
+    /// </summary>
+    /// <param name="to"> 목적지 </param>
+    /// <param name="dir"> 방향 </param>
+    /// <returns></returns>
     public bool ConnectRoom(Room to, int dir)
     {
         if (dirForRooms[dir] == null)
         {
             dirForRooms[dir] = to;
+            to.dirForRooms[(dir + 2) % 4] = this; 
             MovedHere.AddListener(() => to.mapDisplay.SetActive(true));
             return true;
         }

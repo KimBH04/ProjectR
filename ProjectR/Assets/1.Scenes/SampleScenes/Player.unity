@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 683898740}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -493,6 +493,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4c9c9582d3f6f45b4c4d85599e846c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
+  atk: 0
+  hp: 0
   speed: 100
   pointer: {fileID: 2035836912}
 --- !u!114 &683898740
