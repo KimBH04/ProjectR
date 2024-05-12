@@ -9,7 +9,6 @@ public class CreateRoom : MonoBehaviour
     [SerializeField, Min(2)] private int roomCount = 10;
     [Space]
     [SerializeField] private Vector3 standardScale = Vector3.one;
-    [SerializeField] private float padding = 1f;
 
     [Header("Objects")]
     [SerializeField] private GameObject startRoom;
@@ -121,9 +120,9 @@ public class CreateRoom : MonoBehaviour
                             _ => throw new UnityException($"Uknown Room Type: {xpos} {zpos}")
                         },
                         new Vector3(
-                            xpos * 10f * standardScale.x + xpos * padding,
+                            xpos * 10f * standardScale.x,
                             0f, // 10 : Default plane size
-                            zpos * 10f * standardScale.z + zpos * padding),
+                            zpos * 10f * standardScale.z),
                         Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
                 }
                 yield return null;
@@ -147,9 +146,9 @@ public class CreateRoom : MonoBehaviour
                         Instantiate(
                             blockedHorizontalWall,
                             new Vector3(
-                                ipos * 10f * standardScale.x + ipos * padding,
+                                ipos * 10f * standardScale.x,
                                 0f,
-                                jpos * 10f * standardScale.z + jpos * padding - standardScale.z * 5f),
+                                jpos * 10f * standardScale.z - standardScale.z * 5f),
                             Quaternion.identity);
                     }
                 }
@@ -158,9 +157,9 @@ public class CreateRoom : MonoBehaviour
                     Instantiate(
                         rooms[j, i][Room.DOWN] == null ? blockedHorizontalWall : openedHorizontalWall,
                         new Vector3(
-                            ipos * 10f * standardScale.x + ipos * padding,
+                            ipos * 10f * standardScale.x,
                             0f,
-                            jpos * 10f * standardScale.z + jpos * padding - standardScale.z * 5f),
+                            jpos * 10f * standardScale.z - standardScale.z * 5f),
                         Quaternion.identity);
                 }
 
@@ -172,9 +171,9 @@ public class CreateRoom : MonoBehaviour
                         Instantiate(
                             blockedVerticalWall,
                             new Vector3(
-                                jpos * 10f * standardScale.x + jpos * padding - standardScale.x * 5f,
+                                jpos * 10f * standardScale.x - standardScale.x * 5f,
                                 0f,
-                                ipos * 10f * standardScale.z + ipos * padding),
+                                ipos * 10f * standardScale.z),
                             Quaternion.identity);
                     }
                 }
@@ -183,9 +182,9 @@ public class CreateRoom : MonoBehaviour
                     Instantiate(
                         rooms[i, j][Room.LEFT] == null ? blockedVerticalWall : openedVerticalWall,
                         new Vector3(
-                            jpos * 10f * standardScale.x + jpos * padding - standardScale.x * 5f,
+                            jpos * 10f * standardScale.x - standardScale.x * 5f,
                             0f,
-                            ipos * 10f * standardScale.z + ipos * padding),
+                            ipos * 10f * standardScale.z),
                         Quaternion.identity);
                 }
                 yield return null;
