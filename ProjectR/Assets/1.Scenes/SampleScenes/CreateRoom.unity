@@ -799,9 +799,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b1673b13730a9458eb0f723eb8bd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomCount: 10
+  roomCount: 128
   standardScale: {x: 8, y: 1, z: 5}
-  padding: 0
   startRoom: {fileID: 7471143491778548163, guid: c2b153e98ac3044418ed476eb5f1747f,
     type: 3}
   battleRoom: {fileID: 3652397007537422574, guid: 5e9a80548ab2f9a428f04acbe035adfb,

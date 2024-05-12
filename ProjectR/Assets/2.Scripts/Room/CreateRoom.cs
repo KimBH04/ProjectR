@@ -28,15 +28,20 @@ public class CreateRoom : MonoBehaviour
     private IEnumerator Start()
     {
         roomMaxSize = roomCount * 2 + 1;
-
         rooms = new Room[roomMaxSize, roomMaxSize];
-        SettingRooms();
-        Coroutine buildRoom = StartCoroutine(BuildRooms());
-        Coroutine buildWall = StartCoroutine(BuildWalls());
 
-        // 대기
-        yield return buildRoom;
+        float startTime = Time.time;
+        Application.targetFrameRate = 1000;
+
+        yield return StartCoroutine(SettingRooms());
+
+        Coroutine buildWall = StartCoroutine(BuildWalls());
+        Coroutine buildRoom = StartCoroutine(BuildRooms());
         yield return buildWall;
+        yield return buildRoom; // 대기
+
+        Application.targetFrameRate = 60;
+        Debug.Log($"Total {Time.time - startTime}'s");
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -49,7 +54,7 @@ public class CreateRoom : MonoBehaviour
         }
     }
 
-    private void SettingRooms()
+    private IEnumerator SettingRooms()
     {   //                              left     up      right   down
         (int r, int c)[] directions = { (0, -1), (1, 0), (0, 1), (-1, 0) };
 
@@ -93,6 +98,7 @@ public class CreateRoom : MonoBehaviour
             }
             else
             {
+                yield return null;
                 goto ReTry;
             }
         }
@@ -126,8 +132,8 @@ public class CreateRoom : MonoBehaviour
                             0f, // 10 : Default plane size
                             zpos * 10f * standardScale.z),
                         Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
+                    yield return null;
                 }
-                yield return null;
             }
         }
     }
@@ -152,6 +158,7 @@ public class CreateRoom : MonoBehaviour
                                 0f,
                                 jpos * 10f * standardScale.z - standardScale.z * 5f),
                             Quaternion.identity);
+                        yield return null;
                     }
                 }
                 else
@@ -163,6 +170,7 @@ public class CreateRoom : MonoBehaviour
                             0f,
                             jpos * 10f * standardScale.z - standardScale.z * 5f),
                         Quaternion.identity);
+                    yield return null;
                 }
 
                 // i = z, j = x
@@ -177,6 +185,7 @@ public class CreateRoom : MonoBehaviour
                                 0f,
                                 ipos * 10f * standardScale.z),
                             Quaternion.identity);
+                        yield return null;
                     }
                 }
                 else
@@ -188,8 +197,8 @@ public class CreateRoom : MonoBehaviour
                             0f,
                             ipos * 10f * standardScale.z),
                         Quaternion.identity);
+                    yield return null;
                 }
-                yield return null;
             }
         }
     }
