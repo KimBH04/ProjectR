@@ -14,12 +14,8 @@ public class ShieldPresenter : MonoBehaviour
     public EnemyData data;
     public GameObject[] expStone;
     
-    [HideInInspector]
-    public EnemyModel _model;
-    
-    [HideInInspector]
-    public EnemyView _view;
-    
+    private EnemyModel _model;
+    private EnemyView _view;
     private Animator _animator;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
@@ -66,6 +62,8 @@ public class ShieldPresenter : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(IsHeal());
+        
         GameObject archerPos = GameObject.FindWithTag("Archer");
         if (archerPos != null)
         {
@@ -119,6 +117,24 @@ public class ShieldPresenter : MonoBehaviour
     {
         Targeting();
         FreezeVelocity();
+    }
+    
+    private IEnumerator IsHeal()
+    {
+        while (!isDead)
+        {
+            yield return new WaitForSeconds(1f);
+            if (isHeal)
+            {
+                _model.CurrentHp += 10;
+                _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
+            }
+
+            if (isDead)
+            {
+                yield break;
+            }
+        }
     }
 
     private void ChaseStart()

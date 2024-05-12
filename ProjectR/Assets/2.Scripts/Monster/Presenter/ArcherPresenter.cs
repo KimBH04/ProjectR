@@ -6,18 +6,17 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class WarriorPresenter : MonoBehaviour
+public class ArcherPresenter : MonoBehaviour
 {
-    public Collider meleeArea;
+    public float arrowSpeed;
     public Transform player;
     public EnemyData data;
+    public GameObject arrow;
+    public Transform firePos;
     public GameObject[] expStone;
     
-    [HideInInspector]
-    public EnemyModel _model;
-    
-    [HideInInspector]
-    public EnemyView _view;
+    private EnemyModel _model;
+    private EnemyView _view;
     private Animator _animator;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
@@ -29,9 +28,13 @@ public class WarriorPresenter : MonoBehaviour
     public bool isAttack;
     public bool isHit;
     public bool isDead;
+    public bool isClose;
+    public bool isStart;
     public bool isHeal;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
+    private static readonly int Draw = Animator.StringToHash("Draw");
+    private static readonly int Charge = Animator.StringToHash("Charge");
     private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Chase = Animator.StringToHash("Chase");
     private static readonly int Hit = Animator.StringToHash("Hit");
@@ -41,6 +44,10 @@ public class WarriorPresenter : MonoBehaviour
     private void Awake()
     {
         player= GameObject.FindWithTag("Player").GetComponent<Transform>();
+        if (!player)
+        {
+            print("플레이어 업성");
+        }
         
         PlayerController playerController = player.GetComponent<PlayerController>();
         _model = new EnemyModel(data.maxHp +(playerController.Level* 2), data.damage, data.speed, data.targetRadius, data.targetRange);
@@ -67,15 +74,32 @@ public class WarriorPresenter : MonoBehaviour
     private void Update()
     {
         
-        // RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
-        //
-        // Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
-        
-        if (_agent.enabled)
-        {
-            _agent.SetDestination(player.position);
-            _agent.isStopped = !isChase;
-        }
+       float distance = Vector3.Distance(transform.position, player.position);
+      
+       // RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
+       //
+       // // DrawRay로 레이 시각화
+       // Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
+
+       if (distance <= 5f && !isDead && !isHit && !isAttack && isStart)  
+       {
+           Vector3 direction = player.position - transform.position;
+           direction.y = 0;
+
+           Vector3 fleePosition = direction.normalized - direction.normalized * 4f;
+            
+           transform.rotation = Quaternion.LookRotation(direction);
+            
+           _agent.SetDestination(fleePosition);
+           _agent.isStopped = false;
+           isClose = true;
+       }
+       else if (_agent.enabled && isStart)
+       {
+           isClose = false;
+           _agent.SetDestination(player.position);
+           _agent.isStopped = !isChase;
+       }
     }
 
     private void FixedUpdate()
@@ -83,10 +107,11 @@ public class WarriorPresenter : MonoBehaviour
         Targeting();
         FreezeVelocity();
     }
-
+    
+    
     private IEnumerator IsHeal()
     {
-        while (true)
+        while (!isDead)
         {
             yield return new WaitForSeconds(1f);
             if (isHeal)
@@ -94,21 +119,27 @@ public class WarriorPresenter : MonoBehaviour
                 _model.CurrentHp += 10;
                 _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
             }
+
+            if (isDead)
+            {
+                yield break;
+            }
         }
     }
 
     private void ChaseStart()
     {
+        isStart = true;
         isChase = true;
         _animator.SetBool(Chase,true);
     }
     
     public void Targeting()
     {
-        RaycastHit[] rayHits = new RaycastHit[10];
+        RaycastHit[] rayHits = new RaycastHit[1];
         int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, 
             _model.TargetRange, LayerMask.GetMask("Player"));
-        if (hitCount > 0 && !isAttack)
+        if (hitCount > 0 && !isAttack && !isHit && !isDead)
         {
             StartCoroutine(AttackPlayer());
         }
@@ -125,18 +156,31 @@ public class WarriorPresenter : MonoBehaviour
 
     public IEnumerator AttackPlayer()
     {
-        //_animator.SetBool(Chase,false);
-        meleeArea.enabled = true;
-        isChase = false;
-        isAttack = true;
-        _animator.SetBool(Attack,true);
-        yield return new WaitForSeconds(1.2f);
-        meleeArea.enabled = false;
-        isAttack = false;
-        isChase = true;
-        _animator.SetBool(Attack,false);
-        _animator.SetBool(Chase,true);
-        
+        if (!isClose && !isDead && !isHit && !isAttack)
+        {
+            _animator.SetBool(Chase, false);
+            isChase = false;
+            isAttack = true;
+            AudioManager.Instance.PlaySfx(AudioManager.ESfx.ChargingArrow);
+            _animator.SetBool(Draw, true);
+            yield return new WaitForSeconds(0.7f);
+            _animator.SetBool(Charge, true);
+            _animator.SetBool(Draw, false);
+            yield return new WaitForSeconds(1f);
+            AudioManager.Instance.PlaySfx(AudioManager.ESfx.ShootArrow);
+            _animator.SetBool(Attack, true);
+            _animator.SetBool(Charge, false);
+            GameObject instanceArrow = Instantiate(arrow, firePos.position, firePos.rotation);
+            Rigidbody arrowRb = instanceArrow.GetComponent<Rigidbody>();
+            arrowRb.velocity = firePos.forward * arrowSpeed;
+            yield return new WaitForSeconds(1.0f);
+            isAttack = false;
+            isChase = true;
+            _animator.SetBool(Attack, false);
+            _animator.SetBool(Chase, true);
+        }
+       
+
     }
 
     public void TakeDamage(float damage)
@@ -168,9 +212,8 @@ public class WarriorPresenter : MonoBehaviour
             //
             //     });
             // }
-            
-            
         }
+       
     }
     
     private IEnumerator OnDamage()
@@ -190,10 +233,17 @@ public class WarriorPresenter : MonoBehaviour
 
     // public IEnumerator OnDamage()
     // {
+    //     StopCoroutine(AttackPlayer());
+    //     _animator.SetBool(Chase,false);
+    //     _animator.SetBool(Draw,false);
+    //     _animator.SetBool(Charge,false);
+    //     _animator.SetBool(Attack,false);
+    //     
+    //     AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyHit);
     //     isHit = true;
     //     isChase = false;
     //     isAttack = false;
-    //     _animator.SetBool(Hit,true);
+    //     _animator.SetTrigger(Hit);
     //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
     //     {
     //         mesh.material.color = Color.red;
@@ -207,17 +257,16 @@ public class WarriorPresenter : MonoBehaviour
     //     }
     //     
     //     yield return new WaitForSeconds(0.13f);
-    //     isHit = false;
     //     isChase = true;
+    //     isHit = false;
+    //     _animator.SetBool(Chase,true);
     // }
     
-    public void DieEnemy()
+    private void DieEnemy()
     {
         StopAllCoroutines();
         StartCoroutine(OnDie());
         AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyDead);
-        _animator.SetBool(Attack,false);
-        _animator.SetBool(Chase,false);
         _animator.SetTrigger(Die);
         isChase = false;
         isAttack = false;
@@ -248,7 +297,7 @@ public class WarriorPresenter : MonoBehaviour
             }
         }
         
-        // dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+        //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
        
         yield break;
     }
@@ -257,7 +306,7 @@ public class WarriorPresenter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Skill") && !isHit && !isDead)
+        if(other.CompareTag("Skill"))
         {
             TakeDamage(10f);
         }

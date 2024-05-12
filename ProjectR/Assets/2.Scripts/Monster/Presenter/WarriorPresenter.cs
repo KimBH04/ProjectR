@@ -6,17 +6,15 @@ using DG.Tweening;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class MinoPresenter : MonoBehaviour
+public class WarriorPresenter : MonoBehaviour
 {
+    public Collider meleeArea;
     public Transform player;
     public EnemyData data;
     public GameObject[] expStone;
     
-    [HideInInspector]
-    public EnemyModel _model;
-    
-    [HideInInspector]
-    public EnemyView _view;
+    private EnemyModel _model;
+    private EnemyView _view;
     private Animator _animator;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
@@ -40,10 +38,6 @@ public class MinoPresenter : MonoBehaviour
     private void Awake()
     {
         player= GameObject.FindWithTag("Player").GetComponent<Transform>();
-        if (!player)
-        {
-            print("플레이어 업성");
-        }
         
         PlayerController playerController = player.GetComponent<PlayerController>();
         _model = new EnemyModel(data.maxHp +(playerController.Level* 2), data.damage, data.speed, data.targetRadius, data.targetRange);
@@ -62,13 +56,18 @@ public class MinoPresenter : MonoBehaviour
 
     private void Start()
     {
-        
+        StartCoroutine(IsHeal());
         Invoke(nameof(ChaseStart), 2f);
 
     }
 
     private void Update()
     {
+        
+        // RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
+        //
+        // Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
+        
         if (_agent.enabled)
         {
             _agent.SetDestination(player.position);
@@ -80,6 +79,24 @@ public class MinoPresenter : MonoBehaviour
     {
         Targeting();
         FreezeVelocity();
+    }
+
+    private IEnumerator IsHeal()
+    {
+        while (!isDead)
+        {
+            yield return new WaitForSeconds(1f);
+            if (isHeal)
+            {
+                _model.CurrentHp += 10;
+                _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
+            }
+
+            if (isDead)
+            {
+                yield break;
+            }
+        }
     }
 
     private void ChaseStart()
@@ -95,7 +112,7 @@ public class MinoPresenter : MonoBehaviour
             _model.TargetRange, LayerMask.GetMask("Player"));
         if (hitCount > 0 && !isAttack)
         {
-            StartCoroutine(Think());
+            StartCoroutine(AttackPlayer());
         }
     }
 
@@ -108,47 +125,20 @@ public class MinoPresenter : MonoBehaviour
         }
     }
 
-    public IEnumerator Think()
+    public IEnumerator AttackPlayer()
     {
-        yield return null;
+        //_animator.SetBool(Chase,false);
+        meleeArea.enabled = true;
         isChase = false;
         isAttack = true;
-        int ranAction = Random.Range(0, 2);
-
-        switch (ranAction)
-        {
-            case 0:
-
-                break;
-            
-            case 1:
-
-                break;
-            
-            case 2:
-
-                break;
-            
-        }
-        
+        _animator.SetBool(Attack,true);
+        yield return new WaitForSeconds(1.2f);
+        meleeArea.enabled = false;
         isAttack = false;
         isChase = true;
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,true);
         
-    }
-
-    private IEnumerator Pattern1()
-    {
-        yield return null;
-    }
-    
-    private IEnumerator Pattern2()
-    {
-        yield return null;
-    }
-    
-    private IEnumerator Pattern3()
-    {
-        yield return null;
     }
 
     public void TakeDamage(float damage)
@@ -172,18 +162,26 @@ public class MinoPresenter : MonoBehaviour
         else
         {
             StartCoroutine(OnDamage());
+            // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+            // {
+            //     mesh.material.DOColor(Color.red, 0.1f).SetDelay(0.1f).OnComplete(() =>
+            //     {
+            //         mesh.material.DOColor(_originalMeshRenderers[mesh], 0.1f);
+            //
+            //     });
+            // }
+            
+            
         }
-       
     }
-
-    public IEnumerator OnDamage()
+    
+    private IEnumerator OnDamage()
     {
-        _animator.SetTrigger(Hit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
         }
-
+        
         yield return new WaitForSeconds(0.1f);
         
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
@@ -191,18 +189,44 @@ public class MinoPresenter : MonoBehaviour
             mesh.material.color = _originalMeshRenderers[mesh];
         }
     }
+
+    // public IEnumerator OnDamage()
+    // {
+    //     isHit = true;
+    //     isChase = false;
+    //     isAttack = false;
+    //     _animator.SetBool(Hit,true);
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = Color.red;
+    //     }
+    //
+    //     yield return new WaitForSeconds(0.1f);
+    //     
+    //     foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    //     {
+    //         mesh.material.color = _originalMeshRenderers[mesh];
+    //     }
+    //     
+    //     yield return new WaitForSeconds(0.13f);
+    //     isHit = false;
+    //     isChase = true;
+    // }
     
     public void DieEnemy()
     {
         StopAllCoroutines();
         StartCoroutine(OnDie());
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyDead);
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,false);
         _animator.SetTrigger(Die);
         isChase = false;
         isAttack = false;
         isDead = true;
         _agent.enabled = false;
         _rb.isKinematic = true;
-        Destroy(gameObject,1f);
+        Destroy(gameObject,2f);
         int randomIndex = Random.Range(0, expStone.Length);
         Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
@@ -226,7 +250,7 @@ public class MinoPresenter : MonoBehaviour
             }
         }
         
-        //dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
+        // dissolveMaterial.DOFloat(1, "_DissolveAmount", 2);
        
         yield break;
     }
@@ -235,7 +259,7 @@ public class MinoPresenter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skill") && !isHit && !isDead) 
+        if(other.CompareTag("Skill") && !isHit && !isDead)
         {
             TakeDamage(10f);
         }
