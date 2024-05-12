@@ -129,11 +129,10 @@ public class ShieldPresenter : MonoBehaviour
                 _model.CurrentHp += 10;
                 _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
             }
-
-            if (isDead)
-            {
-                yield break;
-            }
+        }
+        if (isDead)
+        {
+            yield break;
         }
     }
 
