@@ -23,11 +23,13 @@ public class CreateRoom : MonoBehaviour
 
     private Room[,] rooms;
 
-    private int RoomMaxSize => roomCount * 2 + 1;
+    private int roomMaxSize;
 
     private IEnumerator Start()
     {
-        rooms = new Room[RoomMaxSize, RoomMaxSize];
+        roomMaxSize = roomCount * 2 + 1;
+
+        rooms = new Room[roomMaxSize, roomMaxSize];
         SettingRooms();
         Coroutine buildRoom = StartCoroutine(BuildRooms());
         Coroutine buildWall = StartCoroutine(BuildWalls());
@@ -103,9 +105,9 @@ public class CreateRoom : MonoBehaviour
 
     private IEnumerator BuildRooms()
     {
-        for (int z = 0; z < RoomMaxSize; z++)
+        for (int z = 0; z < roomMaxSize; z++)
         {
-            for (int x = 0; x < RoomMaxSize; x++)
+            for (int x = 0; x < roomMaxSize; x++)
             {
                 if (rooms[z, x] != null)
                 {
@@ -132,9 +134,9 @@ public class CreateRoom : MonoBehaviour
 
     private IEnumerator BuildWalls()
     {
-        for (int i = 0; i < RoomMaxSize; i++)
+        for (int i = 0; i < roomMaxSize; i++)
         {
-            for (int j = 1; j < RoomMaxSize; j++)
+            for (int j = 1; j < roomMaxSize; j++)
             {
                 int ipos = i - roomCount, jpos = j - roomCount;
 
