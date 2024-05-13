@@ -958,29 +958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2bb780d36544990a16c3840af63d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  maxHp: 40
-  currentHp: 40
-  damage: 20
-  EXPStone:
-  - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
-  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
-  - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
-  arrow: {fileID: 2180457666924325038, guid: 5d6bba849a50b4d929022f35f909a10c, type: 3}
-  bulletPos: {fileID: 1136141583}
-  target: {fileID: 553785882}
-  attackCollider: {fileID: 0}
-  hpBar: {fileID: 949861397}
-  hudDamageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
-    type: 3}
-  damageTextPos: {fileID: 20692342}
-  isChase: 0
-  isAttack: 0
-  isDead: 0
-  isHit: 0
-  isBack: 0
-  dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
-  meshRenderers: []
 --- !u!54 &454634465
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1079,7 +1056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &553785876
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1615,6 +1592,89 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &742835493
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 107443551944648380, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_Name
+      value: WarriorGoblin (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.1394124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.9500003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.55763817
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536414501940491503, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7030265924249091028, guid: f651d8dda45104f8798c95ce8d944476, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1129238674}
+  m_SourcePrefab: {fileID: 100100000, guid: f651d8dda45104f8798c95ce8d944476, type: 3}
 --- !u!1 &744436148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,7 +2021,6 @@ MonoBehaviour:
   - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
   - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
   - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
-  _view: {fileID: 0}
   dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
   isChase: 0
   isAttack: 0
@@ -2031,29 +2090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2bb780d36544990a16c3840af63d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
-  maxHp: 50
-  currentHp: 50
-  damage: 10
-  EXPStone:
-  - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
-  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
-  - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
-  arrow: {fileID: 0}
-  bulletPos: {fileID: 0}
-  target: {fileID: 553785882}
-  attackCollider: {fileID: 1168445737}
-  hpBar: {fileID: 1942336191}
-  hudDamageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
-    type: 3}
-  damageTextPos: {fileID: 981046380}
-  isChase: 0
-  isAttack: 0
-  isDead: 0
-  isHit: 0
-  isBack: 0
-  dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
-  meshRenderers: []
 --- !u!195 &826454203
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2437,6 +2473,39 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1129238673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476,
+    type: 3}
+  m_PrefabInstance: {fileID: 742835493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1129238674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129238673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39bbfc1845dd42ab9c94c645f4bc8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeArea: {fileID: 1262833772}
+  player: {fileID: 0}
+  data: {fileID: 11400000, guid: 985f1c29413734be18e3bbab3c0bad5a, type: 2}
+  expStone:
+  - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
+  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
+  - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
+  splitSlime: {fileID: 6486781396973249685, guid: 3efad0bf845c649809bd76cf885e6e2c,
+    type: 3}
+  dissolveMaterial: {fileID: 2100000, guid: a7f150f1233442e49846deb9c20f7e72, type: 2}
+  isChase: 0
+  isAttack: 0
+  isHit: 0
+  isDead: 0
+  isHeal: 0
 --- !u!1 &1133918126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,6 +2881,12 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!135 &1262833772 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 1198412442998589663, guid: f651d8dda45104f8798c95ce8d944476,
+    type: 3}
+  m_PrefabInstance: {fileID: 742835493}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1282163949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2966,6 +3041,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1466835487}
   m_CullTransparentMesh: 1
+--- !u!1001 &1686384219
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.13036649
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461217247258031500, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_Name
+      value: ShieldGoblin (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb84393b9b7af49f5957ea9f797e019f, type: 3}
 --- !u!1 &1792411823
 GameObject:
   m_ObjectHideFlags: 0
@@ -3583,29 +3731,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2bb780d36544990a16c3840af63d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
-  maxHp: 70
-  currentHp: 70
-  damage: 10
-  EXPStone:
-  - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
-  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
-  - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
-  arrow: {fileID: 0}
-  bulletPos: {fileID: 0}
-  target: {fileID: 553785882}
-  attackCollider: {fileID: 281650886}
-  hpBar: {fileID: 744436150}
-  hudDamageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
-    type: 3}
-  damageTextPos: {fileID: 238130209}
-  isChase: 0
-  isAttack: 0
-  isDead: 0
-  isHit: 0
-  isBack: 0
-  dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
-  meshRenderers: []
 --- !u!54 &1989928885
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4782,3 +4907,5 @@ SceneRoots:
   - {fileID: 6241803531706848953}
   - {fileID: 8466538171831901817}
   - {fileID: 398580402}
+  - {fileID: 742835493}
+  - {fileID: 1686384219}
