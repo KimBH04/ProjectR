@@ -16,6 +16,8 @@ public sealed class PlayerController : MonoBehaviour
     private Vector3 lastFixedPos;
     private Vector3 nextFixedPos;
 
+    private PlayerAnimator pAnimator;
+
     [Header("Objects")]
     [SerializeField] private Transform pointer;
     private Plane plane;
@@ -41,6 +43,8 @@ public sealed class PlayerController : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
+        pAnimator = GetComponentInChildren<PlayerAnimator>();
+
         plane = new Plane(transform.up, transform.position);
     }
 
@@ -58,6 +62,12 @@ public sealed class PlayerController : MonoBehaviour
         {
             Vector3 point = ray.GetPoint(enter);
             transform.LookAt(point);
+
+            Vector3 normal = (point - transform.position).normalized;
+            Vector3 nonInterMove = new Vector3(horizontal, 0f, vertical);
+            float dot = Vector3.Dot(normal, nonInterMove);
+
+            pAnimator.SetMovementValue(Vector3.Cross(normal, nonInterMove).y, dot);
 
             point.y += 0.1f;
             pointer.position = point;
