@@ -31,6 +31,7 @@ public class ArcherPresenter : MonoBehaviour
     public bool isClose;
     public bool isStart;
     public bool isHeal;
+    public bool isTingling;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Draw = Animator.StringToHash("Draw");
@@ -138,7 +139,7 @@ public class ArcherPresenter : MonoBehaviour
         RaycastHit[] rayHits = new RaycastHit[1];
         int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, 
             _model.TargetRange, LayerMask.GetMask("Player"));
-        if (hitCount > 0 && !isAttack && !isHit && !isDead)
+        if (hitCount > 0 && !isAttack && !isHit && !isDead && !isTingling)
         {
             StartCoroutine(AttackPlayer());
         }
@@ -162,10 +163,26 @@ public class ArcherPresenter : MonoBehaviour
     {
         _agent.speed -= speed;
     }
+    
+    public void Tingling()
+    { 
+        isTingling = true;
+        isAttack = false;
+        isChase = false;
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,false);
+    }
+    
+    public void EndTingling()
+    {
+        isTingling = false;
+        isChase = true;
+        _animator.SetBool(Chase,true);
+    }
 
     public IEnumerator AttackPlayer()
     {
-        if (!isClose && !isDead && !isHit && !isAttack)
+        if (!isClose && !isDead && !isHit && !isAttack && !isTingling)
         {
             _animator.SetBool(Chase, false);
             isChase = false;

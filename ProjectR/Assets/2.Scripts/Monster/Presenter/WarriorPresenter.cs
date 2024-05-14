@@ -27,6 +27,7 @@ public class WarriorPresenter : MonoBehaviour
     public bool isHit;
     public bool isDead;
     public bool isHeal;
+    public bool isTingling;
     
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Attack = Animator.StringToHash("Attack");
@@ -67,8 +68,8 @@ public class WarriorPresenter : MonoBehaviour
         // RaycastHit[] rayHits = Physics.SphereCastAll(transform.position, _model.TargetRadius, transform.forward, _model.TargetRange, LayerMask.GetMask("Player"));
         //
         // Debug.DrawRay(transform.position, transform.forward * _model.TargetRange, Color.red);
-        
-        if (_agent.enabled)
+
+        if (_agent.enabled && !isTingling) 
         {
             _agent.SetDestination(player.position);
             _agent.isStopped = !isChase;
@@ -108,6 +109,24 @@ public class WarriorPresenter : MonoBehaviour
         _agent.speed -= speed;
     }
 
+    public void Tingling()
+    { 
+        isTingling = true;
+        isAttack = false;
+        isChase = false;
+        _animator.SetBool(Attack,false);
+        _animator.SetBool(Chase,false);
+    }
+    
+    public void EndTingling()
+    {
+        isTingling = false;
+        isChase = true;
+        _animator.SetBool(Chase,true);
+    }
+    
+    
+
     private void ChaseStart()
     {
         isChase = true;
@@ -119,7 +138,7 @@ public class WarriorPresenter : MonoBehaviour
         RaycastHit[] rayHits = new RaycastHit[10];
         int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, 
             _model.TargetRange, LayerMask.GetMask("Player"));
-        if (hitCount > 0 && !isAttack)
+        if (hitCount > 0 && !isAttack && !isTingling)
         {
             StartCoroutine(AttackPlayer());
         }
@@ -143,6 +162,10 @@ public class WarriorPresenter : MonoBehaviour
         _animator.SetBool(Attack,true);
         yield return new WaitForSeconds(1.2f);
         meleeArea.enabled = false;
+        if (isTingling)
+        {
+            yield break;
+        }
         isAttack = false;
         isChase = true;
         _animator.SetBool(Attack,false);

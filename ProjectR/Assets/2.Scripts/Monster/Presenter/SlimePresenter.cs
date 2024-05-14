@@ -28,6 +28,7 @@ public class SlimePresenter : MonoBehaviour
     public bool isHit;
     public bool isDead;
     public bool isHeal;
+    public bool isTingling;
     
     // private static readonly int Idle = Animator.StringToHash("Idle");
     // private static readonly int Attack = Animator.StringToHash("Attack");

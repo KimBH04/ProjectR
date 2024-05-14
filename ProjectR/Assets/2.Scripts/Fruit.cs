@@ -31,7 +31,7 @@ public class Fruit : MonoBehaviour
                     StartCoroutine(Wind());
                     break;
                 case EType.Tingling:
-
+                    StartCoroutine(Tingling());
                     break;
             }
         }
@@ -81,21 +81,58 @@ public class Fruit : MonoBehaviour
             }
             else if (hitObj.transform.CompareTag("Archer"))
             {
-                hitObj.transform.GetComponent<WarriorPresenter>().SetSpeed(value);
+                hitObj.transform.GetComponent<ArcherPresenter>().SetSpeed(value);
                 head.SetActive(false);
                 yield return new WaitForSeconds(10f);
-                hitObj.transform.GetComponent<WarriorPresenter>().OriginSpeed(value);
+                hitObj.transform.GetComponent<ArcherPresenter>().OriginSpeed(value);
             }
             else if (hitObj.transform.CompareTag("Shield")) 
             {
-                hitObj.transform.GetComponent<WarriorPresenter>().SetSpeed(value);
+                hitObj.transform.GetComponent<ShieldPresenter>().SetSpeed(value);
                 head.SetActive(false);
                 yield return new WaitForSeconds(10f);
-                hitObj.transform.GetComponent<WarriorPresenter>().OriginSpeed(value);
+                hitObj.transform.GetComponent<ShieldPresenter>().OriginSpeed(value);
             }
             else if (hitObj.transform.CompareTag("Player")) 
             {
-                // hitObj.transform.GetComponent<PlayerController>().TakeDamage(10f);
+                
+            }
+        }
+        Destroy(gameObject);
+    }
+
+    private IEnumerator Tingling()
+    {
+        
+        int layerMask = LayerMask.GetMask("Enemy", "Player");
+        RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
+
+        foreach (RaycastHit hitObj in rayHits)
+        {
+            if (hitObj.transform.CompareTag("Warrior"))
+            {
+                hitObj.transform.GetComponent<WarriorPresenter>().Tingling();
+                head.SetActive(false);
+                yield return new WaitForSeconds(1f);
+                hitObj.transform.GetComponent<WarriorPresenter>().EndTingling();
+            }
+            else if (hitObj.transform.CompareTag("Archer"))
+            {
+                hitObj.transform.GetComponent<ArcherPresenter>().Tingling();
+                head.SetActive(false);
+                yield return new WaitForSeconds(1f);
+                hitObj.transform.GetComponent<ArcherPresenter>().EndTingling();
+            }
+            else if (hitObj.transform.CompareTag("Shield")) 
+            {
+                hitObj.transform.GetComponent<ShieldPresenter>().Tingling();
+                head.SetActive(false);
+                yield return new WaitForSeconds(1f);
+                hitObj.transform.GetComponent<ShieldPresenter>().EndTingling();
+            }
+            else if (hitObj.transform.CompareTag("Player")) 
+            {
+                
             }
         }
         Destroy(gameObject);
