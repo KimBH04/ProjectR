@@ -135,6 +135,16 @@ public class ShieldPresenter : MonoBehaviour
             yield break;
         }
     }
+    
+    public void SetSpeed(float speed)
+    {
+        _agent.speed += speed;
+    }
+
+    public void OriginSpeed(float speed)
+    {
+        _agent.speed -= speed;
+    }
 
     private void ChaseStart()
     {

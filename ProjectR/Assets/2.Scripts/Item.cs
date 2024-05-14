@@ -12,7 +12,6 @@ public class Item : MonoBehaviour
         Elixir,
         Shield,
         Exp,
-        Bomb
     }
     
     public EType type;
@@ -28,10 +27,7 @@ public class Item : MonoBehaviour
 
     private void Update()
     {
-        if (type != EType.Bomb)
-        {
             transform.Rotate(Vector3.up * 20 * Time.deltaTime);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,9 +56,6 @@ public class Item : MonoBehaviour
                     //other.GetComponent<PlayerController>().Exp += value;
                     Destroy(gameObject);
                     break;
-                case EType.Bomb:
-                    StartCoroutine(Explosion());
-                    break;
                 default:
                     print("????");
                     break;
@@ -70,32 +63,5 @@ public class Item : MonoBehaviour
         }
     }
 
-    private IEnumerator Explosion()
-    {
-        yield return new WaitForSeconds(1f);
-        int layerMask = LayerMask.GetMask("Enemy", "Player");
-        RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
-
-        foreach (RaycastHit hitObj in rayHits)
-        {
-            if (hitObj.transform.CompareTag("Warrior"))
-            {
-                hitObj.transform.GetComponent<WarriorPresenter>().TakeDamage(value);
-            }
-            else if (hitObj.transform.CompareTag("Archer"))
-            {
-                hitObj.transform.GetComponent<ArcherPresenter>().TakeDamage(value);
-            }
-            else if (hitObj.transform.CompareTag("Shield")) 
-            {
-                hitObj.transform.GetComponent<ShieldPresenter>().TakeDamage(value);
-            }
-            else if (hitObj.transform.CompareTag("Player")) 
-            {
-                // hitObj.transform.GetComponent<PlayerController>().TakeDamage(10f);
-            }
-        }
-        Destroy(gameObject);
-        
-    }
+    
 }

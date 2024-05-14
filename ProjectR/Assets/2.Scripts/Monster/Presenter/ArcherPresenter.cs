@@ -152,6 +152,16 @@ public class ArcherPresenter : MonoBehaviour
             _rb.angularVelocity = Vector3.zero;
         }
     }
+    
+    public void SetSpeed(float speed)
+    {
+        _agent.speed += speed;
+    }
+
+    public void OriginSpeed(float speed)
+    {
+        _agent.speed -= speed;
+    }
 
     public IEnumerator AttackPlayer()
     {
