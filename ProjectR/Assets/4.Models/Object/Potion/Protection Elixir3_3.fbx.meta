@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 1384bcf92a983104b8e63615adadc98d
+guid: c6edae6cdcfa1e446bf939162f2b7c3f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface3
+    second: {fileID: 2100000, guid: 20dbe5c26cb5a554f91c7d662f8a9822, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cork
+    second: {fileID: 2100000, guid: 53c3ce658457e3f48ba21f063c809379, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass_bottle
+    second: {fileID: 2100000, guid: bd369c71e2302c74e9a28617ecedf0dc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
