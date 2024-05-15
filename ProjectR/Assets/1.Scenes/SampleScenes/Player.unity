@@ -634,7 +634,7 @@ MonoBehaviour:
   level: 0
   atk: 0
   hp: 0
-  speed: 7
+  speed: 10
   skills:
   - skillObject: {fileID: 11400000, guid: 8572c5e7a30814e4fbe27354d80a6989, type: 2}
   pointer: {fileID: 2035836912}
@@ -1187,7 +1187,7 @@ Transform:
   m_GameObject: {fileID: 1429179792}
   serializedVersion: 2
   m_LocalRotation: {x: 0.61566144, y: 0, z: 0, w: 0.7880108}
-  m_LocalPosition: {x: 0, y: 14.34, z: -5.57}
+  m_LocalPosition: {x: 0, y: 24.75, z: -5.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
