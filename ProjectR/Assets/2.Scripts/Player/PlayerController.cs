@@ -116,7 +116,7 @@ public sealed class PlayerController : MonoBehaviour
 
         public SkillObject SkillObject => skillObject;
 
-        public bool AttackCoolDown { get; private set; }
+        public bool AttackCoolDown { get; private set; } = true;
 
         public IEnumerator[] GetDoSkill(Transform tr)
         {
