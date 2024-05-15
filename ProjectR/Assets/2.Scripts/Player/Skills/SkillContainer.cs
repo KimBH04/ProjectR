@@ -45,8 +45,6 @@ public class SkillContainer : SkillObject
     [SerializeField] private float coolTime = 1f;
 
     [Header("Trigger")]
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private float radius = 0.5f;
     [SerializeField] private DisableMode disableMode;
     [HideInInspector, SerializeField] private float disableTime;
     [HideInInspector, SerializeField] private SkillEffects.FX destroyFx;
@@ -95,6 +93,7 @@ public class SkillContainer : SkillObject
 
     public override IEnumerator PlaySkill(Transform tr)
     {
+        SkillEffects.Instance.PlayEffect(fx, tr.position, tr.rotation);
         switch (disableMode)
         {
             case DisableMode.Blink:

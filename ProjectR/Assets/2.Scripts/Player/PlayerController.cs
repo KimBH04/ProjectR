@@ -41,6 +41,11 @@ public sealed class PlayerController : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+
+        foreach (var skill in skills)
+        {
+            skill.SkillObject.Init();
+        }
     }
 
     private void Start()
@@ -99,9 +104,10 @@ public sealed class PlayerController : MonoBehaviour
             int idx = (int)context.ReadValue<float>();
             if (idx < skills.Length && skills[idx].AttackCoolDown)
             {
-                var routines = skills[idx].GetDoSkill(transform);
-                StartCoroutine(routines[0]);
-                StartCoroutine(routines[1]);
+                foreach (var routine in skills[idx].GetDoSkill(transform))
+                {
+                    StartCoroutine(routine);
+                }
 
                 pAnimator.PlayAttack(skills[idx].SkillObject.CurrentContainer.AnimationKey);
             }
@@ -120,11 +126,23 @@ public sealed class PlayerController : MonoBehaviour
 
         public IEnumerator[] GetDoSkill(Transform tr)
         {
-            return new IEnumerator[]
+            if (skillObject is ComboContainer)
             {
-                CoolDown(),
-                skillObject.PlaySkill(tr)
-            };
+                return new IEnumerator[]
+                {
+                    CoolDown(),
+                    skillObject.CurrentContainer.PlaySkill(tr), // 콤보 요소
+                    skillObject.PlaySkill(tr)                   // 콤보
+                };
+            }
+            else
+            {
+                return new IEnumerator[]
+                {
+                    CoolDown(),
+                    skillObject.PlaySkill(tr)                   // 단일 스킬
+                };
+            }
         }
 
         private IEnumerator CoolDown()

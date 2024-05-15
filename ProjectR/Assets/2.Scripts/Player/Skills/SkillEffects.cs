@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class SkillEffects : MonoBehaviour
     [SerializeField] private Transform[] effectsObjects;
 
     private readonly Dictionary<FX, (Transform, ParticleSystem)> effects = new Dictionary<FX, (Transform, ParticleSystem)>();
+    private static readonly Type FXTYPE = typeof(FX);
 
     private void Awake()
     {
@@ -16,7 +18,7 @@ public class SkillEffects : MonoBehaviour
         int effectsCnt = effectsObjects.Length;
         for (int i = 0; i < effectsCnt; i++)
         {
-            effects.Add((FX)i, (effectsObjects[i], effectsObjects[i].GetComponentInChildren<ParticleSystem>()));
+            effects.Add((FX)i, (effectsObjects[i], effectsObjects[i].GetComponentInChildren<ParticleSystem>(true)));
         }
     }
     
@@ -28,23 +30,22 @@ public class SkillEffects : MonoBehaviour
     /// <param name="rotation"> 이펙트 플레이 방향 </param>
     public void PlayEffect(FX fx, Vector3 position, Quaternion rotation)
     {
-        if (fx == FX.None)
+        if (fx == FX.None || !Enum.IsDefined(FXTYPE, fx))
         {
             return;
         }
 
         (Transform tr, ParticleSystem effect) = effects[fx];
+        tr.gameObject.SetActive(true);
         tr.SetPositionAndRotation(position, rotation);
         effect.Play(true);
     }
 
     public enum FX
     {
-        BasicSmash,
-        BasicHit,
-        FireBall,
-        Flash,
-        MeteoImpact,
+        Slash1,
+        Slash2,
+        Slash3,
         None
     }
 }

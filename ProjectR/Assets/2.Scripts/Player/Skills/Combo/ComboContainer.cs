@@ -22,7 +22,6 @@ public class ComboContainer : SkillObject
     public override IEnumerator PlaySkill(Transform tr)
     {
         timer = float.MinValue;
-        comboSkills[comboIndex].PlaySkill(tr);
         yield return new WaitForSeconds(comboSkills[comboIndex].CoolTime);
 
         comboIndex = (comboIndex + 1) % comboSkills.Length;
