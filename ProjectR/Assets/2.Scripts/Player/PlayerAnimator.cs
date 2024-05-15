@@ -25,4 +25,9 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetInteger(hashIndex, motionIndex);
         animator.SetTrigger(hashAttack);
     }
+
+    public void AttackEvent(SkillEffects.FX fx)
+    {
+        SkillEffects.Instance.SetEffectTransform(fx, transform.position, transform.rotation);
+    }
 }

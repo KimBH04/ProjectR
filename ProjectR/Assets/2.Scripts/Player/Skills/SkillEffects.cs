@@ -21,16 +21,17 @@ public class SkillEffects : MonoBehaviour
             effects.Add((FX)i, (effectsObjects[i], effectsObjects[i].GetComponentInChildren<ParticleSystem>(true)));
         }
     }
-    
+
     /// <summary>
-    /// 이펙트 플레이
+    /// 이펙트 플레이<br/>
+    /// 단순 위치 설정은 <see cref="SetEffectTransform(FX, Vector3, Quaternion)"/>을 사용하십시오
     /// </summary>
     /// <param name="fx"> 이펙트 종류 </param>
     /// <param name="position"> 이펙트 플레이 위치 </param>
     /// <param name="rotation"> 이펙트 플레이 방향 </param>
-    public void PlayEffect(FX fx, Vector3 position, Quaternion rotation)
+    public void PlayEffect(FX fx, Vector3 position = default, Quaternion rotation = default)
     {
-        if (fx == FX.None || !Enum.IsDefined(FXTYPE, fx))
+        if (fx == FX.None || !Enum.IsDefined(FXTYPE, fx) || !effects.ContainsKey(fx))
         {
             return;
         }
@@ -39,6 +40,12 @@ public class SkillEffects : MonoBehaviour
         tr.gameObject.SetActive(true);
         tr.SetPositionAndRotation(position, rotation);
         effect.Play(true);
+    }
+
+    public void SetEffectTransform(FX fx, Vector3 position, Quaternion rotation)
+    {
+        (Transform tr, _) = effects[fx];
+        tr.SetPositionAndRotation(position, rotation);
     }
 
     public enum FX

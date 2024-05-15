@@ -131,8 +131,8 @@ public sealed class PlayerController : MonoBehaviour
                 return new IEnumerator[]
                 {
                     CoolDown(),
-                    skillObject.CurrentContainer.PlaySkill(tr), // 콤보 요소
-                    skillObject.PlaySkill(tr)                   // 콤보
+                    skillObject.CurrentContainer.PlaySkill(), // 콤보 요소
+                    skillObject.PlaySkill()                   // 콤보
                 };
             }
             else
@@ -140,7 +140,7 @@ public sealed class PlayerController : MonoBehaviour
                 return new IEnumerator[]
                 {
                     CoolDown(),
-                    skillObject.PlaySkill(tr)                   // 단일 스킬
+                    skillObject.PlaySkill()                   // 단일 스킬
                 };
             }
         }

@@ -91,9 +91,9 @@ public class SkillContainer : SkillObject
 
     public override SkillContainer CurrentContainer => this;
 
-    public override IEnumerator PlaySkill(Transform tr)
+    public override IEnumerator PlaySkill()
     {
-        SkillEffects.Instance.PlayEffect(fx, tr.position, tr.rotation);
+        SkillEffects.Instance.PlayEffect(fx);
         switch (disableMode)
         {
             case DisableMode.Blink:

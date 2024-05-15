@@ -13,5 +13,5 @@ public abstract class SkillObject : ScriptableObject
         // todo in child
     }
 
-    public abstract IEnumerator PlaySkill(Transform tr);
+    public abstract IEnumerator PlaySkill();
 }
