@@ -4,8 +4,10 @@ public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
 
-    private readonly int hashX = Animator.StringToHash("X");
-    private readonly int hashY = Animator.StringToHash("Y");
+    private readonly int hashX = Animator.StringToHash("X"),
+                         hashY = Animator.StringToHash("Y"),
+                         hashAttack = Animator.StringToHash("Attack"),
+                         hashIndex = Animator.StringToHash("Motion Index");
 
     private void Start()
     {
@@ -16,5 +18,11 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetFloat(hashX, x);
         animator.SetFloat(hashY, y);
+    }
+
+    public void PlayAttack(int motionIndex)
+    {
+        animator.SetInteger(hashIndex, motionIndex);
+        animator.SetTrigger(hashAttack);
     }
 }
