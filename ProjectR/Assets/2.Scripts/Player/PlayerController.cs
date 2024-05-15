@@ -113,13 +113,10 @@ public sealed class PlayerController : MonoBehaviour
     private class Skill
     {
         [SerializeField] private SkillObject skillObject;
-        [SerializeField] private Vector3 colliderScale;
-
-        private bool attackCoolDown = true;
 
         public SkillObject SkillObject => skillObject;
 
-        public bool AttackCoolDown => attackCoolDown;
+        public bool AttackCoolDown { get; private set; }
 
         public IEnumerator[] GetDoSkill(Transform tr)
         {
@@ -132,9 +129,9 @@ public sealed class PlayerController : MonoBehaviour
 
         private IEnumerator CoolDown()
         {
-            attackCoolDown = false;
+            AttackCoolDown = false;
             yield return new WaitForSeconds(skillObject.CurrentContainer.CoolTime);
-            attackCoolDown = true;
+            AttackCoolDown = true;
         }
     }
 }
