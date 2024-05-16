@@ -103,7 +103,7 @@ public class CreateRoom : MonoBehaviour
             }
         }
 
-        var makingShop = rooms.Cast<Room>().Where(x => x != null && x.depth > 1).ToArray();
+        var makingShop = rooms.Cast<Room>().Where(x => x != null && x.depth > 1 && x.type != Room.RoomType.Boss).ToArray();
         makingShop[Random.Range(0, makingShop.Length)].type = Room.RoomType.Shop;
 
         bossRoom.type = Room.RoomType.Boss;
