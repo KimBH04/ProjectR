@@ -17,7 +17,7 @@ MonoBehaviour:
   destroyClip: {fileID: 0}
   animationKey: 1
   atk: 10
-  coolTime: 0.75
+  coolTime: 0.5
   disableMode: 0
   disableTime: 0
   destroyFx: 0
