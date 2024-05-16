@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,7 +9,6 @@ public class CreateRoom : MonoBehaviour
     [SerializeField, Min(2)] private int roomCount = 10;
     [Space]
     [SerializeField] private Vector3 standardScale = Vector3.one;
-    [SerializeField] private float padding = 1f;
 
     [Header("Objects")]
     [SerializeField] private GameObject startRoom;
@@ -23,14 +23,38 @@ public class CreateRoom : MonoBehaviour
 
     private Room[,] rooms;
 
-    private void Start()
+    private int roomMaxSize;
+
+    private IEnumerator Start()
     {
-        rooms = new Room[roomCount * 2 + 1, roomCount * 2 + 1];
-        SettingRooms();
-        BuildRooms();
+        roomMaxSize = roomCount * 2 + 1;
+        rooms = new Room[roomMaxSize, roomMaxSize];
+
+        float startTime = Time.time;
+        Application.targetFrameRate = 1000;
+
+        yield return StartCoroutine(SettingRooms());
+
+        Coroutine buildWall = StartCoroutine(BuildWalls());
+        Coroutine buildRoom = StartCoroutine(BuildRooms());
+        yield return buildWall;
+        yield return buildRoom; // 대기
+
+        Application.targetFrameRate = 60;
+        Debug.Log($"Total {Time.time - startTime}'s");
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = Vector3.up;
+        }
+        else
+        {
+            Debug.Log("It is debugging mode");
+        }
     }
 
-    private void SettingRooms()
+    private IEnumerator SettingRooms()
     {   //                              left     up      right   down
         (int r, int c)[] directions = { (0, -1), (1, 0), (0, 1), (-1, 0) };
 
@@ -74,6 +98,7 @@ public class CreateRoom : MonoBehaviour
             }
             else
             {
+                yield return null;
                 goto ReTry;
             }
         }
@@ -84,11 +109,11 @@ public class CreateRoom : MonoBehaviour
         bossRoom.type = Room.RoomType.Boss;
     }
 
-    private void BuildRooms()
+    private IEnumerator BuildRooms()
     {
-        for (int z = roomCount * 2; z >= 0; z--)
+        for (int z = 0; z < roomMaxSize; z++)
         {
-            for (int x = roomCount * 2; x >= 0; x--)
+            for (int x = 0; x < roomMaxSize; x++)
             {
                 if (rooms[z, x] != null)
                 {
@@ -103,10 +128,76 @@ public class CreateRoom : MonoBehaviour
                             _ => throw new UnityException($"Uknown Room Type: {xpos} {zpos}")
                         },
                         new Vector3(
-                            xpos * 10 * standardScale.x + xpos * padding,
+                            xpos * 10f * standardScale.x,
                             0f, // 10 : Default plane size
-                            zpos * 10 * standardScale.z + zpos * padding),
+                            zpos * 10f * standardScale.z),
                         Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
+                    yield return null;
+                }
+            }
+        }
+    }
+
+    private IEnumerator BuildWalls()
+    {
+        for (int i = 0; i < roomMaxSize; i++)
+        {
+            for (int j = 1; j < roomMaxSize; j++)
+            {
+                int ipos = i - roomCount, jpos = j - roomCount;
+
+                // i = x, j = z
+                if (rooms[j, i] == null)
+                {
+                    if (rooms[j - 1, i] != null)
+                    {
+                        Instantiate(
+                            blockedHorizontalWall,
+                            new Vector3(
+                                ipos * 10f * standardScale.x,
+                                0f,
+                                jpos * 10f * standardScale.z - standardScale.z * 5f),
+                            Quaternion.identity);
+                        yield return null;
+                    }
+                }
+                else
+                {
+                    Instantiate(
+                        rooms[j, i][Room.DOWN] == null ? blockedHorizontalWall : openedHorizontalWall,
+                        new Vector3(
+                            ipos * 10f * standardScale.x,
+                            0f,
+                            jpos * 10f * standardScale.z - standardScale.z * 5f),
+                        Quaternion.identity);
+                    yield return null;
+                }
+
+                // i = z, j = x
+                if (rooms[i, j] == null)
+                {
+                    if (rooms[i, j - 1] != null)
+                    {
+                        Instantiate(
+                            blockedVerticalWall,
+                            new Vector3(
+                                jpos * 10f * standardScale.x - standardScale.x * 5f,
+                                0f,
+                                ipos * 10f * standardScale.z),
+                            Quaternion.identity);
+                        yield return null;
+                    }
+                }
+                else
+                {
+                    Instantiate(
+                        rooms[i, j][Room.LEFT] == null ? blockedVerticalWall : openedVerticalWall,
+                        new Vector3(
+                            jpos * 10f * standardScale.x - standardScale.x * 5f,
+                            0f,
+                            ipos * 10f * standardScale.z),
+                        Quaternion.identity);
+                    yield return null;
                 }
             }
         }
