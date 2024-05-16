@@ -53,12 +53,12 @@ public sealed class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         pAnimator = GetComponentInChildren<PlayerAnimator>();
-
-        plane = new Plane(transform.up, transform.position);
     }
 
     private void Update()
     {
+        plane = new Plane(transform.up, transform.position);
+
         //movement
 #pragma warning disable UNT0004 // Time.fixedDeltaTime used with Update
         float interpolation = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
