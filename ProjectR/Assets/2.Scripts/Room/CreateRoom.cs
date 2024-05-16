@@ -1,117 +1,75 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CreateRoom : MonoBehaviour
 {
     [Header("Value settings")]
-    [SerializeField] private int roomCount = 10;
+    [SerializeField, Min(2)] private int roomCount = 10;
     [Space]
-    [SerializeField] private Vector3 roomScale = Vector3.one;
-    //[SerializeField] private Vector3 roadScale = Vector3.one;
+    [SerializeField] private Vector3 standardScale = Vector3.one;
     [SerializeField] private float padding = 1f;
 
     [Header("Objects")]
-    [SerializeField] private GameObject roomObject;
-    //[SerializeField] private GameObject roadObject;
+    [SerializeField] private GameObject startRoom;
+    [SerializeField] private GameObject battleRoom;
+    [SerializeField] private GameObject bossRoom;
+    [SerializeField] private GameObject shopRoom;
     [Space]
     [SerializeField] private GameObject openedVerticalWall;
     [SerializeField] private GameObject blockedVerticalWall;
     [SerializeField] private GameObject openedHorizontalWall;
     [SerializeField] private GameObject blockedHorizontalWall;
 
-    private List<RoomData> roomDatas;
+    private Room[,] rooms;
 
     private void Start()
     {
-        roomObject.transform.localScale = roomScale;
-        //roadObject.transform.localScale = roadScale;
-
-        CreateRooms();
-        CreateWalls();
+        rooms = new Room[roomCount * 2 + 1, roomCount * 2 + 1];
+        SettingRooms();
+        BuildRooms();
     }
 
-    private void CreateRooms()
-    {
-        // 처음 방 생성
-        GameObject obj = Instantiate(roomObject);
-        obj.name = "StartRoom";
+    private void SettingRooms()
+    {   //                              left     up      right   down
+        (int r, int c)[] directions = { (0, -1), (1, 0), (0, 1), (-1, 0) };
 
-        RoomData startRoom = obj.GetComponent<RoomData>();
-        startRoom.type = RoomType.Start;
-
-        // 위치 중복 방지
-        bool[,] visited = new bool[roomCount * 2 + 1, roomCount * 2 + 1];
-        visited[roomCount, roomCount] = true;
-
-        (int x, int z)[] directions = { (-1, 0), (0, 1), (1, 0), (0, -1) };
-
-        //두 번 째 방 생성
-        int rand = Random.Range(0, 3);
-        RoomData nextRoom = Instantiate(roomObject,
-            new Vector3(
-                directions[rand].x * roomScale.x * 10 + directions[rand].x * padding,
-                0f,
-                directions[rand].z * roomScale.z * 10 + directions[rand].z * padding),
-            Quaternion.identity)
-            .GetComponent<RoomData>();
-        startRoom.ConnectRoom(nextRoom, (Direction)rand);
-        nextRoom.depth = 1;
-
-        // 방과 방 사이 길 생성
-        //Instantiate(roadObject,
-        //    (startRoom.transform.position + nextRoom.transform.position) / 2f,
-        //    Quaternion.identity);
-
-        visited[roomCount + directions[rand].x, roomCount + directions[rand].z] = true;
-
-        // 처음 생성된 방과 방 위치
-        roomDatas = new List<RoomData>(roomCount) { startRoom, nextRoom };
-        List<(int r, int c)> roomPositions = new List<(int r, int c)>()
+        Room start = rooms[roomCount, roomCount] = new Room()
         {
-            (roomCount, roomCount),                                             // start
-            (roomCount + directions[rand].x, roomCount + directions[rand].z)    // next
+            type = Room.RoomType.Start
         };
 
-        // 보스방 생성하기
-        RoomData bossRoom = nextRoom;
-        int maxDepth = 0;
+        int dir = Random.Range(0, 3);
+        var (r, c) = (roomCount + directions[dir].r, roomCount + directions[dir].c);
+        start.ConnectRoom(
+            rooms[r, c] = new Room()
+            {
+                depth = 1
+            },
+            dir);
 
-        for (int max = 2; max < roomCount; max++)
+        int maxDepth = 0;
+        Room bossRoom = rooms[r, c];
+        List<(int, int)> roomPositions = new List<(int, int)> { (r, c) };
+        for (int cnt = 1; cnt < roomCount; cnt++)
         {
-            RoomData newRoom = Instantiate(roomObject).GetComponent<RoomData>();
+            Room newRoom = new Room();
 
         ReTry:
-            int randIdx = Random.Range(1, max);
-            int randDir = Random.Range(0, 4);
-
-            var (x, z) = roomPositions[randIdx];
-            RoomData anyRoom = roomDatas[randIdx];
-
-            if (!visited[x + directions[randDir].x, z + directions[randDir].z] &&
-                anyRoom.ConnectRoom(newRoom, (Direction)randDir))
+            int ranidx = Random.Range(0, cnt);
+            int randir = Random.Range(0, 4);
+            var (ranrow, rancol) = roomPositions[ranidx];
+            var (nextRow, nextCol) = (ranrow + directions[randir].r, rancol + directions[randir].c);
+            if (rooms[nextRow, nextCol] == null && rooms[ranrow, rancol].ConnectRoom(newRoom, randir))
             {
-                roomDatas.Add(newRoom);
-                roomPositions.Add((x + directions[randDir].x, z + directions[randDir].z));
+                rooms[nextRow, nextCol] = newRoom;
+                newRoom.depth = rooms[ranrow, rancol].depth + 1;
+                roomPositions.Add((nextRow, nextCol));
 
-                visited[x + directions[randDir].x, z + directions[randDir].z] = true;
-
-                // 방 위치 지정
-                newRoom.transform.position = anyRoom.transform.position +
-                    new Vector3(
-                        directions[randDir].x * roomScale.x * 10 + directions[randDir].x * padding,
-                        0f,
-                        directions[randDir].z * roomScale.z * 10 + directions[randDir].z * padding);
-
-                // 방과 방 사이 길 생성
-                //Instantiate(roadObject,
-                //    (newRoom.transform.position + anyRoom.transform.position) / 2f,
-                //    Quaternion.identity);
-
-                newRoom.depth = anyRoom.depth + 1;
-                if (maxDepth < newRoom.depth)
+                if (maxDepth <= newRoom.depth)
                 {
-                    bossRoom = newRoom;
                     maxDepth = newRoom.depth;
+                    bossRoom = newRoom;
                 }
             }
             else
@@ -120,47 +78,36 @@ public class CreateRoom : MonoBehaviour
             }
         }
 
-        bossRoom.type = RoomType.Boss;
+        var makingShop = rooms.Cast<Room>().Where(x => x != null && x.depth > 1).ToArray();
+        makingShop[Random.Range(0, makingShop.Length)].type = Room.RoomType.Shop;
+
+        bossRoom.type = Room.RoomType.Boss;
     }
 
-    private void CreateWalls()
+    private void BuildRooms()
     {
-        foreach (RoomData room in roomDatas)
+        for (int z = roomCount * 2; z >= 0; z--)
         {
-            if (room.ConnectedLeft)
+            for (int x = roomCount * 2; x >= 0; x--)
             {
-                Instantiate(openedVerticalWall, room.transform.position, Quaternion.Euler(0f, 180f, 0f));
-            }
-            else
-            {
-                Instantiate(blockedVerticalWall, room.transform.position, Quaternion.Euler(0f, 180f, 0f));
-            }
-
-            if (room.ConnectedUp)
-            {
-                Instantiate(openedHorizontalWall, room.transform.position, Quaternion.Euler(0f, 180f, 0f));
-            }
-            else
-            {
-                Instantiate(blockedHorizontalWall, room.transform.position, Quaternion.Euler(0f, 180f, 0f));
-            }
-
-            if (room.ConnectedRight)
-            {
-                Instantiate(openedVerticalWall, room.transform.position, Quaternion.identity);
-            }
-            else
-            {
-                Instantiate(blockedVerticalWall, room.transform.position, Quaternion.identity);
-            }
-
-            if (room.ConnectedDown)
-            {
-                Instantiate(openedHorizontalWall, room.transform.position, Quaternion.identity);
-            }
-            else
-            {
-                Instantiate(blockedHorizontalWall, room.transform.position, Quaternion.identity);
+                if (rooms[z, x] != null)
+                {
+                    int xpos = x - roomCount, zpos = z - roomCount;
+                    Instantiate(
+                        rooms[z, x].type switch
+                        {
+                            Room.RoomType.Start => startRoom,
+                            Room.RoomType.Battle => battleRoom,
+                            Room.RoomType.Shop => shopRoom,
+                            Room.RoomType.Boss => bossRoom,
+                            _ => throw new UnityException($"Uknown Room Type: {xpos} {zpos}")
+                        },
+                        new Vector3(
+                            xpos * 10 * standardScale.x + xpos * padding,
+                            0f, // 10 : Default plane size
+                            zpos * 10 * standardScale.z + zpos * padding),
+                        Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
+                }
             }
         }
     }

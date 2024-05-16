@@ -1,86 +1,76 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RoomData : MonoBehaviour
+{
+    [SerializeField] private GameObject mapDisplay;
+    [SerializeField] private MeshRenderer displayMesh;
+    private Room data;
+
+    private bool visited = false;
+
+    public Room Data
+    {
+        get
+        {
+            return data;
+        }
+        set
+        {
+            data = value;
+            data.mapDisplay = mapDisplay;
+            data.MovedHere.AddListener(() =>
+            {
+                displayMesh.material.color = Color.white;
+            });
+        }
+    }
+
+    public void MovedHere()
+    {
+        if (visited)
+        {
+            return;
+        }
+        data.MovedHere.Invoke();
+        visited = true;
+    }
+}
+
+public class Room
 {
     public RoomType type = RoomType.Battle;
     public int depth = 0;
 
-    private RoomData left;
-    private RoomData up;
-    private RoomData right;
-    private RoomData down;
+    public UnityEvent MovedHere = new UnityEvent();
+    public GameObject mapDisplay;
 
-    public bool ConnectedLeft => left != null;
-    public bool ConnectedUp => up != null;
-    public bool ConnectedRight => right != null;
-    public bool ConnectedDown => down != null;
+    private readonly Room[] dirForRooms = new Room[4];
 
     /// <summary>
-    /// 방과 방끼리 연결하기
+    /// 방향 인덱스
     /// </summary>
-    /// <param name="room"></param>
-    /// <param name="dir"></param>
-    /// <returns></returns>
-    public bool ConnectRoom(RoomData room, Direction dir)
+    public const int LEFT = 0,
+                     UP = 1,
+                     RIGHT = 2,
+                     DOWN = 3;
+
+    public bool ConnectRoom(Room to, int dir)
     {
-        switch (dir)
+        if (dirForRooms[dir] == null)
         {
-            case Direction.Left:
-                if (left != null)
-                {
-                    return false;
-                }
-
-                left = room;
-                room.right = this;
-                break;
-
-            case Direction.Up:
-                if (up != null)
-                {
-                    return false;
-                }
-
-                up = room;
-                room.down = this;
-                break;
-
-            case Direction.Right:
-                if (right != null)
-                {
-                    return false;
-                }
-
-                right = room;
-                room.left = this;
-                break;
-
-            case Direction.Down:
-                if (down != null)
-                {
-                    return false;
-                }
-
-                down = room;
-                room.up = this;
-                break;
+            dirForRooms[dir] = to;
+            MovedHere.AddListener(() => to.mapDisplay.SetActive(true));
+            return true;
         }
-        return true;
+        return false;
     }
-}
 
-public enum RoomType
-{
-    Start,
-    Battle,
-    Shop,
-    Boss
-}
-
-public enum Direction
-{
-    Left,
-    Up,
-    Right,
-    Down,
+    public enum RoomType
+    {
+        Start,
+        Battle,
+        Shop,
+        Boss
+    }
 }

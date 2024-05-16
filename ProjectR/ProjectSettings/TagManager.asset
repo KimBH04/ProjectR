@@ -10,6 +10,7 @@ TagManager:
   - Archer
   - Shield
   - CameraCall
+  - Mino
   layers:
   - Default
   - TransparentFX
@@ -41,7 +42,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Map
   - Plane
   m_SortingLayers:
   - name: Default
