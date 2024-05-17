@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public sealed class PlayerController : MonoBehaviour
@@ -12,6 +13,8 @@ public sealed class PlayerController : MonoBehaviour
     [Space]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float dodgeCoolTime;
+
+    private float speedScale = 1f;
 
     private bool isDodge;
     private bool isDodgeCoolDown = true;
@@ -53,6 +56,10 @@ public sealed class PlayerController : MonoBehaviour
         foreach (var skill in skills)
         {
             skill.SkillObject.Init();
+            skill.AttackEndedEvent.AddListener(() =>
+            {
+                speedScale = 1f;
+            });
         }
     }
 
@@ -102,7 +109,7 @@ public sealed class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         lastFixedPos = nextFixedPos;
-        nextFixedPos = speed * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
+        nextFixedPos = speed * speedScale * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
     }
 
     #region New Input Systems
@@ -120,6 +127,8 @@ public sealed class PlayerController : MonoBehaviour
             int idx = (int)context.ReadValue<float>();
             if (idx < skills.Length && skills[idx].AttackCoolDown)
             {
+                speedScale = 0.5f;
+
                 foreach (var routine in skills[idx].GetDoSkill())
                 {
                     StartCoroutine(routine);
@@ -196,6 +205,8 @@ public sealed class PlayerController : MonoBehaviour
     {
         [SerializeField] private SkillObject skillObject;
 
+        [HideInInspector] public UnityEvent AttackEndedEvent;
+
         public SkillObject SkillObject => skillObject;
 
         public bool AttackCoolDown { get; private set; } = true;
@@ -226,6 +237,7 @@ public sealed class PlayerController : MonoBehaviour
             AttackCoolDown = false;
             yield return new WaitForSeconds(skillObject.CurrentContainer.CoolTime);
             AttackCoolDown = true;
+            AttackEndedEvent.Invoke();
         }
     }
 }
