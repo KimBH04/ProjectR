@@ -7,7 +7,8 @@ public class PlayerAnimator : MonoBehaviour
     private readonly int hashX = Animator.StringToHash("X"),
                          hashY = Animator.StringToHash("Y"),
                          hashAttack = Animator.StringToHash("Attack"),
-                         hashIndex = Animator.StringToHash("Motion Index");
+                         hashIndex = Animator.StringToHash("Motion Index"),
+                         hashDodge = Animator.StringToHash("Dodge");
 
     private void Start()
     {
@@ -29,5 +30,10 @@ public class PlayerAnimator : MonoBehaviour
     public void AttackEvent(SkillEffects.FX fx)
     {
         SkillEffects.Instance.SetEffectTransform(fx, transform.position, transform.rotation);
+    }
+
+    public void PlayDodge()
+    {
+        animator.SetTrigger(hashDodge);
     }
 }

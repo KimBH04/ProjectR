@@ -9,6 +9,14 @@ public sealed class PlayerController : MonoBehaviour
     [SerializeField] private int atk;
     [SerializeField] private int hp;
     [SerializeField] private float speed;
+    [Space]
+    [SerializeField] private float dodgeForce;
+    [SerializeField] private float dodgeCoolTime;
+
+    private bool isDodge;
+    private bool isDodgeCoolDown = true;
+    private float rotationScale = 1f;
+    private Quaternion dodgeRotate;
 
     private CharacterController controller;
     private float horizontal;
@@ -59,24 +67,32 @@ public sealed class PlayerController : MonoBehaviour
     {
         plane = new Plane(transform.up, transform.position);
 
-        //movement
+        if (!isDodge)
+        {
+            //movement
 #pragma warning disable UNT0004 // Time.fixedDeltaTime used with Update
-        float interpolation = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
+            float interpolation = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
 #pragma warning restore UNT0004 // Time.fixedDeltaTime used with Update
-        controller.Move(Vector3.Lerp(lastFixedPos, nextFixedPos, interpolation));
+            controller.Move(Vector3.Lerp(lastFixedPos, nextFixedPos, interpolation));
+        }
 
         //rotation
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (plane.Raycast(ray, out float enter))
         {
             Vector3 point = ray.GetPoint(enter);
-            transform.LookAt(point);
 
-            Vector3 normal = (point - transform.position).normalized;
-            Vector3 nonInterMove = new Vector3(horizontal, 0f, vertical);
-            float dot = Vector3.Dot(normal, nonInterMove);
+            if (!isDodge)
+            {
+                Quaternion rotation = Quaternion.LookRotation(point - transform.position);
+                transform.rotation = Quaternion.Lerp(dodgeRotate, rotation, rotationScale);
 
-            pAnimator.SetMovementValue(Vector3.Cross(normal, nonInterMove).y, dot);
+                Vector3 normal = (point - transform.position).normalized;
+                Vector3 nonInterMove = new Vector3(horizontal, 0f, vertical);
+                float dot = Vector3.Dot(normal, nonInterMove);
+
+                pAnimator.SetMovementValue(Vector3.Cross(normal, nonInterMove).y, dot);
+            }
 
             point.y += 0.1f;
             pointer.position = point;
@@ -104,7 +120,7 @@ public sealed class PlayerController : MonoBehaviour
             int idx = (int)context.ReadValue<float>();
             if (idx < skills.Length && skills[idx].AttackCoolDown)
             {
-                foreach (var routine in skills[idx].GetDoSkill(transform))
+                foreach (var routine in skills[idx].GetDoSkill())
                 {
                     StartCoroutine(routine);
                 }
@@ -113,7 +129,67 @@ public sealed class PlayerController : MonoBehaviour
             }
         }
     }
+
+    public void OnDodge(InputAction.CallbackContext context)
+    {
+        if (context.started && isDodgeCoolDown && (horizontal != 0f || vertical != 0f))
+        {
+            isDodge = true;
+            isDodgeCoolDown = false;
+            rotationScale = 0f;
+
+            pAnimator.PlayDodge();
+
+            StartCoroutine(Dodge(transform.position + (new Vector3(horizontal, 0f, vertical) * dodgeForce), 0.3f));
+            StartCoroutine(DodgeCoolTime());
+        }
+    }
     #endregion
+
+    private IEnumerator Dodge(Vector3 endPos, float time)
+    {
+        transform.LookAt(endPos);
+        dodgeRotate = transform.rotation;
+
+        Vector3 startPos = transform.position;
+
+        // dodge
+        float currentTime = 0f;
+        while (currentTime < time)
+        {
+            controller.Move(Time.deltaTime / time * (endPos - startPos));
+            currentTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        // roll
+        var (newStartPos, newEndPos) = (endPos, (endPos - startPos).normalized * 3f + endPos);
+        currentTime = 0f;
+        while (currentTime < 0.5f)
+        {
+            controller.Move(4f * Time.deltaTime * (newEndPos - newStartPos));
+            currentTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        isDodge = false;
+        
+        // 구르기 끝났을 때 마우스 부드럽게 바라보기
+        while (rotationScale < 1f)
+        {
+            rotationScale += Time.deltaTime * 3f;
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator DodgeCoolTime()
+    {
+        yield return new WaitForSeconds(dodgeCoolTime);
+        isDodgeCoolDown = true;
+    }
 
     [System.Serializable]
     private class Skill
@@ -124,7 +200,7 @@ public sealed class PlayerController : MonoBehaviour
 
         public bool AttackCoolDown { get; private set; } = true;
 
-        public IEnumerator[] GetDoSkill(Transform tr)
+        public IEnumerator[] GetDoSkill()
         {
             if (skillObject is ComboContainer)
             {
