@@ -140,7 +140,7 @@ public sealed class PlayerController : MonoBehaviour
 
             pAnimator.PlayDodge();
 
-            StartCoroutine(Dodge(transform.position + (new Vector3(horizontal, 0f, vertical) * dodgeForce), 0.3f));
+            StartCoroutine(Dodge(transform.position + (new Vector3(horizontal, 0f, vertical).normalized * dodgeForce), 0.3f));
             StartCoroutine(DodgeCoolTime());
         }
     }

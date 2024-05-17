@@ -53,7 +53,8 @@ MonoBehaviour:
   atk: 0
   hp: 0
   speed: 10
-  dodgeForce: 0
+  dodgeForce: 10
+  dodgeCoolTime: 5
   skills:
   - skillObject: {fileID: 11400000, guid: 8572c5e7a30814e4fbe27354d80a6989, type: 2}
   pointer: {fileID: 5981265809767224211}
@@ -169,7 +170,19 @@ MonoBehaviour:
     m_ActionId: 04a1b1f8-153f-46b0-88b8-9b6426565260
     m_ActionName: Control/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 420812699091083851}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnDodge
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 3d8f470d-7caf-4c85-ae0c-7a1ed167d7d3
     m_ActionName: Control/Roll[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
