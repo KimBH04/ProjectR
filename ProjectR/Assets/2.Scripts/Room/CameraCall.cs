@@ -6,7 +6,7 @@ public class CameraCall : MonoBehaviour
     [SerializeField] private Transform cameraPos;
     private RoomData roomData;
 
-    private void Awake()
+    private void Start()
     {
         roomData = GetComponentInParent<RoomData>();
     }

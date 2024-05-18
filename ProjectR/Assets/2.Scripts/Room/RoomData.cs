@@ -5,6 +5,9 @@ public class RoomData : MonoBehaviour
 {
     [SerializeField] private GameObject mapDisplay;
     [SerializeField] private MeshRenderer displayMesh;
+
+    [SerializeField] private WaveContainer[] waves;
+
     private Room data;
 
     private bool visited = false;
@@ -19,10 +22,20 @@ public class RoomData : MonoBehaviour
         {
             data = value;
             data.mapDisplay = mapDisplay;
-            data.MovedHere.AddListener(() =>
+            data.movedHere.AddListener(() =>
             {
                 displayMesh.material.color = Color.white;
             });
+
+            if (data.type == Room.RoomType.Battle && waves.Length > 0)
+            {
+                WaveContainer waveContainer = waves[Random.Range(0, waves.Length)];
+                for (int i = 0; i < waveContainer.Count; i++)
+                {
+                    int index = i;  // handling variable capture
+                    data.movedHere.AddListener(() => Instantiate(waveContainer[index], transform.position, Quaternion.identity));
+                }
+            }
         }
     }
 
@@ -32,7 +45,7 @@ public class RoomData : MonoBehaviour
         {
             return;
         }
-        data.MovedHere.Invoke();
+        data.movedHere.Invoke();
         visited = true;
     }
 }
@@ -42,7 +55,7 @@ public class Room
     public RoomType type = RoomType.Battle;
     public int depth = 0;
 
-    public UnityEvent MovedHere = new UnityEvent();
+    public UnityEvent movedHere = new UnityEvent();
     public GameObject mapDisplay;
 
     private readonly Room[] dirForRooms = new Room[4];
@@ -69,7 +82,7 @@ public class Room
         {
             dirForRooms[dir] = to;
             to.dirForRooms[(dir + 2) % 4] = this; 
-            MovedHere.AddListener(() => to.mapDisplay.SetActive(true));
+            movedHere.AddListener(() => to.mapDisplay.SetActive(true));
             return true;
         }
         return false;
