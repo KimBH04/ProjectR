@@ -72,7 +72,7 @@ public sealed class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        plane = new Plane(transform.up, transform.position);
+        plane = new Plane(Vector3.up, transform.position);
 
         if (!isDodge)
         {
