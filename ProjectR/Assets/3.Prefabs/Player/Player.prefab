@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8414330493695897125}
   - component: {fileID: 9090103528999854858}
   - component: {fileID: 5781331706022423722}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -57,6 +57,9 @@ MonoBehaviour:
   dodgeCoolTime: 5
   skills:
   - skillObject: {fileID: 11400000, guid: 8572c5e7a30814e4fbe27354d80a6989, type: 2}
+    AttackEndedEvent:
+      m_PersistentCalls:
+        m_Calls: []
   pointer: {fileID: 5981265809767224211}
 --- !u!143 &8414330493695897125
 CharacterController:
