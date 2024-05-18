@@ -1442,13 +1442,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomCount: 10
-  standardScale: {x: 5, y: 1, z: 5}
+  standardScale: {x: 8, y: 1, z: 5}
   startRoom: {fileID: 7471143491778548163, guid: c2b153e98ac3044418ed476eb5f1747f,
     type: 3}
   battleRooms:
   - {fileID: 5876589704210915324, guid: 9da526bf61164f747994e626f0eabd24, type: 3}
   - {fileID: 1917793879660191987, guid: f485821e976fcea4680c6c484a266772, type: 3}
-  - {fileID: 6147870660136424218, guid: eee7d47415c026f4aa57d62e1cc1aec9, type: 3}
+  - {fileID: 1917793879660191987, guid: c711b66e1a9a7ca40a7981c944db1d63, type: 3}
   - {fileID: 3768906580579615561, guid: c1bea124100267b449608c7aa867730c, type: 3}
   - {fileID: 3652397007537422574, guid: 5e9a80548ab2f9a428f04acbe035adfb, type: 3}
   bossRoom: {fileID: 5855880335816749955, guid: cd64ec16e7ec86e48a43290332c5d446,
