@@ -47,6 +47,7 @@ public class CreateRoom : MonoBehaviour
         if (player != null)
         {
             player.transform.position = Vector3.up;
+            player.SetActive(true);
         }
         else
         {

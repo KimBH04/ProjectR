@@ -3,12 +3,9 @@ using UnityEngine.Events;
 
 public class RoomData : MonoBehaviour
 {
-    [SerializeField] private GameObject mapDisplay;
-    [SerializeField] private MeshRenderer displayMesh;
-
     [SerializeField] private WaveContainer[] waves;
 
-    private Room data;
+    [SerializeField] private Room data;
 
     private bool visited = false;
 
@@ -21,12 +18,6 @@ public class RoomData : MonoBehaviour
         set
         {
             data = value;
-            data.mapDisplay = mapDisplay;
-            data.movedHere.AddListener(() =>
-            {
-                displayMesh.material.color = Color.white;
-            });
-
             if (data.type == Room.RoomType.Battle && waves.Length > 0)
             {
                 WaveContainer waveContainer = waves[Random.Range(0, waves.Length)];
@@ -50,13 +41,15 @@ public class RoomData : MonoBehaviour
     }
 }
 
+[System.Serializable]
 public class Room
 {
     public RoomType type = RoomType.Battle;
     public int depth = 0;
 
     public UnityEvent movedHere = new UnityEvent();
-    public GameObject mapDisplay;
+    [SerializeField] private GameObject mapDisplay;
+    [SerializeField] private MeshRenderer displayMesh;
 
     private readonly Room[] dirForRooms = new Room[4];
 
@@ -82,7 +75,11 @@ public class Room
         {
             dirForRooms[dir] = to;
             to.dirForRooms[(dir + 2) % 4] = this; 
-            movedHere.AddListener(() => to.mapDisplay.SetActive(true));
+            movedHere.AddListener(() =>
+            {
+                to.mapDisplay.SetActive(true);
+                displayMesh.material.color = Color.white;
+            });
             return true;
         }
         return false;
