@@ -57,6 +57,8 @@ MonoBehaviour:
         m_Calls: []
     mapDisplay: {fileID: 5747577478321452745}
     displayMesh: {fileID: 6073844222045843767}
+  mapDisplay: {fileID: 5747577478321452745}
+  displayMesh: {fileID: 6073844222045843767}
 --- !u!1 &5747577478321452745
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +153,6 @@ GameObject:
   - component: {fileID: 7540851153109557553}
   - component: {fileID: 2859977690469515232}
   - component: {fileID: 6513978369195333508}
-  - component: {fileID: 5769466928494306119}
   - component: {fileID: 7506585042662923941}
   m_Layer: 0
   m_Name: Plane
@@ -225,27 +226,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5769466928494306119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6398023019488571873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88862f651c46a964c96386045bf20ff0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waves: []
-  data:
-    type: 1
-    depth: 0
-    movedHere:
-      m_PersistentCalls:
-        m_Calls: []
-    mapDisplay: {fileID: 0}
-    displayMesh: {fileID: 0}
 --- !u!64 &7506585042662923941
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -276,6 +256,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6425048971216255089}
     m_Modifications:
+    - target: {fileID: 5154838042994975333, guid: 1001ac13e6786684da39835161488e0a,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5154838042994975333, guid: 1001ac13e6786684da39835161488e0a,
         type: 3}
       propertyPath: m_Name
