@@ -57,7 +57,7 @@ public class Item : MonoBehaviour
                     Destroy(gameObject);
                     break;
                 default:
-                    print("????");
+                    print("??? : " + type + "아이템이 없습니다.");
                     break;
             }
         }
