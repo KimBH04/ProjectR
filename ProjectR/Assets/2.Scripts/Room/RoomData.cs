@@ -29,7 +29,7 @@ public class RoomData : MonoBehaviour
                 for (int i = 0; i < waveContainer.Count; i++)
                 {
                     int index = i;  // handling variable capture
-                    data.movedHere.AddListener(() => Instantiate(waveContainer[index], transform.position, Quaternion.identity));
+                    data.movedHere.AddListener(() => EnemyPools.AppearObject(waveContainer[index], transform.position));
                 }
             }
         }
