@@ -400,7 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pools:
   - name: Warrior Goblin
-    enemyObject: {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476,
+    enemyObject: {fileID: 3872889352609050197, guid: 1c4137c2a1634d346b348936a7f6cfba,
       type: 3}
     initCount: 10
 --- !u!4 &440042231

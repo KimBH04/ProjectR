@@ -11,6 +11,7 @@ public class RoomData : MonoBehaviour
     [SerializeField] private MeshRenderer displayMesh;
 
     private bool visited = false;
+    private int enemyCount = 0;
 
     public Room Data
     {
@@ -26,10 +27,15 @@ public class RoomData : MonoBehaviour
             if (data.type == Room.RoomType.Battle && waves.Length > 0)
             {
                 WaveContainer waveContainer = waves[Random.Range(0, waves.Length)];
-                for (int i = 0; i < waveContainer.Count; i++)
+                enemyCount = waveContainer.Count;
+                for (int i = 0; i < enemyCount; i++)
                 {
                     int index = i;  // handling variable capture
-                    data.movedHere.AddListener(() => EnemyPools.AppearObject(waveContainer[index], transform.position));
+                    data.movedHere.AddListener(() =>
+                    {
+                        var enemy = EnemyPools.AppearObject(waveContainer[index], transform.position).GetComponent<Enemy>();
+                        enemy.onDieEvent.AddListener(EnemyCounter);
+                    });
                 }
             }
         }
@@ -43,6 +49,16 @@ public class RoomData : MonoBehaviour
         }
         data.movedHere.Invoke();
         visited = true;
+    }
+    
+    private void EnemyCounter()
+    {
+        enemyCount--;
+        if (enemyCount == 0)
+        {
+            // Room cleared events
+            Debug.Log("Room Clear!!");
+        }
     }
 }
 
