@@ -985,11 +985,10 @@ GameObject:
   - component: {fileID: 1215572826460368883}
   - component: {fileID: 1813339899209650236}
   - component: {fileID: 107443551944648380}
-  - component: {fileID: 1173258787008240739}
-  - component: {fileID: 7030265924249091028}
+  - component: {fileID: 3557055633717887447}
   m_Layer: 6
   m_Name: WarriorGoblin
-  m_TagString: Warrior
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1106,7 +1105,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1173258787008240739
+--- !u!114 &3557055633717887447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1115,39 +1114,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 3872889352609050197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c086fa3248e404e3a83a4c354cfd4b10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpBar: {fileID: 3481113014511933053}
-  damageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
-    type: 3}
-  damageTextPos: {fileID: 919139086140163386}
---- !u!114 &7030265924249091028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3872889352609050197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2997e465cdbf14beba9ac4b3c0c47388, type: 3}
+  m_Script: {fileID: 11500000, guid: 24600eddff2cd4b15b7e94cca1f2b4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meleeArea: {fileID: 1198412442998589663}
-  player: {fileID: 0}
   data: {fileID: 11400000, guid: 985f1c29413734be18e3bbab3c0bad5a, type: 2}
   expStone:
   - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
   - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
   - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
-  dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
-  isChase: 0
-  isAttack: 0
-  isHit: 0
-  isDead: 0
-  isHeal: 0
-  isTingling: 0
+  hpBar: {fileID: 3481113014511933053}
+  damageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
+    type: 3}
+  damageTextPos: {fileID: 919139086140163386}
+  dissolveMaterial: {fileID: 2100000, guid: 4d68af65b28157f4d94296f94e8f2e73, type: 2}
+  onDieEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3947151301913752002
 GameObject:
   m_ObjectHideFlags: 0
