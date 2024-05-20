@@ -3,11 +3,15 @@ using UnityEngine.Events;
 
 public class RoomData : MonoBehaviour
 {
+    [SerializeField] private WaveContainer[] waves;
+
+    [SerializeField] private Room data;
+
     [SerializeField] private GameObject mapDisplay;
     [SerializeField] private MeshRenderer displayMesh;
-    private Room data;
 
     private bool visited = false;
+    private int enemyCount = 0;
 
     public Room Data
     {
@@ -18,11 +22,22 @@ public class RoomData : MonoBehaviour
         set
         {
             data = value;
-            data.mapDisplay = mapDisplay;
-            data.MovedHere.AddListener(() =>
+            data.MapDisplay = mapDisplay;
+            data.DisplayMesh = displayMesh;
+            if (data.type == Room.RoomType.Battle && waves.Length > 0)
             {
-                displayMesh.material.color = Color.white;
-            });
+                WaveContainer waveContainer = waves[Random.Range(0, waves.Length)];
+                enemyCount = waveContainer.Count;
+                for (int i = 0; i < enemyCount; i++)
+                {
+                    int index = i;  // handling variable capture
+                    data.movedHere.AddListener(() =>
+                    {
+                        var enemy = EnemyPools.AppearObject(waveContainer[index], transform.position).GetComponent<Enemy>();
+                        enemy.onDieEvent.AddListener(EnemyCounter);
+                    });
+                }
+            }
         }
     }
 
@@ -32,18 +47,31 @@ public class RoomData : MonoBehaviour
         {
             return;
         }
-        data.MovedHere.Invoke();
+        data.movedHere.Invoke();
         visited = true;
+    }
+    
+    private void EnemyCounter()
+    {
+        enemyCount--;
+        if (enemyCount == 0)
+        {
+            // Room cleared events
+            Debug.Log("Room Clear!!");
+        }
     }
 }
 
+[System.Serializable]
 public class Room
 {
     public RoomType type = RoomType.Battle;
     public int depth = 0;
 
-    public UnityEvent MovedHere = new UnityEvent();
-    public GameObject mapDisplay;
+    public UnityEvent movedHere = new UnityEvent();
+
+    public GameObject MapDisplay { get; set; }
+    public MeshRenderer DisplayMesh { get; set; }
 
     private readonly Room[] dirForRooms = new Room[4];
 
@@ -69,7 +97,11 @@ public class Room
         {
             dirForRooms[dir] = to;
             to.dirForRooms[(dir + 2) % 4] = this; 
-            MovedHere.AddListener(() => to.mapDisplay.SetActive(true));
+            movedHere.AddListener(() =>
+            {
+                to.MapDisplay.SetActive(true);
+                DisplayMesh.material.color = Color.white;
+            });
             return true;
         }
         return false;

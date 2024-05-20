@@ -12,7 +12,7 @@ public class CreateRoom : MonoBehaviour
 
     [Header("Objects")]
     [SerializeField] private GameObject startRoom;
-    [SerializeField] private GameObject battleRoom;
+    [SerializeField] private GameObject[] battleRooms;
     [SerializeField] private GameObject bossRoom;
     [SerializeField] private GameObject shopRoom;
     [Space]
@@ -27,6 +27,12 @@ public class CreateRoom : MonoBehaviour
 
     private IEnumerator Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.SetActive(false);
+        }
+
         roomMaxSize = roomCount * 2 + 1;
         rooms = new Room[roomMaxSize, roomMaxSize];
 
@@ -43,10 +49,10 @@ public class CreateRoom : MonoBehaviour
         Application.targetFrameRate = 60;
         Debug.Log($"Total {Time.time - startTime}'s");
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             player.transform.position = Vector3.up;
+            player.SetActive(true);
         }
         else
         {
@@ -122,7 +128,7 @@ public class CreateRoom : MonoBehaviour
                         rooms[z, x].type switch
                         {
                             Room.RoomType.Start => startRoom,
-                            Room.RoomType.Battle => battleRoom,
+                            Room.RoomType.Battle => battleRooms[Random.Range(0, battleRooms.Length)],
                             Room.RoomType.Shop => shopRoom,
                             Room.RoomType.Boss => bossRoom,
                             _ => throw new UnityException($"Uknown Room Type: {xpos} {zpos}")
