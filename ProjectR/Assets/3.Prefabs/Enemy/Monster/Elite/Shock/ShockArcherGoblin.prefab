@@ -279,7 +279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6558485341618440365
 Transform:
   m_ObjectHideFlags: 0
@@ -289,8 +289,8 @@ Transform:
   m_GameObject: {fileID: 1143956517878785614}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.38, y: -2.27, z: 2.53}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3746965073404751418}
@@ -431,7 +431,6 @@ MonoBehaviour:
   - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
   - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
   - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
-  _view: {fileID: 0}
   dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
   isChase: 0
   isAttack: 0
@@ -440,6 +439,7 @@ MonoBehaviour:
   isClose: 0
   isStart: 0
   isHeal: 0
+  isTingling: 0
 --- !u!1 &1327565767885392368
 GameObject:
   m_ObjectHideFlags: 0

@@ -187,6 +187,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 76e81124788b5a24797d5ed0c762c9e6,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 76e81124788b5a24797d5ed0c762c9e6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 76e81124788b5a24797d5ed0c762c9e6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 76e81124788b5a24797d5ed0c762c9e6,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -234,6 +249,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 76e81124788b5a24797d5ed0c762c9e6,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 76e81124788b5a24797d5ed0c762c9e6,
         type: 3}
@@ -287,8 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 3
   currentHp: 3
-  healInterval: 1
-  healAmount: 10
+  enemies: []
   meshRenderers: []
   dissolveMaterial: {fileID: 2100000, guid: 383be156989a33d4da05bab060b68366, type: 2}
 --- !u!65 &97016746618514654

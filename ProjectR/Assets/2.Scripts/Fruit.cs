@@ -14,6 +14,7 @@ public class Fruit : MonoBehaviour
     public EType type;
     public float value;
     public GameObject head;
+    public GameObject effect;
 
     
 
@@ -23,7 +24,6 @@ public class Fruit : MonoBehaviour
         {
             switch (type)
             {
-                
                 case EType.Bomb:
                     StartCoroutine(Explosion());
                     break;
@@ -40,11 +40,15 @@ public class Fruit : MonoBehaviour
     private IEnumerator Explosion()
     {
         yield return new WaitForSeconds(1f);
+        head.SetActive(false);
+        effect.SetActive(true);
         int layerMask = LayerMask.GetMask("Enemy", "Player");
         RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
 
         foreach (RaycastHit hitObj in rayHits)
         {
+            
+            
             if (hitObj.transform.CompareTag("Warrior"))
             {
                 hitObj.transform.GetComponent<WarriorPresenter>().TakeDamage(value);
@@ -62,11 +66,14 @@ public class Fruit : MonoBehaviour
                 // hitObj.transform.GetComponent<PlayerController>().TakeDamage(10f);
             }
         }
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
     
     private IEnumerator Wind()
     {
+        head.SetActive(false);
+        effect.SetActive(true);
         int layerMask = LayerMask.GetMask("Enemy", "Player");
         RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
 
@@ -75,27 +82,24 @@ public class Fruit : MonoBehaviour
             if (hitObj.transform.CompareTag("Warrior"))
             {
                 hitObj.transform.GetComponent<WarriorPresenter>().SetSpeed(value);
-                head.SetActive(false);
                 yield return new WaitForSeconds(10f);
                 hitObj.transform.GetComponent<WarriorPresenter>().OriginSpeed(value);
             }
             else if (hitObj.transform.CompareTag("Archer"))
             {
                 hitObj.transform.GetComponent<ArcherPresenter>().SetSpeed(value);
-                head.SetActive(false);
                 yield return new WaitForSeconds(10f);
                 hitObj.transform.GetComponent<ArcherPresenter>().OriginSpeed(value);
             }
             else if (hitObj.transform.CompareTag("Shield")) 
             {
                 hitObj.transform.GetComponent<ShieldPresenter>().SetSpeed(value);
-                head.SetActive(false);
                 yield return new WaitForSeconds(10f);
                 hitObj.transform.GetComponent<ShieldPresenter>().OriginSpeed(value);
             }
             else if (hitObj.transform.CompareTag("Player")) 
             {
-                
+                yield return new WaitForSeconds(10f);
             }
         }
         Destroy(gameObject);
