@@ -47,20 +47,11 @@ public class Fruit : MonoBehaviour
 
         foreach (RaycastHit hitObj in rayHits)
         {
+            if (hitObj.transform.CompareTag("Enemy"))
+            {
+                hitObj.transform.GetComponent<Enemy>().TakeDamage(value);
+            }
             
-            
-            if (hitObj.transform.CompareTag("Warrior"))
-            {
-                hitObj.transform.GetComponent<WarriorPresenter>().TakeDamage(value);
-            }
-            else if (hitObj.transform.CompareTag("Archer"))
-            {
-                hitObj.transform.GetComponent<ArcherPresenter>().TakeDamage(value);
-            }
-            else if (hitObj.transform.CompareTag("Shield")) 
-            {
-                hitObj.transform.GetComponent<ShieldPresenter>().TakeDamage(value);
-            }
             else if (hitObj.transform.CompareTag("Player")) 
             {
                 // hitObj.transform.GetComponent<PlayerController>().TakeDamage(10f);
@@ -79,23 +70,11 @@ public class Fruit : MonoBehaviour
 
         foreach (RaycastHit hitObj in rayHits)
         {
-            if (hitObj.transform.CompareTag("Warrior"))
+            if (hitObj.transform.CompareTag("Enemy"))
             {
-                hitObj.transform.GetComponent<WarriorPresenter>().SetSpeed(value);
+                hitObj.transform.GetComponent<Enemy>().SetSpeed(value);
                 yield return new WaitForSeconds(10f);
-                hitObj.transform.GetComponent<WarriorPresenter>().OriginSpeed(value);
-            }
-            else if (hitObj.transform.CompareTag("Archer"))
-            {
-                hitObj.transform.GetComponent<ArcherPresenter>().SetSpeed(value);
-                yield return new WaitForSeconds(10f);
-                hitObj.transform.GetComponent<ArcherPresenter>().OriginSpeed(value);
-            }
-            else if (hitObj.transform.CompareTag("Shield")) 
-            {
-                hitObj.transform.GetComponent<ShieldPresenter>().SetSpeed(value);
-                yield return new WaitForSeconds(10f);
-                hitObj.transform.GetComponent<ShieldPresenter>().OriginSpeed(value);
+                hitObj.transform.GetComponent<Enemy>().OriginSpeed(value);
             }
             else if (hitObj.transform.CompareTag("Player")) 
             {
@@ -107,32 +86,17 @@ public class Fruit : MonoBehaviour
 
     private IEnumerator Tingling()
     {
-        
         int layerMask = LayerMask.GetMask("Enemy", "Player");
         RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
 
         foreach (RaycastHit hitObj in rayHits)
         {
-            if (hitObj.transform.CompareTag("Warrior"))
+            if (hitObj.transform.CompareTag("Enemy"))
             {
-                hitObj.transform.GetComponent<WarriorPresenter>().Tingling();
+                hitObj.transform.GetComponent<Enemy>().Tingling();
                 head.SetActive(false);
                 yield return new WaitForSeconds(1f);
-                hitObj.transform.GetComponent<WarriorPresenter>().EndTingling();
-            }
-            else if (hitObj.transform.CompareTag("Archer"))
-            {
-                hitObj.transform.GetComponent<ArcherPresenter>().Tingling();
-                head.SetActive(false);
-                yield return new WaitForSeconds(1f);
-                hitObj.transform.GetComponent<ArcherPresenter>().EndTingling();
-            }
-            else if (hitObj.transform.CompareTag("Shield")) 
-            {
-                hitObj.transform.GetComponent<ShieldPresenter>().Tingling();
-                head.SetActive(false);
-                yield return new WaitForSeconds(1f);
-                hitObj.transform.GetComponent<ShieldPresenter>().EndTingling();
+                hitObj.transform.GetComponent<Enemy>().EndTingling();
             }
             else if (hitObj.transform.CompareTag("Player")) 
             {

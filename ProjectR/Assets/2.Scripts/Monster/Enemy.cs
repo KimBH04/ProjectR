@@ -103,6 +103,22 @@ public  abstract  class Enemy : MonoBehaviour
         }
     }
     
+    public void Tingling()
+    { 
+        IsTingling = true;
+        IsAttack = false;
+        IsChase = false;
+        Animator.SetBool(Attack,false);
+        Animator.SetBool(Chase,false);
+    }
+    
+    public void EndTingling()
+    {
+        IsTingling = false;
+        IsChase = true;
+        Animator.SetBool(Chase,true);
+    }
+    
     
     
     private IEnumerator IsHeal()
@@ -157,7 +173,7 @@ public  abstract  class Enemy : MonoBehaviour
         text.GetComponent<DamageText>().damage= damage;
     }
 
-    private void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         _model.CurrentHp-= damage;
         if(_model.CurrentHp <= 0)
