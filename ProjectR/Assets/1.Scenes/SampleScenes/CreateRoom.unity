@@ -387,7 +387,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1371193817}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1106381429
+--- !u!1001 &991887009
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -448,7 +448,7 @@ PrefabInstance:
     - target: {fileID: 6449706118182181942, guid: 0e88bc72e7ca66645bb92843bac8bca8,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Warrior
       objectReference: {fileID: 0}
     - target: {fileID: 6449706118182181942, guid: 0e88bc72e7ca66645bb92843bac8bca8,
         type: 3}
@@ -1111,7 +1111,7 @@ PrefabInstance:
     - target: {fileID: 2673518821216160687, guid: ac880375317081e429b5b0dcd568423c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.83320594
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2673518821216160687, guid: ac880375317081e429b5b0dcd568423c,
         type: 3}
@@ -1121,7 +1121,7 @@ PrefabInstance:
     - target: {fileID: 2673518821216160687, guid: ac880375317081e429b5b0dcd568423c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.08833408
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2673518821216160687, guid: ac880375317081e429b5b0dcd568423c,
         type: 3}
@@ -1167,6 +1167,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_StepOffset
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1568,4 +1573,4 @@ SceneRoots:
   - {fileID: 2052782657}
   - {fileID: 1176319897}
   - {fileID: 1864686623}
-  - {fileID: 1106381429}
+  - {fileID: 991887009}
