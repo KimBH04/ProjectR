@@ -29,7 +29,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void AttackEvent(SkillEffects.FX fx)
     {
-        SkillEffects.Instance.SetEffectTransform(fx, transform.position, transform.rotation);
+        SkillEffects.Instance.PlayEffect(fx, transform.position, transform.rotation);
     }
 
     public void PlayDodge()
