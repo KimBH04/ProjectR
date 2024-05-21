@@ -21,8 +21,8 @@ public class Trap : MonoBehaviour
     private IEnumerator HaveThorn()
     {
         _kanban = true;
-        yield return new WaitForSeconds(0.5f);
-        thorn.transform.DOLocalMoveY(0f, 0.5f).SetEase(Ease.OutBounce);
+        yield return new WaitForSeconds(0.3f);
+        thorn.transform.DOLocalMoveY(0f, 0.1f).SetEase(Ease.OutBounce);
         
         yield return new WaitForSeconds(3f);
         
