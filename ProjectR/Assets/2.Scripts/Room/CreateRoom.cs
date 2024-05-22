@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,27 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private GameObject blockedVerticalWall;
     [SerializeField] private GameObject openedHorizontalWall;
     [SerializeField] private GameObject blockedHorizontalWall;
+    [Space]
+    [SerializeField] private Transform leftWall;
+    [SerializeField] private Transform frontWall;
+    [SerializeField] private Transform rightWall;
+    [SerializeField] private Transform backWall;
+
+    public static Transform center;
+    public static Transform[] walls = new Transform[4];
 
     private Room[,] rooms;
 
     private int roomMaxSize;
+
+    private void Awake()
+    {
+        center = transform.Find("Blocks");
+        walls[0] = leftWall;
+        walls[1] = frontWall;
+        walls[2] = rightWall;
+        walls[3] = backWall;
+    }
 
     private IEnumerator Start()
     {
@@ -60,8 +78,9 @@ public class CreateRoom : MonoBehaviour
         }
     }
 
+    #region Room maker
     private IEnumerator SettingRooms()
-    {   //                              left     up      right   down
+    {   //                              left     front   right   back
         (int r, int c)[] directions = { (0, -1), (1, 0), (0, 1), (-1, 0) };
 
         Room start = rooms[roomCount, roomCount] = new Room()
@@ -170,7 +189,7 @@ public class CreateRoom : MonoBehaviour
                 else
                 {
                     Instantiate(
-                        rooms[j, i][Room.DOWN] == null ? blockedHorizontalWall : openedHorizontalWall,
+                        rooms[j, i][Room.BACK] == null ? blockedHorizontalWall : openedHorizontalWall,
                         new Vector3(
                             ipos * 10f * standardScale.x,
                             0f,
@@ -206,6 +225,36 @@ public class CreateRoom : MonoBehaviour
                     yield return null;
                 }
             }
+        }
+    }
+    #endregion
+
+    public static void OpenWalls()
+    {
+        foreach (var wall in walls)
+        {
+            wall.DOMoveY(-10f, 0.5f).SetEase(Ease.OutSine);
+        }
+    }
+
+    public static void CloseWalls(Vector3 position, bool left, bool front, bool right, bool back)
+    {
+        center.position = position;
+        if (left)
+        {
+            walls[0].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+        }
+        if (front)
+        {
+            walls[1].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+        }
+        if (right)
+        {
+            walls[2].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+        }
+        if (back)
+        {
+            walls[3].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
         }
     }
 }
