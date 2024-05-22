@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class CreateRoom : MonoBehaviour
@@ -26,6 +27,10 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private Transform frontWall;
     [SerializeField] private Transform rightWall;
     [SerializeField] private Transform backWall;
+    [Space]
+    [SerializeField] private GameObject wallEffect;
+
+    private static CreateRoom instance;
 
     public static Transform center;
     public static Transform[] walls = new Transform[4];
@@ -41,6 +46,7 @@ public class CreateRoom : MonoBehaviour
         walls[1] = frontWall;
         walls[2] = rightWall;
         walls[3] = backWall;
+        instance = this;
     }
 
     private IEnumerator Start()
@@ -233,7 +239,19 @@ public class CreateRoom : MonoBehaviour
     {
         foreach (var wall in walls)
         {
-            wall.DOMoveY(-10f, 0.5f).SetEase(Ease.OutSine);
+            Quaternion rotation = Quaternion.identity;
+            if (wall.name.Contains("Left"))
+            {
+                rotation = Quaternion.Euler(0, 90, 0);
+            }
+            else if (wall.name.Contains("Right"))
+            {
+                rotation = Quaternion.Euler(0, -90, 0);
+            }
+            GameObject wallEffect = Instantiate(instance.wallEffect, wall.position, rotation);
+
+            wall.DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
         }
     }
 
@@ -242,19 +260,27 @@ public class CreateRoom : MonoBehaviour
         center.position = position;
         if (left)
         {
+            GameObject wallEffect = Instantiate(instance.wallEffect, new Vector3(walls[0].position.x, 0, walls[0].position.z), Quaternion.Euler(0, 90, 0));
             walls[0].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
         }
         if (front)
         {
+            GameObject wallEffect = Instantiate(instance.wallEffect, new Vector3(walls[1].position.x, 0, walls[1].position.z), Quaternion.identity);
             walls[1].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
         }
         if (right)
         {
+            GameObject wallEffect = Instantiate(instance.wallEffect, new Vector3(walls[2].position.x, 0, walls[2].position.z), Quaternion.Euler(0, -90, 0));
             walls[2].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
         }
         if (back)
         {
+            GameObject wallEffect = Instantiate(instance.wallEffect, new Vector3(walls[3].position.x, 0, walls[3].position.z), Quaternion.identity);
             walls[3].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
         }
     }
 }
