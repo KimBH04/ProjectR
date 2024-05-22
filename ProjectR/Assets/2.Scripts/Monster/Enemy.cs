@@ -18,7 +18,7 @@ public  abstract  class Enemy : MonoBehaviour
     [SerializeField] private Transform damageTextPos;
     
     
-    private EnemyModel _model;
+    protected EnemyModel _model;
     private Transform _playerTr;
     private EnemyView _view;
     protected Animator Animator;
@@ -37,7 +37,7 @@ public  abstract  class Enemy : MonoBehaviour
     protected static readonly int Idle = Animator.StringToHash("Idle");
     protected static readonly int Attack = Animator.StringToHash("Attack");
     protected static readonly int Chase = Animator.StringToHash("Chase");
-    protected static readonly int Die = Animator.StringToHash("Die");
+    private static readonly int Die = Animator.StringToHash("Die");
     
     [HideInInspector]
     public UnityEvent onDieEvent = new UnityEvent();
@@ -205,7 +205,7 @@ public  abstract  class Enemy : MonoBehaviour
         }
     }
 
-    private void DieEnemy()
+    protected virtual void DieEnemy()
     {
         StopAllCoroutines();
         StartCoroutine(OnDie());

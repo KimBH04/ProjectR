@@ -550,7 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeArea: {fileID: 4356557816146737882}
   player: {fileID: 0}
-  data: {fileID: 11400000, guid: 985f1c29413734be18e3bbab3c0bad5a, type: 2}
+  data: {fileID: 11400000, guid: 24387dc563fc04978a4c83df27fb6897, type: 2}
   expStone: []
   dissolveMaterial: {fileID: 2100000, guid: 4d68af65b28157f4d94296f94e8f2e73, type: 2}
   isChase: 0
