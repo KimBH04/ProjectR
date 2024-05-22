@@ -18,7 +18,7 @@ public  abstract  class Enemy : MonoBehaviour
     [SerializeField] private Transform damageTextPos;
     
     
-    protected EnemyModel _model;
+    private EnemyModel _model;
     private Transform _playerTr;
     private EnemyView _view;
     protected Animator Animator;
@@ -31,7 +31,7 @@ public  abstract  class Enemy : MonoBehaviour
     protected bool IsChase;
     protected bool IsAttack;
     private bool _isDead;
-    private bool _isHeal;
+    public bool _isHeal;
     protected bool IsTingling;
     
     protected static readonly int Idle = Animator.StringToHash("Idle");
@@ -223,7 +223,7 @@ public  abstract  class Enemy : MonoBehaviour
         Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
     }
     
-    private IEnumerator OnDie()
+    protected IEnumerator OnDie()
     {
         foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
         {
@@ -238,7 +238,7 @@ public  abstract  class Enemy : MonoBehaviour
             
             foreach (Material material in meshRenderer.materials)
             {
-                material.DOFloat(1, "_DissolveAmount", 2);
+                material.DOFloat(1, "_Float", 2);
             }
         }
         yield break;

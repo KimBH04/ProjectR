@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6647432433326615287}
   - component: {fileID: 1352094037749474029}
   - component: {fileID: 2483731076413821408}
+  - component: {fileID: 3792632729340735686}
+  - component: {fileID: 6444876667277117592}
   m_Layer: 0
   m_Name: Spine
   m_TagString: Untagged
@@ -83,6 +85,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3792632729340735686
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62462384086033308}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.022689013, y: 0.022689018, z: 0.013150278}
+  m_Center: {x: 0, y: -9.313228e-10, z: 0.0047083655}
+--- !u!114 &6444876667277117592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62462384086033308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2ef2a3bc45c431fa0eb021b0596a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &4628880622307358913
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thorn: {fileID: 62462384086033308}
+  meleeArea: {fileID: 3792632729340735686}
 --- !u!1 &7316255477959473544
 GameObject:
   m_ObjectHideFlags: 0

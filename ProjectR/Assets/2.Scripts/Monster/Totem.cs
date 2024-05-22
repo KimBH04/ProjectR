@@ -16,17 +16,17 @@ public class Totem : MonoBehaviour
     // private float _lastHealTime;
     private bool _isHit;
 
-    public MeshRenderer[] meshRenderers;
+    public SkinnedMeshRenderer[] meshRenderers;
     public Material dissolveMaterial;
-    private Dictionary <MeshRenderer,Material> _originalColors = new Dictionary<MeshRenderer, Material>();
+    private Dictionary <SkinnedMeshRenderer,Material> _originalColors = new Dictionary<SkinnedMeshRenderer, Material>();
 
 
     private void Awake()
     {
-        meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         dissolveMaterial = new Material(dissolveMaterial);
         
-        foreach(MeshRenderer mesh in meshRenderers)
+        foreach(SkinnedMeshRenderer mesh in meshRenderers)
         {
             _originalColors[mesh] = mesh.material;
         }
@@ -38,24 +38,10 @@ public class Totem : MonoBehaviour
         {
             if (enemy.CompareTag("Warrior"))
             {
-                WarriorPresenter warrior = enemy.GetComponent<WarriorPresenter>();
-                warrior.isHeal = false;
+                Enemy warrior = enemy.GetComponent<Enemy>();
+                warrior._isHeal = false;
             }
-            else if (enemy.CompareTag("Archer"))
-            {
-                ArcherPresenter archer = enemy.GetComponent<ArcherPresenter>();
-                archer.isHeal = false;
-            }
-            else if (enemy.CompareTag("Shield"))
-            {
-                ShieldPresenter shield = enemy.GetComponent<ShieldPresenter>();
-                shield.isHeal = false;
-            }
-            else if (enemy.CompareTag("Mino"))
-            {
-                MinoPresenter mino = enemy.GetComponent<MinoPresenter>();
-                mino.isHeal = false;
-            }
+            
         }
     }
     // private void Start()
@@ -127,53 +113,24 @@ public class Totem : MonoBehaviour
             StartCoroutine(OnHit());
         }
 
-        if (other.CompareTag("Warrior"))
+        if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<WarriorPresenter>().isHeal = true;
+            other.GetComponent<Enemy>()._isHeal = true;
             enemies.Add(other.gameObject);
         }
-        else if (other.CompareTag("Archer"))
-        {
-            other.GetComponent<ArcherPresenter>().isHeal = true;
-            enemies.Add(other.gameObject);
-        }
-        else if (other.CompareTag("Shield"))
-        {
-            other.GetComponent<ShieldPresenter>().isHeal = true;
-            enemies.Add(other.gameObject);
-        }
-        else if (other.CompareTag("Mino"))
-        {
-            other.GetComponent<MinoPresenter>().isHeal = true;
-            enemies.Add(other.gameObject);
-        }
+        
         
     }
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Warrior"))
+        if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<WarriorPresenter>().isHeal = false;
+            other.GetComponent<Enemy>()._isHeal = false;
             enemies.Remove(other.gameObject);
         }
-        else if (other.CompareTag("Archer"))
-        {
-            other.GetComponent<ArcherPresenter>().isHeal = true;
-            enemies.Remove(other.gameObject);
-        }
-        else if (other.CompareTag("Shield"))
-        {
-            other.GetComponent<ShieldPresenter>().isHeal = true;
-            enemies.Remove(other.gameObject);
-        }
-        else if (other.CompareTag("Mino"))
-        {
-            other.GetComponent<MinoPresenter>().isHeal = true;
-            enemies.Remove(other.gameObject);
-        }
+        
     }
-    
     
     
     
@@ -190,18 +147,17 @@ public class Totem : MonoBehaviour
         }
         else
         {
-            // 메테리얼 색상 변경이 안됨
-            // foreach(MeshRenderer mesh in meshRenderers)
-            // {
-            //     mesh.material.color = Color.red;
-            // }
-            //
-            // yield return new WaitForSeconds(0.1f);
-            //
-            // foreach(MeshRenderer mesh in meshRenderers)
-            // {
-            //     mesh.material = _originalColors[mesh];
-            // }
+            foreach(SkinnedMeshRenderer mesh in meshRenderers)
+            {
+                mesh.material.color = Color.red;
+            }
+            
+            yield return new WaitForSeconds(0.1f);
+            
+            foreach(SkinnedMeshRenderer mesh in meshRenderers)
+            {
+                mesh.material = _originalColors[mesh];
+            }
             _isHit = false;
         }
         
@@ -210,7 +166,7 @@ public class Totem : MonoBehaviour
     
     private IEnumerator Dissolve()
     {
-        foreach (MeshRenderer meshRenderer in meshRenderers)
+        foreach (SkinnedMeshRenderer meshRenderer in meshRenderers)
         {
             Material[] materials = meshRenderer.materials;
         
