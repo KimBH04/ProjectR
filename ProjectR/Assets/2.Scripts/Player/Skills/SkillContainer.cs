@@ -100,6 +100,9 @@ public class SkillContainer : SkillObject
              SkillEffects.Instance.PlayEffect(fx);
         }
 
+        Debug.Log("웨 않되;;;;;;;;;;");
+        var (_, ps) = SkillEffects.Instance.GetParticleObject(fx);
+        var collider = ps.GetComponent<SphereCollider>();
         switch (disableMode)
         {
             case DisableMode.Blink:
@@ -111,6 +114,7 @@ public class SkillContainer : SkillObject
                 yield return new WaitForSeconds(disableTime);
                 break;
         }
+        collider.enabled = false;
     }
 
     /// <summary>
