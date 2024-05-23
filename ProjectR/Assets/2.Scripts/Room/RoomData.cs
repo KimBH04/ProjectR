@@ -66,7 +66,11 @@ public class RoomData : MonoBehaviour
         enemyCount--;
         if (enemyCount == 0)
         {
-            CreateRoom.OpenWalls();
+            CreateRoom.OpenWalls(
+                data[Room.LEFT] != null,
+                data[Room.FRONT] != null,
+                data[Room.RIGHT] != null,
+                data[Room.BACK] != null);
         }
     }
 }
