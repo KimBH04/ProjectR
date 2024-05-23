@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class CreateRoom : MonoBehaviour
@@ -20,10 +22,32 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private GameObject blockedVerticalWall;
     [SerializeField] private GameObject openedHorizontalWall;
     [SerializeField] private GameObject blockedHorizontalWall;
+    [Space]
+    [SerializeField] private Transform leftWall;
+    [SerializeField] private Transform frontWall;
+    [SerializeField] private Transform rightWall;
+    [SerializeField] private Transform backWall;
+    [Space]
+    [SerializeField] private GameObject wallEffect;
+
+    private static CreateRoom instance;
+
+    public static Transform center;
+    public static Transform[] walls = new Transform[4];
 
     private Room[,] rooms;
 
     private int roomMaxSize;
+
+    private void Awake()
+    {
+        center = transform.Find("Blocks");
+        walls[0] = leftWall;
+        walls[1] = frontWall;
+        walls[2] = rightWall;
+        walls[3] = backWall;
+        instance = this;
+    }
 
     private IEnumerator Start()
     {
@@ -60,8 +84,9 @@ public class CreateRoom : MonoBehaviour
         }
     }
 
+    #region Room maker
     private IEnumerator SettingRooms()
-    {   //                              left     up      right   down
+    {   //                              left     front   right   back
         (int r, int c)[] directions = { (0, -1), (1, 0), (0, 1), (-1, 0) };
 
         Room start = rooms[roomCount, roomCount] = new Room()
@@ -170,7 +195,7 @@ public class CreateRoom : MonoBehaviour
                 else
                 {
                     Instantiate(
-                        rooms[j, i][Room.DOWN] == null ? blockedHorizontalWall : openedHorizontalWall,
+                        rooms[j, i][Room.BACK] == null ? blockedHorizontalWall : openedHorizontalWall,
                         new Vector3(
                             ipos * 10f * standardScale.x,
                             0f,
@@ -206,6 +231,56 @@ public class CreateRoom : MonoBehaviour
                     yield return null;
                 }
             }
+        }
+    }
+    #endregion
+
+    public static void OpenWalls()
+    {
+        foreach (var wall in walls)
+        {
+            Quaternion rotation = Quaternion.identity;
+            if (wall.name.Contains("Left"))
+            {
+                rotation = Quaternion.Euler(0, 90, 0);
+            }
+            else if (wall.name.Contains("Right"))
+            {
+                rotation = Quaternion.Euler(0, -90, 0);
+            }
+            GameObject wallEffect = Instantiate(instance.wallEffect, wall.position, rotation);
+
+            wall.DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
+        }
+    }
+
+    public static void CloseWalls(Vector3 position, bool left, bool front, bool right, bool back)
+    {
+        center.position = position;
+        if (left)
+        {
+            GameObject wallEffect = Instantiate(instance.wallEffect, new Vector3(walls[0].position.x, 0, walls[0].position.z), Quaternion.Euler(0, 90, 0));
+            walls[0].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
+        }
+        if (front)
+        {
+            GameObject wallEffect = Instantiate(instance.wallEffect, new Vector3(walls[1].position.x, 0, walls[1].position.z), Quaternion.identity);
+            walls[1].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
+        }
+        if (right)
+        {
+            GameObject wallEffect = Instantiate(instance.wallEffect, new Vector3(walls[2].position.x, 0, walls[2].position.z), Quaternion.Euler(0, -90, 0));
+            walls[2].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
+        }
+        if (back)
+        {
+            GameObject wallEffect = Instantiate(instance.wallEffect, new Vector3(walls[3].position.x, 0, walls[3].position.z), Quaternion.identity);
+            walls[3].DOMoveY(0f, 0.5f).SetEase(Ease.OutSine);
+            Destroy(wallEffect, 2f);
         }
     }
 }

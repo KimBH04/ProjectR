@@ -49,6 +49,16 @@ public class RoomData : MonoBehaviour
         }
         data.movedHere.Invoke();
         visited = true;
+
+        if (data.type == Room.RoomType.Battle || data.type == Room.RoomType.Boss)
+        {
+            CreateRoom.CloseWalls(
+                transform.position,
+                data[Room.LEFT] != null,
+                data[Room.FRONT] != null,
+                data[Room.RIGHT] != null,
+                data[Room.BACK] != null);
+        }
     }
     
     private void EnemyCounter()
@@ -56,8 +66,7 @@ public class RoomData : MonoBehaviour
         enemyCount--;
         if (enemyCount == 0)
         {
-            // Room cleared events
-            Debug.Log("Room Clear!!");
+            CreateRoom.OpenWalls();
         }
     }
 }
@@ -79,9 +88,9 @@ public class Room
     /// 방향 인덱스
     /// </summary>
     public const int LEFT = 0,
-                     UP = 1,
+                     FRONT = 1,
                      RIGHT = 2,
-                     DOWN = 3;
+                     BACK = 3;
 
     public Room this[int idx] => dirForRooms[idx];
 
