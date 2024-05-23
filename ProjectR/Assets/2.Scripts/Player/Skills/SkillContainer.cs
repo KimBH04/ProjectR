@@ -4,7 +4,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 
-[CustomEditor(typeof(SkillContainer), true)]
+[CustomEditor(typeof(SkillContainer), true), CanEditMultipleObjects]
 class SkillContainerEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -32,6 +32,8 @@ class SkillContainerEditor : Editor
 [CreateAssetMenu(menuName = "Skill Container/Default")]
 public class SkillContainer : SkillObject
 {
+    [Space]
+    [SerializeField, Tooltip("스킬 컨테이너에서 FX를 실행시킬지 여부")] protected bool FXPlayInSkill = true;
     [Space]
     [SerializeField] protected SkillEffects.FX fx;
     [Space]
@@ -93,7 +95,11 @@ public class SkillContainer : SkillObject
 
     public override IEnumerator PlaySkill()
     {
-        SkillEffects.Instance.PlayEffect(fx);
+        if (FXPlayInSkill)
+        {
+             SkillEffects.Instance.PlayEffect(fx);
+        }
+
         switch (disableMode)
         {
             case DisableMode.Blink:

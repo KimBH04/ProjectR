@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896c88ac569d82e4c936deb41966bc8a, type: 3}
   m_Name: Slash1
   m_EditorClassIdentifier: 
+  FXPlayInSkill: 0
   fx: 0
   startClip: {fileID: 0}
   destroyClip: {fileID: 0}
