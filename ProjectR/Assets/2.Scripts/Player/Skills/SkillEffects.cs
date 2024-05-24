@@ -22,6 +22,11 @@ public class SkillEffects : MonoBehaviour
         }
     }
 
+    public (Transform, ParticleSystem) GetParticleObject(FX fx)
+    {
+        return effects[fx];
+    }
+
     /// <summary>
     /// 이펙트 플레이<br/>
     /// 단순 위치 설정은 <see cref="SetEffectTransform(FX, Vector3, Quaternion)"/>을 사용하십시오
