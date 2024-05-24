@@ -13,11 +13,11 @@ public class SkeletonMagician : Enemy
         Animator.SetBool(Attack,true);
         IsChase = false;
         IsAttack = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         GameObject instanceFireBall = Instantiate(fireBall, firePos.position, firePos.rotation);
         Rigidbody fireBallRb = instanceFireBall.GetComponent<Rigidbody>();
         fireBallRb.velocity = firePos.forward * 10f;
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.9f);
         IsChase = true;
         IsAttack = false;
         Animator.SetBool(Attack,false);
