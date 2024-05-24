@@ -268,7 +268,13 @@ public  abstract  class Enemy : MonoBehaviour
         {
             // 임시 코드
             TakeDamage(10f);
-            transform.DOMove(transform.position - transform.forward, 0.5f);
+            Vector3 hitDirection = (transform.position - other.transform.position).normalized;
+            Vector3 knockbackPosition = transform.position + new Vector3(hitDirection.x, 0, hitDirection.z) * 2f;
+            transform.DOMove
+            (new Vector3(
+                knockbackPosition.x, 
+                transform.position.y, 
+                knockbackPosition.z), 0.5f).SetEase(Ease.OutQuad);
             
         }
     }

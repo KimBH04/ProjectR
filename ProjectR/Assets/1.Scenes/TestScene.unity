@@ -735,7 +735,7 @@ PrefabInstance:
     - target: {fileID: 8861132662305184861, guid: 462d52b0acbf8408994a21829f3b9460,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6002,7 +6002,7 @@ PrefabInstance:
     - target: {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7067,7 +7067,7 @@ PrefabInstance:
     - target: {fileID: 6024820008389741605, guid: c6a0da975670a4622a87664478317f84,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6401767145076479647, guid: c6a0da975670a4622a87664478317f84,
         type: 3}
@@ -8046,6 +8046,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Skeleton Bomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 8633929970743539060, guid: e4d05de807b3d4dbb9383511f6681c03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8978542944163475406, guid: e4d05de807b3d4dbb9383511f6681c03,
         type: 3}
