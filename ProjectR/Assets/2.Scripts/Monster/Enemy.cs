@@ -49,9 +49,17 @@ public  abstract  class Enemy : MonoBehaviour
         {
             print("플레이어 업성");
         }
-        
+
         PlayerController playerController = _playerTr.GetComponent<PlayerController>();
-        _model = new EnemyModel(data.maxHp +(playerController.Level* 2), data.damage, data.speed, data.targetRadius, data.targetRange);
+        if (playerController != null)
+        {
+            _model = new EnemyModel(data.maxHp + (playerController.Level * 2), data.damage, data.speed, data.targetRadius, data.targetRange);
+        }
+        else
+        {
+            _model = new EnemyModel (data.maxHp, data.damage, data.speed, data.targetRadius, data.targetRange);
+        }
+       
         Animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
