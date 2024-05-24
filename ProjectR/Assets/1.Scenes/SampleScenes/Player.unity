@@ -123,33 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &66527893 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6234613892525894095, guid: ab916a8f3beca964da39cf06798ec764,
-    type: 3}
-  m_PrefabInstance: {fileID: 740495465}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &66527898
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 66527893}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.75
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &260047562
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,26 +305,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1785767367}
     m_Modifications:
-    - target: {fileID: 586396503373501824, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1160791918162301328, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1160791918162301328, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1160791918162301328, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1160791918162301328, guid: c39fd250568c2dc499180bd1f9e7146b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -402,69 +355,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1160791918162301328, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567972267608288404, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2232236917285465909, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: m_TagString
-      value: Skill
-      objectReference: {fileID: 0}
     - target: {fileID: 3407164112765549062, guid: c39fd250568c2dc499180bd1f9e7146b,
         type: 3}
       propertyPath: m_Name
       value: FX_Sword_Slash 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3407164112765549062, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3814013273066663796, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6996771779264652365, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229411017828060095, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229411017828060095, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8568947564056259856, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573166990773280196, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2232236917285465909, guid: c39fd250568c2dc499180bd1f9e7146b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1081056938}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c39fd250568c2dc499180bd1f9e7146b, type: 3}
 --- !u!4 &631040768 stripped
 Transform:
@@ -653,75 +552,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1785767367}
     m_Modifications:
-    - target: {fileID: 163058932741274358, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3365768094168777786, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4628196095543352129, guid: ab916a8f3beca964da39cf06798ec764,
         type: 3}
       propertyPath: m_Name
       value: FX_Sword_Slash 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4628196095543352129, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6234613892525894095, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: m_TagString
-      value: Skill
-      objectReference: {fileID: 0}
-    - target: {fileID: 6731875334923994092, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7579464946512463624, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673656061954129975, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7881807773408648801, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7881807773408648801, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8210093687418660245, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454360503724339155, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454360503724339155, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454360503724339155, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8454360503724339155, guid: ab916a8f3beca964da39cf06798ec764,
         type: 3}
@@ -773,47 +607,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8454360503724339155, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6234613892525894095, guid: ab916a8f3beca964da39cf06798ec764,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 66527898}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab916a8f3beca964da39cf06798ec764, type: 3}
---- !u!1 &1081056933 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2232236917285465909, guid: c39fd250568c2dc499180bd1f9e7146b,
-    type: 3}
-  m_PrefabInstance: {fileID: 607258022}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &1081056938
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081056933}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1429179792
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,33 +793,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1566600113 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2356628166757965001, guid: 06b21d8b3a9eb2141b3b140052114b41,
-    type: 3}
-  m_PrefabInstance: {fileID: 1652332561}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &1566600118
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566600113}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1568629665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8454360503724339155, guid: ab916a8f3beca964da39cf06798ec764,
@@ -1036,75 +807,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1785767367}
     m_Modifications:
-    - target: {fileID: 100471335807391448, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1087665994327564427, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2356628166757965001, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: m_TagString
-      value: Skill
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937953582122542034, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937953582122542034, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014179817166407405, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7656855972216853519, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7798642914844138009, guid: 06b21d8b3a9eb2141b3b140052114b41,
         type: 3}
       propertyPath: m_Name
       value: FX_Sword_Slash 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7798642914844138009, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8331050410366023936, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8440420244268234734, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021836862426420835, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021836862426420835, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9021836862426420835, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9021836862426420835, guid: 06b21d8b3a9eb2141b3b140052114b41,
         type: 3}
@@ -1156,19 +862,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9021836862426420835, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2356628166757965001, guid: 06b21d8b3a9eb2141b3b140052114b41,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1566600118}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06b21d8b3a9eb2141b3b140052114b41, type: 3}
 --- !u!1 &1666946177
 GameObject:
