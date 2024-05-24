@@ -187,7 +187,6 @@ public  abstract  class Enemy : MonoBehaviour
         if(_model.CurrentHp <= 0)
         {
             _model.CurrentHp = 0;
-            DieEnemy();
         }
         if(_model.CurrentHp > _model.MaxHp)
         {
@@ -195,7 +194,16 @@ public  abstract  class Enemy : MonoBehaviour
         }
         UpdateHpBar(_model.CurrentHp,_model.MaxHp);
         ShowDamageText(damage);
-        StartCoroutine(OnDamage());
+        
+        if (_model.CurrentHp <= 0)
+        {
+            DieEnemy();
+        }
+        else
+        {
+            StartCoroutine(OnDamage());
+        }
+        
     }
 
     private IEnumerator OnDamage()
