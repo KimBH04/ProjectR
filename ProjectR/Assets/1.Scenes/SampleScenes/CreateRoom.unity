@@ -672,6 +672,10 @@ MonoBehaviour:
     enemyObject: {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f,
       type: 3}
     initCount: 10
+  - name: Shield Goblin
+    enemyObject: {fileID: 488080211188533986, guid: 8c432d87f192b497fa6d6623065dfd93,
+      type: 3}
+    initCount: 10
 --- !u!4 &440042231
 Transform:
   m_ObjectHideFlags: 0

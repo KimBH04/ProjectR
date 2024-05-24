@@ -361,17 +361,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 468211077e2b9cf438220b9aa56ef172,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 468211077e2b9cf438220b9aa56ef172,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 468211077e2b9cf438220b9aa56ef172,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 468211077e2b9cf438220b9aa56ef172,
         type: 3}
@@ -554,10 +554,11 @@ MonoBehaviour:
     type: 3}
   damageTextPos: {fileID: 5184552432792411475}
   dissolveMaterial: {fileID: 2100000, guid: 4d68af65b28157f4d94296f94e8f2e73, type: 2}
+  _isHeal: 0
   onDieEvent:
     m_PersistentCalls:
       m_Calls: []
-  splitSlime: {fileID: 5466377178583772044, guid: 35f833abf24ef408e8fc05b0e1f70de6,
+  splitSlime: {fileID: 3245609559898788388, guid: 35f833abf24ef408e8fc05b0e1f70de6,
     type: 3}
 --- !u!65 &293186438715551889
 BoxCollider:

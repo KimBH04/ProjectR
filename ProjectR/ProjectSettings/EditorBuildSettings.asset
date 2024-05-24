@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/1.Scenes/VillageScene.unity
     guid: 00224e9744165f54a80646b81db707a0
   - enabled: 1
+    path: Assets/1.Scenes/TavernScene.unity
+    guid: a25f8d2c93340bb4a82b2e4825ad00ac
+  - enabled: 1
     path: Assets/1.Scenes/SampleScenes/CreateRoom.unity
     guid: f0aec93553103514895d4a206572512d
   m_configObjects: {}
