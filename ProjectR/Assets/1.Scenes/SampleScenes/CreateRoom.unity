@@ -445,31 +445,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 420812699091083851, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: skills.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 420812699091083851, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: skills.Array.data[0].skillObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 8572c5e7a30814e4fbe27354d80a6989,
-        type: 2}
     - target: {fileID: 6449706118182181942, guid: 0e88bc72e7ca66645bb92843bac8bca8,
         type: 3}
       propertyPath: m_Name
       value: Warrior
-      objectReference: {fileID: 0}
-    - target: {fileID: 6449706118182181942, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8414330493695897125, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_SlopeLimit
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

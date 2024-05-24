@@ -44,6 +44,7 @@ public class SkillContainer : SkillObject
 
     [Header("Stat")]
     [SerializeField] private int atk = 10;
+    [SerializeField] private float startTime;
     [SerializeField] private float coolTime = 1f;
 
     [Header("Trigger")]
@@ -95,14 +96,16 @@ public class SkillContainer : SkillObject
 
     public override IEnumerator PlaySkill()
     {
+        yield return new WaitForSeconds(startTime);
+
         if (FXPlayInSkill)
         {
              SkillEffects.Instance.PlayEffect(fx);
         }
 
-        Debug.Log("웨 않되;;;;;;;;;;");
         var (_, ps) = SkillEffects.Instance.GetParticleObject(fx);
         var collider = ps.GetComponent<SphereCollider>();
+        collider.enabled = true;
         switch (disableMode)
         {
             case DisableMode.Blink:
