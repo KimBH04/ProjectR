@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416ccf0365e6ae840a631a43b621d624, type: 3}
   m_Name: Container1
   m_EditorClassIdentifier: 
-  monsters:
-  - {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476, type: 3}
-  - {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f, type: 3}
-  - {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476, type: 3}
-  - {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f, type: 3}
-  - {fileID: 6024820008389741605, guid: c6a0da975670a4622a87664478317f84, type: 3}
-  - {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476, type: 3}
-  - {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f, type: 3}
-  - {fileID: 6024820008389741605, guid: c6a0da975670a4622a87664478317f84, type: 3}
+  monsterNames:
+  - Warrior Goblin
+  - Warrior Goblin
+  - Warrior Goblin
+  - Warrior Goblin
+  - Warrior Goblin

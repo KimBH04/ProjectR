@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Wave Container")]
 public class WaveContainer : ScriptableObject
 {
-    [SerializeField] private GameObject[] monsters;
+    [SerializeField] private string[] monsterNames;
     
-    public GameObject this[int index] => monsters[index];   // 1
-    public int Count => monsters.Length;
+    public string this[int index] => monsterNames[index];   // 1
+    public int Count => monsterNames.Length;
 }

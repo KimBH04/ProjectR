@@ -660,7 +660,7 @@ MonoBehaviour:
   level: 0
   atk: 0
   hp: 0
-  speed: 8
+  speed: 10
   dodgeForce: 10
   dodgeCoolTime: 5
   skills:

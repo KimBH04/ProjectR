@@ -7,7 +7,11 @@ public class RoomData : MonoBehaviour
 
     [SerializeField] private Room data;
 
+    [SerializeField] private GameObject mapDisplay;
+    [SerializeField] private MeshRenderer displayMesh;
+
     private bool visited = false;
+    private int enemyCount = 0;
 
     public Room Data
     {
@@ -18,13 +22,20 @@ public class RoomData : MonoBehaviour
         set
         {
             data = value;
+            data.MapDisplay = mapDisplay;
+            data.DisplayMesh = displayMesh;
             if (data.type == Room.RoomType.Battle && waves.Length > 0)
             {
                 WaveContainer waveContainer = waves[Random.Range(0, waves.Length)];
-                for (int i = 0; i < waveContainer.Count; i++)
+                enemyCount = waveContainer.Count;
+                for (int i = 0; i < enemyCount; i++)
                 {
                     int index = i;  // handling variable capture
-                    data.movedHere.AddListener(() => Instantiate(waveContainer[index], transform.position, Quaternion.identity));
+                    data.movedHere.AddListener(() =>
+                    {
+                        var enemy = EnemyPools.AppearObject(waveContainer[index], transform.position).GetComponent<Enemy>();
+                        enemy.onDieEvent.AddListener(EnemyCounter);
+                    });
                 }
             }
         }
@@ -38,6 +49,29 @@ public class RoomData : MonoBehaviour
         }
         data.movedHere.Invoke();
         visited = true;
+
+        if (data.type == Room.RoomType.Battle || data.type == Room.RoomType.Boss)
+        {
+            CreateRoom.CloseWalls(
+                transform.position,
+                data[Room.LEFT] != null,
+                data[Room.FRONT] != null,
+                data[Room.RIGHT] != null,
+                data[Room.BACK] != null);
+        }
+    }
+    
+    private void EnemyCounter()
+    {
+        enemyCount--;
+        if (enemyCount == 0)
+        {
+            CreateRoom.OpenWalls(
+                data[Room.LEFT] != null,
+                data[Room.FRONT] != null,
+                data[Room.RIGHT] != null,
+                data[Room.BACK] != null);
+        }
     }
 }
 
@@ -48,8 +82,9 @@ public class Room
     public int depth = 0;
 
     public UnityEvent movedHere = new UnityEvent();
-    [SerializeField] private GameObject mapDisplay;
-    [SerializeField] private MeshRenderer displayMesh;
+
+    public GameObject MapDisplay { get; set; }
+    public MeshRenderer DisplayMesh { get; set; }
 
     private readonly Room[] dirForRooms = new Room[4];
 
@@ -57,9 +92,9 @@ public class Room
     /// 방향 인덱스
     /// </summary>
     public const int LEFT = 0,
-                     UP = 1,
+                     FRONT = 1,
                      RIGHT = 2,
-                     DOWN = 3;
+                     BACK = 3;
 
     public Room this[int idx] => dirForRooms[idx];
 
@@ -77,8 +112,8 @@ public class Room
             to.dirForRooms[(dir + 2) % 4] = this; 
             movedHere.AddListener(() =>
             {
-                to.mapDisplay.SetActive(true);
-                displayMesh.material.color = Color.white;
+                to.MapDisplay.SetActive(true);
+                DisplayMesh.material.color = Color.white;
             });
             return true;
         }

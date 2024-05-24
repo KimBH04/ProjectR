@@ -14,6 +14,7 @@ public class Fruit : MonoBehaviour
     public EType type;
     public float value;
     public GameObject head;
+    public GameObject effect;
 
     
 
@@ -23,7 +24,6 @@ public class Fruit : MonoBehaviour
         {
             switch (type)
             {
-                
                 case EType.Bomb:
                     StartCoroutine(Explosion());
                     break;
@@ -40,62 +40,45 @@ public class Fruit : MonoBehaviour
     private IEnumerator Explosion()
     {
         yield return new WaitForSeconds(1f);
+        head.SetActive(false);
+        effect.SetActive(true);
         int layerMask = LayerMask.GetMask("Enemy", "Player");
         RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
 
         foreach (RaycastHit hitObj in rayHits)
         {
-            if (hitObj.transform.CompareTag("Warrior"))
+            if (hitObj.transform.CompareTag("Enemy"))
             {
-                hitObj.transform.GetComponent<WarriorPresenter>().TakeDamage(value);
+                hitObj.transform.GetComponent<Enemy>().TakeDamage(value);
             }
-            else if (hitObj.transform.CompareTag("Archer"))
-            {
-                hitObj.transform.GetComponent<ArcherPresenter>().TakeDamage(value);
-            }
-            else if (hitObj.transform.CompareTag("Shield")) 
-            {
-                hitObj.transform.GetComponent<ShieldPresenter>().TakeDamage(value);
-            }
+            
             else if (hitObj.transform.CompareTag("Player")) 
             {
                 // hitObj.transform.GetComponent<PlayerController>().TakeDamage(10f);
             }
         }
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
     
     private IEnumerator Wind()
     {
+        head.SetActive(false);
+        effect.SetActive(true);
         int layerMask = LayerMask.GetMask("Enemy", "Player");
         RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
 
         foreach (RaycastHit hitObj in rayHits)
         {
-            if (hitObj.transform.CompareTag("Warrior"))
+            if (hitObj.transform.CompareTag("Enemy"))
             {
-                hitObj.transform.GetComponent<WarriorPresenter>().SetSpeed(value);
-                head.SetActive(false);
+                hitObj.transform.GetComponent<Enemy>().SetSpeed(value);
                 yield return new WaitForSeconds(10f);
-                hitObj.transform.GetComponent<WarriorPresenter>().OriginSpeed(value);
-            }
-            else if (hitObj.transform.CompareTag("Archer"))
-            {
-                hitObj.transform.GetComponent<ArcherPresenter>().SetSpeed(value);
-                head.SetActive(false);
-                yield return new WaitForSeconds(10f);
-                hitObj.transform.GetComponent<ArcherPresenter>().OriginSpeed(value);
-            }
-            else if (hitObj.transform.CompareTag("Shield")) 
-            {
-                hitObj.transform.GetComponent<ShieldPresenter>().SetSpeed(value);
-                head.SetActive(false);
-                yield return new WaitForSeconds(10f);
-                hitObj.transform.GetComponent<ShieldPresenter>().OriginSpeed(value);
+                hitObj.transform.GetComponent<Enemy>().OriginSpeed(value);
             }
             else if (hitObj.transform.CompareTag("Player")) 
             {
-                
+                yield return new WaitForSeconds(10f);
             }
         }
         Destroy(gameObject);
@@ -103,36 +86,23 @@ public class Fruit : MonoBehaviour
 
     private IEnumerator Tingling()
     {
-        
+        head.SetActive(false);
+        effect.SetActive(true);
         int layerMask = LayerMask.GetMask("Enemy", "Player");
         RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
-
+        
         foreach (RaycastHit hitObj in rayHits)
         {
-            if (hitObj.transform.CompareTag("Warrior"))
+            if (hitObj.transform.CompareTag("Enemy"))
             {
-                hitObj.transform.GetComponent<WarriorPresenter>().Tingling();
-                head.SetActive(false);
+                hitObj.transform.GetComponent<Enemy>().Tingling();
+                
                 yield return new WaitForSeconds(1f);
-                hitObj.transform.GetComponent<WarriorPresenter>().EndTingling();
-            }
-            else if (hitObj.transform.CompareTag("Archer"))
-            {
-                hitObj.transform.GetComponent<ArcherPresenter>().Tingling();
-                head.SetActive(false);
-                yield return new WaitForSeconds(1f);
-                hitObj.transform.GetComponent<ArcherPresenter>().EndTingling();
-            }
-            else if (hitObj.transform.CompareTag("Shield")) 
-            {
-                hitObj.transform.GetComponent<ShieldPresenter>().Tingling();
-                head.SetActive(false);
-                yield return new WaitForSeconds(1f);
-                hitObj.transform.GetComponent<ShieldPresenter>().EndTingling();
+                hitObj.transform.GetComponent<Enemy>().EndTingling();
             }
             else if (hitObj.transform.CompareTag("Player")) 
             {
-                
+                yield return new WaitForSeconds(1f);
             }
         }
         Destroy(gameObject);
