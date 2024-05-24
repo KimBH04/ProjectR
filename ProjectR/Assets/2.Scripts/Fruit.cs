@@ -86,21 +86,23 @@ public class Fruit : MonoBehaviour
 
     private IEnumerator Tingling()
     {
+        head.SetActive(false);
+        effect.SetActive(true);
         int layerMask = LayerMask.GetMask("Enemy", "Player");
         RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,layerMask);
-
+        
         foreach (RaycastHit hitObj in rayHits)
         {
             if (hitObj.transform.CompareTag("Enemy"))
             {
                 hitObj.transform.GetComponent<Enemy>().Tingling();
-                head.SetActive(false);
+                
                 yield return new WaitForSeconds(1f);
                 hitObj.transform.GetComponent<Enemy>().EndTingling();
             }
             else if (hitObj.transform.CompareTag("Player")) 
             {
-                
+                yield return new WaitForSeconds(1f);
             }
         }
         Destroy(gameObject);
