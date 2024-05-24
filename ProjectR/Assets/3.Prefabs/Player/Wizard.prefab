@@ -664,7 +664,7 @@ MonoBehaviour:
   dodgeForce: 10
   dodgeCoolTime: 5
   skills:
-  - skillObject: {fileID: 11400000, guid: 8572c5e7a30814e4fbe27354d80a6989, type: 2}
+  - skillObject: {fileID: 11400000, guid: 4979d0d50ca441d41a56dc25bb86f814, type: 2}
     AttackEndedEvent:
       m_PersistentCalls:
         m_Calls: []

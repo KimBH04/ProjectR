@@ -58,6 +58,7 @@ public class SkillEffects : MonoBehaviour
         Slash1,
         Slash2,
         Slash3,
+        Fire, 
         None
     }
 }
