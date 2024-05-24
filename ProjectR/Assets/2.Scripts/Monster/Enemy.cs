@@ -228,7 +228,9 @@ public  abstract  class Enemy : MonoBehaviour
         _rb.isKinematic = true;
         Destroy(gameObject,2f);
         int randomIndex = Random.Range(0, expStone.Length);
-        Instantiate(expStone[randomIndex], transform.position, Quaternion.identity);
+        Vector3 spawnPosition = transform.position;
+        spawnPosition.y += 2;
+        Instantiate(expStone[randomIndex], spawnPosition, Quaternion.identity);
     }
     
     protected IEnumerator OnDie()
