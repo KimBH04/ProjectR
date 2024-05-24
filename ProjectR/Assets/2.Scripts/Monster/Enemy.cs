@@ -268,6 +268,8 @@ public  abstract  class Enemy : MonoBehaviour
         {
             // 임시 코드
             TakeDamage(10f);
+            transform.DOMove(transform.position - transform.forward, 0.5f);
+            
         }
     }
 
