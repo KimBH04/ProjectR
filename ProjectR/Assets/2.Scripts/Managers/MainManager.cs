@@ -58,13 +58,8 @@ public class MainManager : MonoBehaviour
         fadeImage.gameObject.SetActive(false);
     }
 
-    public void OpenSettings()
+    public void EndGame()
     {
-
-    }
-
-    public void SetVolume(float volume)
-    {
-
+        Application.Quit();
     }
 }
