@@ -2511,7 +2511,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to the gaybar
+  m_text: "\uAC8C\uC784 \uD0C0\uC774\uD2C0\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1664d6e5199c15048ab58b2ee891fef2, type: 2}
   m_sharedMaterial: {fileID: 3060988984915579738, guid: 1664d6e5199c15048ab58b2ee891fef2,
