@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028554, g: 0.22571614, b: 0.30692446, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -523,13 +523,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 234704014}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.29883623, y: -0.64085644, z: 0.29883623, w: 0.64085644}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -90, z: 0}
 --- !u!114 &234704017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,14 +785,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - name: Warrior Goblin
+  - name: Archer Goblin
+    enemyObject: {fileID: 6024820008389741605, guid: c6a0da975670a4622a87664478317f84,
+      type: 3}
+    initCount: 5
+  - name: Shield Goblin
     enemyObject: {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f,
       type: 3}
-    initCount: 10
-  - name: Shield Goblin
-    enemyObject: {fileID: 488080211188533986, guid: 8c432d87f192b497fa6d6623065dfd93,
+    initCount: 5
+  - name: Warrior Goblin
+    enemyObject: {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476,
       type: 3}
-    initCount: 10
+    initCount: 5
+  - name: Biglime
+    enemyObject: {fileID: 4015811296826361122, guid: 512ac9401f53c4199aa724a72297e7b7,
+      type: 3}
+    initCount: 5
 --- !u!4 &440042231
 Transform:
   m_ObjectHideFlags: 0
@@ -3202,3 +3210,4 @@ SceneRoots:
   - {fileID: 2113927745}
   - {fileID: 782932854}
   - {fileID: 307685277}
+  - {fileID: 2078175558}

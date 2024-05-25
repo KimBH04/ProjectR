@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FXPlayInSkill: 0
   fx: 0
-  startClip: {fileID: 0}
+  startClip: {fileID: 8300000, guid: 3145127cbee4ecb42b141ac36c4322dc, type: 3}
   destroyClip: {fileID: 0}
   animationKey: 1
   atk: 10

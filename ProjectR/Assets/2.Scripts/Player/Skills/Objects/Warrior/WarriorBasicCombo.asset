@@ -15,5 +15,4 @@ MonoBehaviour:
   comboSkills:
   - {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37, type: 2}
   - {fileID: 11400000, guid: 11df029d7ce26024b8de2274f6b75682, type: 2}
-  - {fileID: 11400000, guid: eb4bcd1cb2d03a6478f10289784610b3, type: 2}
   comboEndTime: 1
