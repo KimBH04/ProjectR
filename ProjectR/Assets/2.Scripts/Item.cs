@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
     }
     
     public EType type;
-    public float value;
+    public int value;
 
     private Rigidbody _rb;
 
@@ -53,7 +53,7 @@ public class Item : MonoBehaviour
                     Destroy(gameObject);
                     break;
                 case EType.Exp:
-                    //other.GetComponent<PlayerController>().Exp += value;
+                    other.GetComponent<PlayerController>().Exp += value;
                     Destroy(gameObject);
                     break;
                 default:
