@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
-  value: 20
+  value: 15
 --- !u!136 &6164656708195381587
 CapsuleCollider:
   m_ObjectHideFlags: 0
