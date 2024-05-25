@@ -14,10 +14,10 @@ public class PlayerControllerEditor : Editor
 
         if (EditorApplication.isPlaying)
         {
-            var instpector = (PlayerController)target;
+            var inspector = (PlayerController)target;
             if (GUILayout.Button("Add 10 exp"))
             {
-                instpector.Exp += 10;
+                inspector.Exp += 10;
             }
         }
     }
