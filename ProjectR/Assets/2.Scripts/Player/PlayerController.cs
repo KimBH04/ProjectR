@@ -3,16 +3,40 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+#if UNITY_EDITOR
+using UnityEditor;
+[CustomEditor(typeof(PlayerController))]
+public class PlayerControllerEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        if (EditorApplication.isPlaying)
+        {
+            var instpector = (PlayerController)target;
+            if (GUILayout.Button("Add 10 exp"))
+            {
+                instpector.Exp += 10;
+            }
+        }
+    }
+}
+#endif
+
 public sealed class PlayerController : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] private int level;
     [SerializeField] private int atk;
-    [SerializeField] private int hp;
-    [SerializeField] private float speed;
+    [SerializeField] private int hp = 3;
+    [SerializeField] private float speed = 4f;
     [Space]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float dodgeCoolTime;
+
+    private int level = 1;
+    private bool didLevelUp = false;
+    private int exp = 0;
 
     private float speedScale = 1f;
 
@@ -49,8 +73,37 @@ public sealed class PlayerController : MonoBehaviour
         }
     }
 
+    public int Exp
+    {
+        get
+        {
+            return exp;
+        }
+        set
+        {
+            exp = value;
+            if (exp >= NeedExp)
+            {
+                level++;
+                didLevelUp = true;
+            }
+            StatusUI.SetExpUI(exp, NeedExp);
+        }
+    }
+
+    public int NeedExp => (level + 1) * level * 25;
+
     private void Awake()
     {
+        RoomData.roomClearEvent.AddListener(() =>
+        {
+            if (didLevelUp)
+            {
+                StatusUI.PopUpSelectProperties();
+                didLevelUp = false;
+            }
+        });
+
         controller = GetComponent<CharacterController>();
 
         foreach (var skill in skills)
