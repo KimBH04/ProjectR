@@ -84,6 +84,7 @@ public sealed class PlayerController : MonoBehaviour
             exp = value;
             if (exp >= NeedExp)
             {
+                exp -= NeedExp;
                 level++;
                 didLevelUp = true;
             }
@@ -91,7 +92,7 @@ public sealed class PlayerController : MonoBehaviour
         }
     }
 
-    public int NeedExp => (level + 1) * level * 25;
+    public int NeedExp => level * 50;
 
     private void Awake()
     {
