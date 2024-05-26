@@ -19,6 +19,11 @@ public class PlayerControllerEditor : Editor
             {
                 inspector.Exp += 10;
             }
+
+            if (GUILayout.Button("Raise room clear event"))
+            {
+                RoomData.roomClearEvent.Invoke();
+            }
         }
     }
 }
