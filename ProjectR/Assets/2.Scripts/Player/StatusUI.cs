@@ -22,8 +22,8 @@ public class StatusUI : MonoBehaviour
         instance.expText.text = $"{exp} / {needExp}";
     }
 
-    public static void PopUpSelectProperties()
+    public static void PopUpSelectProperties(int level)
     {
-        Debug.Log("Level Up!");
+        Debug.Log("Level Up! Lv." + level);
     }
 }

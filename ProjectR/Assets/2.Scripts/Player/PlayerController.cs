@@ -100,7 +100,7 @@ public sealed class PlayerController : MonoBehaviour
         {
             if (didLevelUp)
             {
-                StatusUI.PopUpSelectProperties();
+                StatusUI.PopUpSelectProperties(level);
                 didLevelUp = false;
             }
         });
