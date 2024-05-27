@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 50
   currentHp: 50
-  speed: 1
+  speed: 7
   damage: 1
   targetRadius: 0.5
   targetRange: 0.5
