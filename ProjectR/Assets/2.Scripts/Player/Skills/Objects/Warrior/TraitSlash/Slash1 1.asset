@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 896c88ac569d82e4c936deb41966bc8a, type: 3}
-  m_Name: Slash2
+  m_Name: Slash1 1
   m_EditorClassIdentifier: 
   FXPlayInSkill: 0
-  fx: 1
+  fx: 0
   startClip: {fileID: 8300000, guid: 3145127cbee4ecb42b141ac36c4322dc, type: 3}
   destroyClip: {fileID: 0}
-  animationKey: 2
+  animationKey: 1
   atk: 10
-  startTime: 0.3
-  coolTime: 1
+  startTime: 0.1
+  coolTime: 0.3
   disableMode: 0
   disableTime: 0
   destroyFx: 0

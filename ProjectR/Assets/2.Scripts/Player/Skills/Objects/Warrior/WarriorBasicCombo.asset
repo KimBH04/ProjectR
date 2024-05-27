@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboSkills:
   - {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37, type: 2}
-  - {fileID: 11400000, guid: 11df029d7ce26024b8de2274f6b75682, type: 2}
   comboEndTime: 1
