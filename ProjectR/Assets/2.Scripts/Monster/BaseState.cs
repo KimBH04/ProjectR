@@ -18,17 +18,17 @@ public class IdleState : BaseState
 
     public override void OnStateEnter()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnStateUpdate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnStateExit()
     {
-        throw new System.NotImplementedException();
+        
     }
 }
 
@@ -38,17 +38,17 @@ public class MoveState : BaseState
 
     public override void OnStateEnter()
     {
-        throw new System.NotImplementedException();
+        // 이동 애니메이션 재생
     }
 
     public override void OnStateUpdate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnStateExit()
     {
-        throw new System.NotImplementedException();
+        // 이동 애니메이션 종료
     }
 }
 
@@ -58,17 +58,17 @@ public class AttackState : BaseState
 
     public override void OnStateEnter()
     {
-        throw new System.NotImplementedException();
+        // 공격 애니메이션 재생
     }
 
     public override void OnStateUpdate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnStateExit()
     {
-        throw new System.NotImplementedException();
+        // 공격 애니메이션 종료
     }
 }
 
@@ -78,17 +78,17 @@ public class DieState : BaseState
 
     public override void OnStateEnter()
     {
-        throw new System.NotImplementedException();
+        // 죽는 애니메이션 재생
     }
 
     public override void OnStateUpdate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnStateExit()
     {
-        throw new System.NotImplementedException();
+        // 죽는 애니메이션 종료  
     }
 }
 

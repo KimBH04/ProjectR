@@ -19,15 +19,16 @@ public  abstract  class Enemy : MonoBehaviour
     
     
     private EnemyModel _model;
-    private Transform _playerTr;
+    protected Transform _playerTr;
     private EnemyView _view;
     protected Animator Animator;
     private Rigidbody _rb;
-    private NavMeshAgent _agent;
+    protected NavMeshAgent _agent;
     private SkinnedMeshRenderer[] _meshRenderers;
     private readonly Dictionary<SkinnedMeshRenderer, Color> _originalMeshRenderers = new Dictionary<SkinnedMeshRenderer, Color>();
     public Material dissolveMaterial;
-    
+
+    protected bool IsDead;
     protected bool IsChase;
     protected bool IsAttack;
     private bool _isDead;

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    
     private enum EState
     {
         Idle,
