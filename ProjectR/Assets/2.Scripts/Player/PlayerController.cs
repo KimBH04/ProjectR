@@ -155,7 +155,6 @@ public sealed class PlayerController : MonoBehaviour
             }
 
             point.y += 0.1f;
-            pointer.position = point;
         }
     }
 

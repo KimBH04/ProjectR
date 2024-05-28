@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/1.Scenes/MainScene.unity
     guid: 8f92861f5bff5134baa73ba299a80d2a
   - enabled: 1
+    path: Assets/1.Scenes/TavernPrologue.unity
+    guid: 8c0cc24f6d41f51468a594aea465cee9
+  - enabled: 1
     path: Assets/1.Scenes/HomeScene.unity
     guid: e77b659d8dac5354d8187f8daebaacdf
   - enabled: 1

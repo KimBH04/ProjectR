@@ -8,7 +8,8 @@ public class DialogManager : MonoBehaviour
 {
     public Canvas canvas;
     public TextMeshProUGUI dialogText;
-    public string[] firstDialogs;
+    public string[] dialogs;
+    public Image ebutton;
     private int currentDialogIndex = -1;
     private bool isPrinting = false;
     private bool inTrigger = false;
@@ -32,7 +33,7 @@ public class DialogManager : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(PrintDialog(firstDialogs));
+                    StartCoroutine(PrintDialog(dialogs));
                 }
             }
         }
@@ -44,7 +45,7 @@ public class DialogManager : MonoBehaviour
         {
             canvas.gameObject.SetActive(true);
             
-            StartCoroutine(PrintDialog(firstDialogs)); // 첫 번째 대화 목록부터 시작
+            StartCoroutine(PrintDialog(dialogs)); // 첫 번째 대화 목록부터 시작
         }
     }
 
@@ -75,12 +76,16 @@ public class DialogManager : MonoBehaviour
             }
         }   // 마지막 대화 후 다음 대화시엔 다시 출력
 
+        ebutton.gameObject.SetActive(false);
+
         // 한 글자씩 출력
         foreach (char letter in dialogList[currentDialogIndex].ToCharArray())
         {
             dialogText.text += letter;
-            yield return new WaitForSeconds(0.1f); // 출력 속도 조절
+            yield return new WaitForSeconds(0.08f); // 출력 속도 조절
         }
+
+        ebutton.gameObject.SetActive(true);
 
         isPrinting = false;
     }
