@@ -46,6 +46,7 @@ public class SkillContainer : SkillObject
     [SerializeField] private int atk = 10;
     [SerializeField] private float startTime;
     [SerializeField] private float coolTime = 1f;
+    [SerializeField] private float needStamina = 1f;
 
     [Header("Trigger")]
     [SerializeField] private DisableMode disableMode;
@@ -61,6 +62,11 @@ public class SkillContainer : SkillObject
     /// 쿨타임
     /// </summary>
     public float CoolTime => coolTime;
+
+    /// <summary>
+    /// 필요한 스태미나 / 마나
+    /// </summary>
+    public float NeedStamina => needStamina;
 
     /// <summary>
     /// 오브젝트 비활성화 방식

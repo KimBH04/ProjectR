@@ -35,12 +35,15 @@ public sealed class PlayerController : MonoBehaviour
     [SerializeField] private int atk;
     [SerializeField] private int hp = 3;
     [SerializeField] private float speed = 4f;
+    [SerializeField] private float maxStamina = 20f;
     [Space]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float dodgeCoolTime;
 
+    // current status
     private int level = 1;
     private bool didLevelUp = false;
+    private float stamina;
     private int exp = 0;
 
     private float speedScale = 1f;
@@ -101,6 +104,8 @@ public sealed class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        stamina = maxStamina;
+
         RoomData.roomClearEvent.AddListener(() =>
         {
             if (didLevelUp)
@@ -127,6 +132,9 @@ public sealed class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         pAnimator = GetComponentInChildren<PlayerAnimator>();
+
+        StatusUI.SetStaminaUI(stamina, maxStamina);
+        StatusUI.SetExpUI(0, NeedExp);
     }
 
     private void Update()
@@ -163,6 +171,9 @@ public sealed class PlayerController : MonoBehaviour
             point.y += 0.1f;
             pointer.position = point;
         }
+
+        stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime);
+        StatusUI.SetStaminaUI(stamina, maxStamina);
     }
 
     private void FixedUpdate()
@@ -184,9 +195,10 @@ public sealed class PlayerController : MonoBehaviour
         if (context.started)
         {
             int idx = (int)context.ReadValue<float>();
-            if (idx < skills.Length && skills[idx].AttackCoolDown)
+            if (idx < skills.Length && skills[idx].AttackCoolDown && stamina >= skills[idx].SkillObject.CurrentContainer.NeedStamina)
             {
                 speedScale = 0.5f;
+                stamina -= skills[idx].SkillObject.CurrentContainer.NeedStamina;
 
                 foreach (var routine in skills[idx].GetDoSkill())
                 {
