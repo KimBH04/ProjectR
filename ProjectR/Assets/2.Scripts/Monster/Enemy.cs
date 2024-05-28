@@ -11,23 +11,23 @@ using UnityEngine.UI;
 public  abstract  class Enemy : MonoBehaviour
 {
     [SerializeField] protected Collider meleeArea;
-    [SerializeField] private EnemyData data;
+    [SerializeField] protected EnemyData data;
     [SerializeField] private GameObject[] expStone;
     [SerializeField] private Image hpBar;
     [SerializeField] private GameObject damageText;
     [SerializeField] private Transform damageTextPos;
     
     
-    private EnemyModel _model;
+    protected EnemyModel _model;
     protected Transform _playerTr;
-    private EnemyView _view;
     protected Animator Animator;
-    private Rigidbody _rb;
+    protected Rigidbody _rb;
     protected NavMeshAgent _agent;
-    private SkinnedMeshRenderer[] _meshRenderers;
-    private readonly Dictionary<SkinnedMeshRenderer, Color> _originalMeshRenderers = new Dictionary<SkinnedMeshRenderer, Color>();
+    protected SkinnedMeshRenderer[] _meshRenderers;
+    protected readonly Dictionary<SkinnedMeshRenderer, Color> _originalMeshRenderers = new Dictionary<SkinnedMeshRenderer, Color>();
     public Material dissolveMaterial;
 
+    public bool isBoss;
     protected bool IsDead;
     protected bool IsChase;
     protected bool IsAttack;
@@ -43,7 +43,7 @@ public  abstract  class Enemy : MonoBehaviour
     [HideInInspector]
     public UnityEvent onDieEvent = new UnityEvent();
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         if (!_playerTr)
@@ -64,7 +64,6 @@ public  abstract  class Enemy : MonoBehaviour
         Animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
-        _view = GetComponent<EnemyView>();
         _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         dissolveMaterial = new Material(dissolveMaterial);
         _agent.speed = _model.Speed;
@@ -77,12 +76,15 @@ public  abstract  class Enemy : MonoBehaviour
     private void Start()
     {
         StartCoroutine(IsHeal());
-        Invoke(nameof(ChaseStart), 2f);
+        if (!isBoss && _agent.enabled) 
+        {
+            Invoke(nameof(ChaseStart), 1f);
+        }
     }
 
     private void Update()
     {
-        if (_agent.enabled && !IsTingling) 
+        if (_agent.enabled && !IsTingling && !isBoss) 
         {
             _agent.SetDestination(_playerTr.position);
             _agent.isStopped = !IsChase;
@@ -103,12 +105,16 @@ public  abstract  class Enemy : MonoBehaviour
 
     private void Targeting()
     {
-        RaycastHit[] rayHits = new RaycastHit[10];
-        int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward, rayHits, 
-            _model.TargetRange, LayerMask.GetMask("Player"));
-        if (hitCount > 0 && !IsAttack && !IsTingling)
+        if (!isBoss && !_isDead)
         {
-            StartCoroutine(AttackPlayer());
+            RaycastHit[] rayHits = new RaycastHit[10];
+            int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward,
+                rayHits,
+                _model.TargetRange, LayerMask.GetMask("Player"));
+            if (hitCount > 0 && !IsAttack && !IsTingling)
+            {
+                StartCoroutine(AttackPlayer());
+            }
         }
     }
     
@@ -138,7 +144,6 @@ public  abstract  class Enemy : MonoBehaviour
             if (_isHeal)
             {
                 _model.CurrentHp += 10;
-                _view.UpdateHpBar(_model.CurrentHp,_model.MaxHp);
             }
         }
         if (_isDead)

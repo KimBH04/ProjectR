@@ -5,105 +5,94 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 
-public class Minotaur : MonoBehaviour
+public class Minotaur : Enemy
 {
-    [SerializeField] private float hpBar;
-    [SerializeField] private GameObject damageText;
-    [SerializeField] private Transform hpBarPrefab;
-    
-    
-    private Transform _playerTr;
-    private bool _isLook;
-    private bool _isDead;
-    
-    private Vector3 _lookVec;
-    private Vector3 _tauntVec;
-    
-    private Animator _animator;
-    private NavMeshAgent _agent;
-    private Rigidbody _rigid;
+    public bool isLook;
 
+    private Vector3 lookVec;
+    private Vector3 tauntVec;
+    
+    private static readonly int Scream = Animator.StringToHash("Scream");
+    private static readonly int JumpAttack = Animator.StringToHash("JumpAttack");
+    
 
-    private void Awake()
+    private void Start()
     {
-        _playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        _animator = GetComponent<Animator>();
-        _agent = GetComponent<NavMeshAgent>();
-        _rigid = GetComponent<Rigidbody>();
-
         _agent.isStopped = true;
         StartCoroutine(AttackPlayer());
     }
-
+    
 
     private void Update()
     {
-        if (_isDead)
+        if (IsDead)
         {
             StopAllCoroutines();
             return;
         }
 
-        if (_isLook)
+        if (isLook)
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
-            _lookVec = new Vector3(h, 0, v) * 5f;
-            transform.LookAt(_playerTr.position + _lookVec);
+            lookVec = new Vector3(h, 0, v) * 5f;
+            transform.LookAt(_playerTr.position + lookVec);
         }
         else
         {
-            _agent.SetDestination(_tauntVec);
+            _agent.SetDestination(tauntVec);
         }
     }
 
-    private void FixedUpdate()
+    protected override IEnumerator AttackPlayer()
     {
-        FreezeVelocity();
-    }
-    
-    private void FreezeVelocity()
-    {
-        _rigid.angularVelocity = Vector3.zero;
-        _rigid.velocity = Vector3.zero;
-    }
-
-    private  IEnumerator AttackPlayer()
-    {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         
-        int ranAction = Random.Range(0, 3);
+        int intAction = Random.Range(0, 1);
 
-        switch (ranAction)
+        switch (intAction)
         {
             case 0:
-                StartCoroutine(Pattern1());
+                StartCoroutine(Attack1());
                 break;
             case 1:
-                StartCoroutine(Pattern2());
+                StartCoroutine(Attack2());
                 break;
             case 2:
-                StartCoroutine(Pattern3());
+                StartCoroutine(Attack3());
                 break;
         }
-        
     }
 
-    private IEnumerator Pattern1()
+    private IEnumerator Attack1()
     {
-        yield return null;
+       
+        
+        //Animator.SetTrigger( Scream);
+        
+        
+        //yield return new WaitForSeconds(2f);
+        Animator.SetTrigger(JumpAttack);
+        tauntVec = _playerTr.position + lookVec;
+        isLook = false;
+        _agent.isStopped = false;
+        
+        yield return new WaitForSeconds(3f);
+        
+        isLook = true;
+        _agent.isStopped = true;
         StartCoroutine(AttackPlayer());
     }
     
-    private IEnumerator Pattern2()
+    private IEnumerator Attack2()
     {
-        yield return null;
+        yield return new WaitForSeconds(2f);
         StartCoroutine(AttackPlayer());
     }
     
-    private IEnumerator Pattern3()
+    private IEnumerator Attack3()
     {
-        yield return null;
+        yield return new WaitForSeconds(2f);
         StartCoroutine(AttackPlayer());
     }
 }

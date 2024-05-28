@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 255f834aa98fa4011a65158f3b7305b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 40ea3f36f2ac548d0aa62ed79e505dc1, type: 3}
   m_Name: Mino
   m_EditorClassIdentifier: 
   maxHp: 100
   currentHp: 100
-  speed: 3
-  damage: 20
+  speed: 5
+  damage: 0
+  targetRadius: 0
+  targetRange: 0
