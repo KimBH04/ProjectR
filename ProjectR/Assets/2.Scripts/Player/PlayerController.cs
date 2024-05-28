@@ -100,6 +100,24 @@ public sealed class PlayerController : MonoBehaviour
         }
     }
 
+    public int Hp
+    {
+        get
+        {
+            return hp;
+        }
+        set
+        {
+            hp = value;
+            if (hp <= 0)
+            {
+                hp = 0;
+                Debug.Log("Dead");
+            }
+            StatusUI.SetHpUI(hp);
+        }
+    }
+
     public int NeedExp => level * 50;
 
     private void Awake()
@@ -133,8 +151,9 @@ public sealed class PlayerController : MonoBehaviour
 
         pAnimator = GetComponentInChildren<PlayerAnimator>();
 
-        StatusUI.SetStaminaUI(stamina, maxStamina);
         StatusUI.SetExpUI(0, NeedExp);
+        StatusUI.SetStaminaUI(stamina, maxStamina);
+        StatusUI.SetHpUI(hp);
     }
 
     private void Update()
