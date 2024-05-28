@@ -5961,7 +5961,7 @@ Transform:
   m_GameObject: {fileID: 553785875}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.82, y: -0.62, z: -3.82}
+  m_LocalPosition: {x: -1.82, y: -0.62, z: 0.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6272,6 +6272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minotauros
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fb24458702f224ece89a848fd048cbb8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: fb24458702f224ece89a848fd048cbb8,
         type: 3}
       propertyPath: m_Controller
@@ -6301,6 +6306,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 624966921}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fb24458702f224ece89a848fd048cbb8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 624966925}
   m_SourcePrefab: {fileID: 100100000, guid: fb24458702f224ece89a848fd048cbb8, type: 3}
 --- !u!1 &624966919 stripped
 GameObject:
@@ -6389,6 +6398,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &624966925
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624966919}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 7
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.5, z: 0}
 --- !u!1 &644677823
 GameObject:
   m_ObjectHideFlags: 0

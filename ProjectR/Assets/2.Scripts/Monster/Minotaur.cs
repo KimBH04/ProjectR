@@ -19,7 +19,7 @@ public class Minotaur : Enemy
     private void Start()
     {
         _agent.isStopped = true;
-        StartCoroutine(AttackPlayer());
+        //StartCoroutine(AttackPlayer());
     }
     
 
@@ -33,10 +33,17 @@ public class Minotaur : Enemy
 
         if (isLook)
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
-            lookVec = new Vector3(h, 0, v) * 5f;
-            transform.LookAt(_playerTr.position + lookVec);
+            // float h = Input.GetAxisRaw("Horizontal");
+            // float v = Input.GetAxisRaw("Vertical");
+            // lookVec = new Vector3(h, 0, v) * 5f;
+            // transform.LookAt(_playerTr.position + lookVec);
+            
+            Vector3 directionToPlayer = (_playerTr.position - transform.position).normalized;
+            if (directionToPlayer != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+                transform.rotation = targetRotation;
+            }
         }
         else
         {
