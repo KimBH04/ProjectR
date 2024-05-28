@@ -1,16 +1,13 @@
-using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
-
 
 public class Minotaur : Enemy
 {
     public bool isLook;
 
-    private Vector3 lookVec;
-    private Vector3 tauntVec;
+    private Vector3 _lookVec;
+    private Vector3 _tauntVec;
     
     private static readonly int Scream = Animator.StringToHash("Scream");
     private static readonly int JumpAttack = Animator.StringToHash("JumpAttack");
@@ -19,6 +16,7 @@ public class Minotaur : Enemy
     private void Start()
     {
         _agent.isStopped = true;
+        print(_agent.isStopped);
         //StartCoroutine(AttackPlayer());
     }
     
@@ -35,19 +33,29 @@ public class Minotaur : Enemy
         {
             // float h = Input.GetAxisRaw("Horizontal");
             // float v = Input.GetAxisRaw("Vertical");
-            // lookVec = new Vector3(h, 0, v) * 5f;
-            // transform.LookAt(_playerTr.position + lookVec);
+            // _lookVec = new Vector3(h, 0, v) * 5f;
+            // transform.LookAt(_playerTr.position + _lookVec);
+
+            // Vector3 directionToPlayer = (_playerTr.position - transform.position).normalized;
+            // if (directionToPlayer != Vector3.zero)
+            // {
+            //     Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+            //     transform.rotation = targetRotation;
+            // }
             
-            Vector3 directionToPlayer = (_playerTr.position - transform.position).normalized;
-            if (directionToPlayer != Vector3.zero)
+            Vector3 direction = _playerTr.position - transform.position;
+            direction.y = 0; // Y축 회전만 적용
+            
+            if (direction.magnitude > 0.1f)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
-                transform.rotation = targetRotation;
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
         }
         else
         {
-            _agent.SetDestination(tauntVec);
+            _agent.SetDestination(_tauntVec);
         }
     }
 
@@ -80,7 +88,7 @@ public class Minotaur : Enemy
         
         //yield return new WaitForSeconds(2f);
         Animator.SetTrigger(JumpAttack);
-        tauntVec = _playerTr.position + lookVec;
+        _tauntVec = _playerTr.position + _lookVec;
         isLook = false;
         _agent.isStopped = false;
         
