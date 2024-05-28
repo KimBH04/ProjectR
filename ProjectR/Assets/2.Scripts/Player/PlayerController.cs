@@ -14,6 +14,9 @@ public class PlayerControllerEditor : Editor
 
         if (EditorApplication.isPlaying)
         {
+            GUILayout.Space(10);
+            GUILayout.Label("Test");
+
             var inspector = (PlayerController)target;
             if (GUILayout.Button("Add 10 exp"))
             {
@@ -23,6 +26,16 @@ public class PlayerControllerEditor : Editor
             if (GUILayout.Button("Raise room clear event"))
             {
                 RoomData.roomClearEvent.Invoke();
+            }
+
+            if (GUILayout.Button("Heal"))
+            {
+                inspector.Hp++;
+            }
+
+            if (GUILayout.Button("Deal"))
+            {
+                inspector.Hp--;
             }
         }
     }
