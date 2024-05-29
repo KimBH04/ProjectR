@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
 
     public enum EBgm
     {
-        
+        Maple
     }
     
     public enum ESfx
