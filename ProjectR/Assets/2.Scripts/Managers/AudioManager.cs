@@ -47,8 +47,6 @@ public class AudioManager : MonoBehaviour
         Singleton();
         Init();
         
-        PlayBgm(EBgm.Maple);
-        
     }
 
     void Init()

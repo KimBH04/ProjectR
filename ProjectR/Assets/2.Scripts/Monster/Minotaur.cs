@@ -16,8 +16,7 @@ public class Minotaur : Enemy
     private void Start()
     {
         _agent.isStopped = true;
-        print(_agent.isStopped);
-        //StartCoroutine(AttackPlayer());
+        StartCoroutine(AttackPlayer());
     }
     
 
@@ -51,6 +50,7 @@ public class Minotaur : Enemy
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+                //transform.rotation = targetRotation;
             }
         }
         else
@@ -63,8 +63,9 @@ public class Minotaur : Enemy
     {
         yield return new WaitForSeconds(0.5f);
         
-        int intAction = Random.Range(0, 1);
+        int intAction = Random.Range(0, 3);
 
+        print(intAction);
         switch (intAction)
         {
             case 0:
@@ -83,10 +84,10 @@ public class Minotaur : Enemy
     {
        
         
-        //Animator.SetTrigger( Scream);
+        Animator.SetTrigger( Scream);
         
         
-        //yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         Animator.SetTrigger(JumpAttack);
         _tauntVec = _playerTr.position + _lookVec;
         isLook = false;
@@ -101,12 +102,19 @@ public class Minotaur : Enemy
     
     private IEnumerator Attack2()
     {
+        isLook = false;
+        _agent.isStopped = false;
+        _tauntVec = _playerTr.position + _lookVec;
+        Animator.SetTrigger(Chase);
         yield return new WaitForSeconds(2f);
+        isLook = true;
+        _agent.isStopped = true;
         StartCoroutine(AttackPlayer());
     }
     
     private IEnumerator Attack3()
     {
+        Animator.SetTrigger(Attack);
         yield return new WaitForSeconds(2f);
         StartCoroutine(AttackPlayer());
     }

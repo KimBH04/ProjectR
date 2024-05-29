@@ -9,14 +9,25 @@ public class Trap : MonoBehaviour
     [SerializeField] private GameObject thorn;
     [SerializeField] private Collider meleeArea;
     private bool _kanban;
+
+    public ETrapType _trapType;
+    public enum ETrapType
+    {
+        Thorn,
+        Fire,
+    }
+    
     
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.CompareTag("Enemy") || 
-             other.CompareTag("Player")) && 
-            !_kanban)
+        if ((other.CompareTag("Enemy") || other.CompareTag("Player")) && !_kanban && _trapType == ETrapType.Thorn)
         {
             StartCoroutine(HaveThorn());
+        }
+        
+        if ((other.CompareTag("Enemy") || other.CompareTag("Player")) && !_kanban && _trapType == ETrapType.Fire)
+        {
+            StartCoroutine(HaveFire());
         }
     }
 
@@ -33,5 +44,17 @@ public class Trap : MonoBehaviour
 
         _kanban = false;
         
+    }
+
+    private IEnumerator HaveFire()
+    {
+        _kanban = true;
+        thorn.SetActive(true);
+        thorn.transform.DOLocalMoveY(0.2f, 1f).SetEase(Ease.OutBounce);
+        yield return new WaitForSeconds(3f);
+        thorn.transform.DOLocalMoveY(-0.6f, 1f).SetEase(Ease.OutBounce);
+        yield return new WaitForSeconds(1f);
+        thorn.SetActive(false);
+        _kanban = false;
     }
 }
