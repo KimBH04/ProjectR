@@ -16,14 +16,7 @@ public class Item : MonoBehaviour
     
     public EType type;
     public int value;
-
-    private Rigidbody _rb;
-
-
-    private void Awake()
-    {
-        _rb= GetComponent<Rigidbody>();
-    }
+    
 
     private void Update()
     {
@@ -37,7 +30,7 @@ public class Item : MonoBehaviour
             switch (type)
             {
                 case EType.Hp:
-                    //other.GetComponent<PlayerController>().Hp += value;
+                    other.GetComponent<PlayerController>().Hp += value;
                     Destroy(gameObject);
                     break;
                 case EType.Mp:
