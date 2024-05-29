@@ -55,6 +55,7 @@ public class StatusUI : MonoBehaviour
     #region Static methods
     public static void PopUpSelectProperties(int level)
     {
+        Time.timeScale = 0f;
         Debug.Log("Level Up! Lv." + level);
         instance.propertiesPanel.SetActive(true);
     }
@@ -73,7 +74,6 @@ public class StatusUI : MonoBehaviour
 
     public static void SetHpUI(int hp)
     {
-        Time.timeScale = 0f;
         instance.hpImage.sizeDelta = new Vector2(hp * 50f, 100f);
     }
     #endregion
