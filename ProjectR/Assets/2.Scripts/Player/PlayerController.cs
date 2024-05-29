@@ -14,10 +14,28 @@ public class PlayerControllerEditor : Editor
 
         if (EditorApplication.isPlaying)
         {
+            GUILayout.Space(10);
+            GUILayout.Label("Test");
+
             var inspector = (PlayerController)target;
             if (GUILayout.Button("Add 10 exp"))
             {
                 inspector.Exp += 10;
+            }
+
+            if (GUILayout.Button("Raise room clear event"))
+            {
+                RoomData.roomClearEvent.Invoke();
+            }
+
+            if (GUILayout.Button("Heal"))
+            {
+                inspector.Hp++;
+            }
+
+            if (GUILayout.Button("Deal"))
+            {
+                inspector.Hp--;
             }
         }
     }
@@ -30,12 +48,15 @@ public sealed class PlayerController : MonoBehaviour
     [SerializeField] private int atk;
     [SerializeField] private int hp = 3;
     [SerializeField] private float speed = 4f;
+    [SerializeField] private float maxStamina = 20f;
     [Space]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float dodgeCoolTime;
 
+    // current status
     private int level = 1;
     private bool didLevelUp = false;
+    private float stamina;
     private int exp = 0;
 
     private float speedScale = 1f;
@@ -84,6 +105,7 @@ public sealed class PlayerController : MonoBehaviour
             exp = value;
             if (exp >= NeedExp)
             {
+                exp -= NeedExp;
                 level++;
                 didLevelUp = true;
             }
@@ -91,15 +113,35 @@ public sealed class PlayerController : MonoBehaviour
         }
     }
 
-    public int NeedExp => (level + 1) * level * 25;
+    public int Hp
+    {
+        get
+        {
+            return hp;
+        }
+        set
+        {
+            hp = value;
+            if (hp <= 0)
+            {
+                hp = 0;
+                Debug.Log("Dead");
+            }
+            StatusUI.SetHpUI(hp);
+        }
+    }
+
+    public int NeedExp => level * 50;
 
     private void Awake()
     {
+        stamina = maxStamina;
+
         RoomData.roomClearEvent.AddListener(() =>
         {
             if (didLevelUp)
             {
-                StatusUI.PopUpSelectProperties();
+                StatusUI.PopUpSelectProperties(level);
                 didLevelUp = false;
             }
         });
@@ -121,6 +163,10 @@ public sealed class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         pAnimator = GetComponentInChildren<PlayerAnimator>();
+
+        StatusUI.SetExpUI(0, NeedExp);
+        StatusUI.SetStaminaUI(stamina, maxStamina);
+        StatusUI.SetHpUI(hp);
     }
 
     private void Update()
@@ -156,6 +202,9 @@ public sealed class PlayerController : MonoBehaviour
 
             point.y += 0.1f;
         }
+
+        stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime);
+        StatusUI.SetStaminaUI(stamina, maxStamina);
     }
 
     private void FixedUpdate()
@@ -177,9 +226,10 @@ public sealed class PlayerController : MonoBehaviour
         if (context.started)
         {
             int idx = (int)context.ReadValue<float>();
-            if (idx < skills.Length && skills[idx].AttackCoolDown)
+            if (idx < skills.Length && skills[idx].AttackCoolDown && stamina >= skills[idx].SkillObject.CurrentContainer.NeedStamina)
             {
                 speedScale = 0.5f;
+                stamina -= skills[idx].SkillObject.CurrentContainer.NeedStamina;
 
                 foreach (var routine in skills[idx].GetDoSkill())
                 {
