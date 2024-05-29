@@ -82,10 +82,13 @@ public class DialogManager : MonoBehaviour
         foreach (char letter in dialogList[currentDialogIndex].ToCharArray())
         {
             dialogText.text += letter;
-            yield return new WaitForSeconds(0.08f); // 출력 속도 조절
+            yield return new WaitForSeconds(0.07f); // 출력 속도 조절
         }
 
-        ebutton.gameObject.SetActive(true);
+        if(currentDialogIndex != dialogList.Length -1)
+        {
+            ebutton.gameObject.SetActive(true);
+        }
 
         isPrinting = false;
     }
