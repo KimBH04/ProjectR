@@ -27,18 +27,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource[] _sfxPlayers;
     private int _channelIndex;
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            PlayBgm(false,EBgm.Maple);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            PlayBgm(true,EBgm.Maple);
-        }
-    }
+    
 
     public enum EBgm
     {
@@ -59,7 +48,6 @@ public class AudioManager : MonoBehaviour
         Singleton();
         Init();
         
-        PlayBgm(true,EBgm.Maple);
     }
 
     void Init()
@@ -97,21 +85,9 @@ public class AudioManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-
-    public void PlayBgm(bool isPlay,EBgm eBgm)
-    {
-        if (isPlay)
-        {
-            _bgmPlayer.clip = bgmClip[(int)eBgm];
-            StartCoroutine(FadeIn(_bgmPlayer, 1f));
-        }
-        else
-        {
-           StartCoroutine(FadeOut(_bgmPlayer,1f));
-        }
-    }
     
-    private IEnumerator FadeIn(AudioSource audioSource,float duration)
+    
+    private IEnumerator FadeOutFadeIn(AudioSource audioSource,float duration)
     {
        audioSource.volume = 0;
         audioSource.Play();
