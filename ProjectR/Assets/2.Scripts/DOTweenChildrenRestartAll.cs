@@ -14,9 +14,9 @@ public class DOTweenChildrenRestartAll : MonoBehaviour
         Tweens = GetComponentsInChildren<DOTweenAnimation>();
         foreach (var tween in Tweens)
         {
-            enableTweens.AddListener(tween.DOPlay);
-            disableTweens.AddListener(tween.DOComplete);
-            disableTweens.AddListener(tween.RecreateTween);
+            enableTweens.AddListener(tween.DOPlay);         // 시작
+            disableTweens.AddListener(tween.DOComplete);    // 즉시 완료
+            disableTweens.AddListener(tween.RecreateTween); // 동작 재생성
         }
     }
 
