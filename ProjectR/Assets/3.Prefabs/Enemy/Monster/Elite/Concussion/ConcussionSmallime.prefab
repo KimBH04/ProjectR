@@ -85,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7094179471667768667}
   - component: {fileID: 8679460821719626272}
+  - component: {fileID: 9196149576540496879}
   m_Layer: 0
   m_Name: MeleeArea (2)
   m_TagString: Untagged
@@ -128,6 +129,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &9196149576540496879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2533770585762320814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2ef2a3bc45c431fa0eb021b0596a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &2701019744745424615
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,6 +567,7 @@ MonoBehaviour:
     type: 3}
   damageTextPos: {fileID: 1123364337385837490}
   dissolveMaterial: {fileID: 2100000, guid: 4d68af65b28157f4d94296f94e8f2e73, type: 2}
+  isBoss: 0
   _isHeal: 0
   onDieEvent:
     m_PersistentCalls:

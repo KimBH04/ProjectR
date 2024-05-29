@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
-   [SerializeField] private float damage;
+   [SerializeField] private int damage;
    
    private void OnTriggerEnter(Collider other)
    {
-      if (other.CompareTag("Enemy"))
+      if (other.CompareTag("Player"))
       {
-         other.GetComponent<Enemy>().TakeDamage(10f);
+         other.GetComponent<PlayerController>().Hp -= damage;
       }
    }
     

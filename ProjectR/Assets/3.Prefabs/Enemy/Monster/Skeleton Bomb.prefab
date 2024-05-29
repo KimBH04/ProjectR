@@ -812,7 +812,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &1996762453421439608
 MonoBehaviour:
@@ -837,6 +837,7 @@ MonoBehaviour:
     type: 3}
   damageTextPos: {fileID: 6262674190124788250}
   dissolveMaterial: {fileID: 2100000, guid: 4d68af65b28157f4d94296f94e8f2e73, type: 2}
+  isBoss: 0
   _isHeal: 0
   onDieEvent:
     m_PersistentCalls:
