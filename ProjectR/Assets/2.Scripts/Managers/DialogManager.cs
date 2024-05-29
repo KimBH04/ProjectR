@@ -26,6 +26,8 @@ public class DialogManager : MonoBehaviour
         {
             if (!isPrinting)
             {
+                ebutton.gameObject.SetActive(false);
+
                 if (lastDialogDisplayed)
                 {
                     // 마지막 대화가 출력되면 출력 끝
@@ -84,6 +86,7 @@ public class DialogManager : MonoBehaviour
             dialogText.text += letter;
             yield return new WaitForSeconds(0.07f); // 출력 속도 조절
         }
+        ebutton.gameObject.SetActive(false);
 
         if(currentDialogIndex != dialogList.Length -1)
         {
