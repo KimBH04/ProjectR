@@ -8634,6 +8634,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
+        type: 3}
+      propertyPath: bgmClip.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
+        type: 3}
+      propertyPath: bgmClip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d233c0b341b84f53a889788f25a4473, type: 3}
+    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
+        type: 3}
+      propertyPath: bgmClip.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: c094fd999e88c4afaa230503fce43002, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

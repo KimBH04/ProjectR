@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -26,9 +28,22 @@ public class AudioManager : MonoBehaviour
     private int _channelIndex;
 
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            PlayBgm(false,EBgm.Maple);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            PlayBgm(true,EBgm.Maple);
+        }
+    }
+
     public enum EBgm
     {
-        
+        Maple,
+        Cat
     }
     
     public enum ESfx
@@ -44,7 +59,7 @@ public class AudioManager : MonoBehaviour
         Singleton();
         Init();
         
-        //PlayBgm(true);
+        PlayBgm(true,EBgm.Maple);
     }
 
     void Init()
@@ -83,19 +98,46 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void PlayBgm(bool isPlay)
+    public void PlayBgm(bool isPlay,EBgm eBgm)
     {
         if (isPlay)
         {
-            if (!_bgmPlayer.isPlaying)
-            {
-                _bgmPlayer.Play();
-            }
+            _bgmPlayer.clip = bgmClip[(int)eBgm];
+            StartCoroutine(FadeIn(_bgmPlayer, 1f));
         }
         else
         {
-            _bgmPlayer.Stop();
+           StartCoroutine(FadeOut(_bgmPlayer,1f));
         }
+    }
+    
+    private IEnumerator FadeIn(AudioSource audioSource,float duration)
+    {
+       audioSource.volume = 0;
+        audioSource.Play();
+
+        float startVolume = 0f;
+        float targetVolume = bgmVolume * masterVolume;
+        
+        for(float t =0;t<duration;t+=Time.deltaTime)
+        {
+            audioSource.volume = Mathf.Lerp(startVolume,targetVolume,t/duration);
+            yield return null;
+        }
+        audioSource.volume = targetVolume;
+    }
+    
+    private IEnumerator FadeOut(AudioSource audioSource,float duration)
+    {
+        float startVolume = audioSource.volume;
+        
+        for(float t=0; t<duration;t+=Time.deltaTime)
+        {
+            audioSource.volume = Mathf.Lerp(startVolume,0,t/duration);
+            yield return null;
+        }
+        audioSource.Stop();
+        audioSource.volume = startVolume;
     }
     
 
