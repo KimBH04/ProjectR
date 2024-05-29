@@ -14,9 +14,9 @@ public class EnemyPools : MonoBehaviour
         {
             var temp = new ObjectPool<GameObject>(
                 pool.CreatePoolItem,
-                pool.TakePoolItem,
-                pool.ReleasePoolItem,
-                pool.DestroyPoolItem,
+                Pool.TakePoolItem,
+                Pool.ReleasePoolItem,
+                Pool.DestroyPoolItem,
                 true, 10);
 
             poolDict.Add(pool.name, temp);
@@ -69,17 +69,17 @@ public class EnemyPools : MonoBehaviour
             return obj;
         }
 
-        public void TakePoolItem(GameObject obj)
+        public static void TakePoolItem(GameObject obj)
         {
             obj.SetActive(true);
         }
 
-        public void ReleasePoolItem(GameObject obj)
+        public static void ReleasePoolItem(GameObject obj)
         {
             obj.SetActive(false);
         }
 
-        public void DestroyPoolItem(GameObject obj)
+        public static void DestroyPoolItem(GameObject obj)
         {
             Destroy(obj);
         }

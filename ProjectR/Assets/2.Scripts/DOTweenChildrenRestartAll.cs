@@ -7,16 +7,15 @@ public class DOTweenChildrenRestartAll : MonoBehaviour
     private readonly UnityEvent enableTweens = new UnityEvent(),
                                 disableTweens = new UnityEvent();
 
-    private DOTweenAnimation[] Tweens;
+    [SerializeField, Tooltip("디버깅")] private DOTweenAnimation[] Tweens;
 
     private void Awake()
     {
         Tweens = GetComponentsInChildren<DOTweenAnimation>();
         foreach (var tween in Tweens)
         {
-            tween.autoPlay = false;
-            tween.autoKill = false;
             enableTweens.AddListener(tween.DOPlay);
+            disableTweens.AddListener(tween.DOComplete);
             disableTweens.AddListener(tween.RecreateTween);
         }
     }

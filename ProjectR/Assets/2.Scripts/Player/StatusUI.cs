@@ -5,14 +5,16 @@ using UnityEngine.UI;
 public class StatusUI : MonoBehaviour
 {
     private static StatusUI instance;
-
+    [Space]
     [SerializeField] private Image expBar;
     [SerializeField] private TMP_Text expText;
-
+    [Space]
     [SerializeField] private Image staminaBar;
     [SerializeField] private TMP_Text staminaText;
-
+    [Space]
     [SerializeField] private RectTransform hpImage;
+    [Space]
+    [SerializeField] private GameObject propertiesPanel;
 
     private void Awake()
     {
@@ -39,5 +41,6 @@ public class StatusUI : MonoBehaviour
     public static void PopUpSelectProperties(int level)
     {
         Debug.Log("Level Up! Lv." + level);
+        instance.propertiesPanel.SetActive(true);
     }
 }
