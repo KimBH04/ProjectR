@@ -26,13 +26,12 @@ public class AudioManager : MonoBehaviour
     public int channels;
     private AudioSource[] _sfxPlayers;
     private int _channelIndex;
-
     
+
 
     public enum EBgm
     {
-        Maple,
-        Cat
+        
     }
     
     public enum ESfx
@@ -47,6 +46,8 @@ public class AudioManager : MonoBehaviour
     {
         Singleton();
         Init();
+        
+        PlayBgm(EBgm.Maple);
         
     }
 
@@ -85,36 +86,43 @@ public class AudioManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    
-    
-    private IEnumerator FadeOutFadeIn(AudioSource audioSource,float duration)
-    {
-       audioSource.volume = 0;
-        audioSource.Play();
 
-        float startVolume = 0f;
-        float targetVolume = bgmVolume * masterVolume;
-        
-        for(float t =0;t<duration;t+=Time.deltaTime)
-        {
-            audioSource.volume = Mathf.Lerp(startVolume,targetVolume,t/duration);
-            yield return null;
-        }
-        audioSource.volume = targetVolume;
+
+    private IEnumerator FadeOutFadeInBGM(int bgmIndex, float duration = 1)
+    {
+      float startVolume = _bgmPlayer.volume;
+      for(float t = 0; t < duration; t+=Time.deltaTime)
+      {
+          _bgmPlayer.volume = Mathf.Lerp(startVolume,0,t/duration);
+          yield return null;
+      }
+      _bgmPlayer.volume = 0;
+      _bgmPlayer.Stop();
+      
+      _bgmPlayer.clip = bgmClip[bgmIndex];
+      _bgmPlayer.Play();
+      
+      for(float t = 0; t<duration; t+=Time.deltaTime)
+      {
+          _bgmPlayer.volume = Mathf.Lerp(0,bgmVolume * masterVolume,t/duration);
+          yield return null;
+      }
+      _bgmPlayer.volume = bgmVolume * masterVolume;
+      
     }
     
-    private IEnumerator FadeOut(AudioSource audioSource,float duration)
-    {
-        float startVolume = audioSource.volume;
-        
-        for(float t=0; t<duration;t+=Time.deltaTime)
-        {
-            audioSource.volume = Mathf.Lerp(startVolume,0,t/duration);
-            yield return null;
-        }
-        audioSource.Stop();
-        audioSource.volume = startVolume;
-    }
+    // private IEnumerator FadeOut(AudioSource audioSource,float duration)
+    // {
+    //     float startVolume = audioSource.volume;
+    //     
+    //     for(float t=0; t<duration;t+=Time.deltaTime)
+    //     {
+    //         audioSource.volume = Mathf.Lerp(startVolume,0,t/duration);
+    //         yield return null;
+    //     }
+    //     audioSource.Stop();
+    //     audioSource.volume = startVolume;
+    // }
     
 
     public void SetBgmVolume(float volume)
@@ -157,8 +165,9 @@ public class AudioManager : MonoBehaviour
         int bgmIndex = (int)eBgm;
         if (bgmIndex >= 0 && bgmIndex < bgmClip.Length) 
         {
-            _bgmPlayer.clip = bgmClip[bgmIndex];
-            _bgmPlayer.Play();
+            // _bgmPlayer.clip = bgmClip[bgmIndex];
+            // _bgmPlayer.Play();
+            StartCoroutine(FadeOutFadeInBGM(bgmIndex));
         }
         else
         {
