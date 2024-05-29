@@ -6072,6 +6072,7 @@ MonoBehaviour:
   staminaBar: {fileID: 2029446227}
   staminaText: {fileID: 1100591640}
   hpImage: {fileID: 1624604224}
+  propertiesPanel: {fileID: 0}
 --- !u!114 &1279977839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8377,6 +8378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5bc218e720e4947a7a1d41a5907eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tweens: []
 --- !u!1001 &1960746672
 PrefabInstance:
   m_ObjectHideFlags: 0
