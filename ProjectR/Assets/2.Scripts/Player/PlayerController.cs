@@ -49,6 +49,7 @@ public sealed class PlayerController : MonoBehaviour
     [SerializeField] private int hp = 3;
     [SerializeField] private float speed = 4f;
     [SerializeField] private float maxStamina = 20f;
+    [SerializeField] private float staminaSpeed = 1f;
     [Space]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float dodgeCoolTime;
@@ -203,7 +204,7 @@ public sealed class PlayerController : MonoBehaviour
             point.y += 0.1f;
         }
 
-        stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime);
+        stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime * staminaSpeed);
         StatusUI.SetStaminaUI(stamina, maxStamina);
     }
 

@@ -1135,8 +1135,6 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 985f1c29413734be18e3bbab3c0bad5a, type: 2}
   expStone:
   - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
-  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
-  - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
   hpBar: {fileID: 3481113014511933053}
   damageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
     type: 3}
