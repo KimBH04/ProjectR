@@ -4,11 +4,13 @@ public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
 
-    private readonly int hashX = Animator.StringToHash("X"),
-                         hashY = Animator.StringToHash("Y"),
-                         hashAttack = Animator.StringToHash("Attack"),
-                         hashIndex = Animator.StringToHash("Motion Index"),
-                         hashDodge = Animator.StringToHash("Dodge");
+    private readonly int
+        hashX = Animator.StringToHash("X"),
+        hashY = Animator.StringToHash("Y"),
+        hashAttack = Animator.StringToHash("Attack"),
+        hashIndex = Animator.StringToHash("Motion Index"),
+        hashDodge = Animator.StringToHash("Dodge"),
+        hashDie = Animator.StringToHash("Die");
 
     private void Start()
     {
