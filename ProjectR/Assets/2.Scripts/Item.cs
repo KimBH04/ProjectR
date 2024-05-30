@@ -20,18 +20,20 @@ public class Item : MonoBehaviour
 
     private void Update()
     {
-            transform.Rotate(Vector3.up * 20 * Time.deltaTime);
+            //transform.Rotate(Vector3.up * 20 * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySfx(AudioManager.ESfx.Heal);
             switch (type)
             {
                 case EType.Hp:
                     other.GetComponent<PlayerController>().Hp += value;
                     Destroy(gameObject);
+                    
                     break;
                 case EType.Mp:
                     //other.GetComponent<PlayerController>().Mp += value;

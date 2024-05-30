@@ -340,15 +340,18 @@ public sealed class PlayerController : MonoBehaviour
         {
             if (skillObject is ComboContainer)
             {
+                
                 return new IEnumerator[]
                 {
                     CoolDown(),
                     skillObject.CurrentContainer.PlaySkill(), // 콤보 요소
                     skillObject.PlaySkill()                   // 콤보
                 };
+                
             }
             else
             {
+                // AudioManager.Instance.PlaySfx(AudioManager.ESfx.Slash2);
                 return new IEnumerator[]
                 {
                     CoolDown(),

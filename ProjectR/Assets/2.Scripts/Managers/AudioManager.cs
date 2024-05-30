@@ -39,7 +39,11 @@ public class AudioManager : MonoBehaviour
         ChargingArrow,
         EnemyDead,
         EnemyHit,
-        ShootArrow
+        ShootArrow,
+        Heal,
+        Slash1,
+        Slash2,
+        TakeDamage,
     }
 
     void Awake()

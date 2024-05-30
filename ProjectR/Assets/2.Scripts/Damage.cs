@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Damage : MonoBehaviour
@@ -12,6 +11,7 @@ public class Damage : MonoBehaviour
       if (other.CompareTag("Player"))
       {
          other.GetComponent<PlayerController>().Hp -= damage;
+         AudioManager.Instance.PlaySfx(AudioManager.ESfx.TakeDamage);
       }
    }
     

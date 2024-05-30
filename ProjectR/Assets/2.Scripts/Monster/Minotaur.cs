@@ -43,7 +43,7 @@ public class Minotaur : Enemy
             // }
             
             Vector3 direction = _playerTr.position - transform.position;
-            direction.y = 0; // Y축 회전만 적용
+            direction.y = 0;
             
             if (direction.magnitude > 0.1f)
             {

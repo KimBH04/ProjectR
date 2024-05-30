@@ -82,7 +82,7 @@ public  abstract  class Enemy : MonoBehaviour
         }
     }
 
-    private void Update()
+    public virtual void Update()
     {
         if (_agent.enabled && !IsTingling && !isBoss) 
         {
