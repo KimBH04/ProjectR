@@ -131,7 +131,9 @@ public sealed class PlayerController : MonoBehaviour
            
             if (hp == 0)
             {
-                Debug.Log("Dead");
+                CanControl = false;
+                canSkill = false;
+                pAnimator.PlayDie();
             }
             StatusUI.SetHpUI(hp);
         }
