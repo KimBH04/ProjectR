@@ -55,6 +55,8 @@ public class StatusUI : MonoBehaviour
     #region Static methods
     public static void PopUpSelectProperties(int level)
     {
+        if (instance == null) return;
+
         Time.timeScale = 0f;
         Debug.Log("Level Up! Lv." + level);
         instance.propertiesPanel.SetActive(true);
@@ -62,18 +64,24 @@ public class StatusUI : MonoBehaviour
 
     public static void SetExpUI(int exp, int needExp)
     {
+        if (instance == null) return;
+
         instance.expBar.fillAmount = (float)exp / needExp;
         instance.expText.text = $"{exp} / {needExp}";
     }
 
     public static void SetStaminaUI(float stamina, float maxStamina)
     {
+        if (instance == null) return;
+
         instance.staminaBar.fillAmount = stamina / maxStamina;
         instance.staminaText.text = $"{(int)stamina} / {maxStamina}";
     }
 
     public static void SetHpUI(int hp)
     {
+        if (instance == null) return;
+
         instance.hpImage.sizeDelta = new Vector2(hp * 50f, 100f);
     }
     #endregion

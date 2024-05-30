@@ -59,6 +59,9 @@ public sealed class PlayerController : MonoBehaviour
     private float stamina;
     private int exp = 0;
 
+    private static bool canControl = true;
+    public static bool canSkill = false;
+
     private float speedScale = 1f;
 
     private bool isDodge;
@@ -66,6 +69,7 @@ public sealed class PlayerController : MonoBehaviour
     private float rotationScale = 1f;
     private Quaternion dodgeRotate;
 
+    private static PlayerInput playerInput;
     private CharacterController controller;
     private float horizontal;
     private float vertical;
@@ -73,7 +77,7 @@ public sealed class PlayerController : MonoBehaviour
     private Vector3 lastFixedPos;
     private Vector3 nextFixedPos;
 
-    private PlayerAnimator pAnimator;
+    private static PlayerAnimator pAnimator;
 
     [Header("Skills")]
     [SerializeField] private Skill[] skills;
@@ -133,6 +137,23 @@ public sealed class PlayerController : MonoBehaviour
 
     public int NeedExp => level * 50;
 
+    public static bool CanControl
+    {
+        get
+        {
+            return canControl;
+        }
+        set
+        {
+            canControl = value;
+            playerInput.enabled = canControl;
+            if (!canControl)
+            {
+                pAnimator.SetMovementValue(0f, 0f);
+            }
+        }
+    }
+
     private void Awake()
     {
         stamina = maxStamina;
@@ -146,6 +167,7 @@ public sealed class PlayerController : MonoBehaviour
             }
         });
 
+        playerInput = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
 
         foreach (var skill in skills)
@@ -184,7 +206,7 @@ public sealed class PlayerController : MonoBehaviour
 
         //rotation
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (plane.Raycast(ray, out float enter))
+        if (plane.Raycast(ray, out float enter) && canControl)
         {
             Vector3 point = ray.GetPoint(enter);
 
@@ -206,7 +228,6 @@ public sealed class PlayerController : MonoBehaviour
         stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime);
         StatusUI.SetStaminaUI(stamina, maxStamina);
     }
-
     private void FixedUpdate()
     {
         lastFixedPos = nextFixedPos;
@@ -223,7 +244,7 @@ public sealed class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (canSkill && context.started)
         {
             int idx = (int)context.ReadValue<float>();
             if (idx < skills.Length && skills[idx].AttackCoolDown && stamina >= skills[idx].SkillObject.CurrentContainer.NeedStamina)

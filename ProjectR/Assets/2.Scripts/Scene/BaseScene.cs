@@ -11,11 +11,7 @@ public class BaseScene : MonoBehaviour
    
     private void OnTriggerEnter(Collider other)
     {
-        LoadScene(sceneName);
+        MySceneManager.Instance.ChangeScene(sceneName);
     }
 
-    private void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
 }

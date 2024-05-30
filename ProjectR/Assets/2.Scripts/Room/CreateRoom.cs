@@ -86,6 +86,7 @@ public class CreateRoom : MonoBehaviour
         {
             player.transform.position = Vector3.up;
             player.SetActive(true);
+            PlayerController.canSkill = true;
         }
         else
         {

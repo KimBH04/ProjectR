@@ -1464,10 +1464,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1629620132}
   dialogText: {fileID: 1653705033}
-  firstDialogs:
-  - "\uC544 \uCC38, \uADF8\uB7EC\uACE0 \uBCF4\uB2C8 \uC694\uC998 \uC232\uC774 \uC694\uB780\uC2A4\uB7FD\uB354\uAD70."
-  - "\uC790\uB124\uAC00 \uD55C\uBC88 \uC54C\uC544\uBD10 \uC8FC\uC9C0 \uC54A\uACA0\uB098?"
-  - "\uB610 \uC624\uB77C\uACE0."
+  dialogs: []
+  ebutton: {fileID: 0}
 --- !u!4 &666831253
 Transform:
   m_ObjectHideFlags: 0
@@ -1964,6 +1962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fade_img: {fileID: 1588464870}
+  Loading: {fileID: 0}
 --- !u!114 &1065259811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2047,89 +2046,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &1152734281
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 188041692621604017, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 420812699091083851, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: speed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 1147797948483313483, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1816547807061235822, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6449706118182181942, guid: 0e88bc72e7ca66645bb92843bac8bca8,
-        type: 3}
-      propertyPath: m_Name
-      value: Warrior
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0e88bc72e7ca66645bb92843bac8bca8, type: 3}
 --- !u!1 &1166354176
 GameObject:
   m_ObjectHideFlags: 0
@@ -4119,7 +4035,6 @@ SceneRoots:
   - {fileID: 1933200265}
   - {fileID: 87904083}
   - {fileID: 1462680255}
-  - {fileID: 1152734281}
   - {fileID: 1304822004}
   - {fileID: 981186499}
   - {fileID: 1213347228}

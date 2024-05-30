@@ -15,6 +15,8 @@ public class DialogManager : MonoBehaviour
     private bool inTrigger = false;
     private bool lastDialogDisplayed = false; // 마지막 대화가 출력되었는지 여부를 나타내는 변수
 
+    private Coroutine dialogRoutine = null;
+
     void Start()
     {
         canvas.gameObject.SetActive(false);
@@ -46,8 +48,9 @@ public class DialogManager : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             canvas.gameObject.SetActive(true);
-            
-            StartCoroutine(PrintDialog(dialogs)); // 첫 번째 대화 목록부터 시작
+
+            if (dialogRoutine != null) StopCoroutine(dialogRoutine);
+            dialogRoutine = StartCoroutine(PrintDialog(dialogs)); // 첫 번째 대화 목록부터 시작
         }
     }
 
@@ -62,6 +65,7 @@ public class DialogManager : MonoBehaviour
 
     IEnumerator PrintDialog(string[] dialogList)
     {
+        PlayerController.CanControl = false;
         inTrigger = true;
         isPrinting = true;
         dialogText.text = "";
@@ -70,6 +74,7 @@ public class DialogManager : MonoBehaviour
         // 마지막 대화까지 출력되었는지 확인
         if (currentDialogIndex >= dialogList.Length - 1)
         {
+            PlayerController.CanControl = true;
             currentDialogIndex = dialogList.Length - 1;
             if (!lastDialogDisplayed)   //마지막 번호일 때 출력 취소
             {

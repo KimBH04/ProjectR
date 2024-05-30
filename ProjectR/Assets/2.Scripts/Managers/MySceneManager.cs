@@ -23,9 +23,6 @@ public class MySceneManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-
         if (instance != null)
         {
             DestroyImmediate(this.gameObject);
@@ -80,6 +77,7 @@ public class MySceneManager : MonoBehaviour
         .OnStart(() =>
         {
             Fade_img.blocksRaycasts = true; //아래 레이캐스트 막기
+            PlayerController.CanControl = false;
         })
         .OnComplete(() =>
         {
@@ -118,5 +116,7 @@ public class MySceneManager : MonoBehaviour
                 if (percentage >= 90) past_time = 0;
             }
         }
+
+        PlayerController.CanControl = true;
     }
 }
