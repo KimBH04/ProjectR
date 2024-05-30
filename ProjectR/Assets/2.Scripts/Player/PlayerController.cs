@@ -123,9 +123,10 @@ public sealed class PlayerController : MonoBehaviour
         set
         {
             hp = value;
-            if (hp <= 0)
+            hp = Mathf.Clamp(hp, 0, 6);
+           
+            if (hp == 0)
             {
-                hp = 0;
                 Debug.Log("Dead");
             }
             StatusUI.SetHpUI(hp);

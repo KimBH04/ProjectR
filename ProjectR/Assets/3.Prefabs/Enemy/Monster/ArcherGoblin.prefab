@@ -1355,7 +1355,7 @@ MonoBehaviour:
   onDieEvent:
     m_PersistentCalls:
       m_Calls: []
-  arrowSpeed: 15
+  arrowSpeed: 75
   arrow: {fileID: 2180457666924325038, guid: 5d6bba849a50b4d929022f35f909a10c, type: 3}
   firePos: {fileID: 7115177205422847754}
 --- !u!1 &6308688805507028252
