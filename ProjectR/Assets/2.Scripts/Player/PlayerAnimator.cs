@@ -38,4 +38,9 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetTrigger(hashDodge);
     }
+
+    public void PlayDie()
+    {
+        animator.SetBool(hashDie, true);
+    }
 }
