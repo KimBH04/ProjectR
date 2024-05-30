@@ -115,7 +115,7 @@ public class SkillContainer : SkillObject
         switch (disableMode)
         {
             case DisableMode.Blink:
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.5f);
                 break;
 
             case DisableMode.LifeTime:

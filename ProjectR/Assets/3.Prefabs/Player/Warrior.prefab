@@ -48,10 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4c9c9582d3f6f45b4c4d85599e846c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atk: 0
-  hp: 0
+  atk: 10
+  hp: 6
   speed: 15
   maxStamina: 20
+  staminaSpeed: 1.8
   dodgeForce: 10
   dodgeCoolTime: 5
   skills:

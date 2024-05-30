@@ -1343,7 +1343,6 @@ MonoBehaviour:
   meleeArea: {fileID: 0}
   data: {fileID: 11400000, guid: dbde1bddb6f68439fbe18af21b3df499, type: 2}
   expStone:
-  - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
   - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
   - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
   hpBar: {fileID: 2617619741125456510}
@@ -1356,7 +1355,7 @@ MonoBehaviour:
   onDieEvent:
     m_PersistentCalls:
       m_Calls: []
-  arrowSpeed: 15
+  arrowSpeed: 75
   arrow: {fileID: 2180457666924325038, guid: 5d6bba849a50b4d929022f35f909a10c, type: 3}
   firePos: {fileID: 7115177205422847754}
 --- !u!1 &6308688805507028252

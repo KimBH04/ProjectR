@@ -172,7 +172,7 @@ public class CreateRoom : MonoBehaviour
                             xpos * 10f * standardScale.x,
                             0f, // 10 : Default plane size
                             zpos * 10f * standardScale.z),
-                        Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
+                            Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
                     yield return null;
                 }
             }
