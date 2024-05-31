@@ -7022,6 +7022,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   explosionEffect: {fileID: 1306729953}
+  bombs: []
 --- !u!136 &1217812671
 CapsuleCollider:
   m_ObjectHideFlags: 0

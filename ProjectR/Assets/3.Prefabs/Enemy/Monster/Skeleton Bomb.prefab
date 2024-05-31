@@ -1044,6 +1044,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   explosionEffect: {fileID: 2514974944066729058}
+  bombs:
+  - {fileID: 6054168208594116149}
+  - {fileID: 6140894494885379589}
 --- !u!95 &2413379476251772419
 Animator:
   serializedVersion: 5

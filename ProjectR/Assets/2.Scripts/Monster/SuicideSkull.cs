@@ -1,205 +1,83 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class SuicideSkull : Enemy
 {
     [SerializeField] 
     private GameObject explosionEffect;
+
+    [SerializeField] private List<GameObject> bombs;
+    
+   
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     
     protected override IEnumerator AttackPlayer()
     {
-
+        if (bombs.Count == 0)
+        {
+            yield break;
+        }
+        IsAttack = true;
         StartCoroutine(CountExplosion());
         yield return new WaitForSeconds(3f);
         
-        IsAttack = true;
-        StartCoroutine(OnDie());
+        
         explosionEffect.SetActive(true);
+        bombs[0].SetActive(false);
+        bombs.Remove(bombs[0]);
         RaycastHit[] rayHits =Physics.SphereCastAll(transform.position,5,Vector3.up,0f,LayerMask.GetMask("Player"));
         
         
         foreach (RaycastHit hitObj in rayHits)
         {
-            hitObj.transform.GetComponent<PlayerController>().Hp-=2;
+            hitObj.transform.GetComponent<PlayerController>().Hp -= 2;
         }
         
-        IsChase = false;
-        Animator.SetBool(Attack,true);
+        yield return new WaitForSeconds(1.5f);
+        explosionEffect.SetActive(false);
         
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        IsAttack = false;
     }
-
+    
     private IEnumerator CountExplosion()
     {
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+        float[] intervals = { 0.3f, 0.2f,0.2f,0.2f,0.1f,0.1f,0.1f,0.05f,0.05f,0.05f,0.05f,0.05f,0.05f};
+        foreach (float interval in intervals)
         {
-            mesh.material.color = Color.red;
+            SetBombColor(Color.red);
+            yield return new WaitForSeconds(interval);
+            ResetBombColor();
+            yield return new WaitForSeconds(interval);
         }
-        
-        yield return new WaitForSeconds(0.3f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+    }
+    
+    private void SetBombColor(Color color)
+    {
+        if(bombs.Count==0) 
+            return;
+        foreach (var mesh in bombs[0].GetComponentsInChildren<SkinnedMeshRenderer>())
         {
-            mesh.material.color = _originalMeshRenderers[mesh];
+            mesh.material.color = color;
         }
-        
-        yield return new WaitForSeconds(0.3f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.3f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.3f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.3f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.2f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.2f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.2f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.2f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.1f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.1f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        
-        yield return new WaitForSeconds(0.05f);
-        
-        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = _originalMeshRenderers[mesh];
-        }   
-        
-        
     }
 
+    private void ResetBombColor()
+    {
+        if(bombs.Count==0) 
+            return;
+        foreach (var mesh in bombs[0].GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            mesh.material.color = _originalMeshRenderers[mesh];
+        }
+    }
+    
     private void OnDrawGizmos()
     {
         
