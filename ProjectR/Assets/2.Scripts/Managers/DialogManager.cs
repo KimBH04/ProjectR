@@ -6,10 +6,11 @@ using TMPro;
 
 public class DialogManager : MonoBehaviour
 {
-    public Canvas canvas;
+    public TextMeshProUGUI text;
     public TextMeshProUGUI dialogText;
     public string[] dialogs;
     public Image ebutton;
+    public GameObject move;
     private int currentDialogIndex = -1;
     private bool isPrinting = false;
     private bool inTrigger = false;
@@ -19,11 +20,16 @@ public class DialogManager : MonoBehaviour
 
     void Start()
     {
-        canvas.gameObject.SetActive(false);
+        text.gameObject.SetActive(false);
     }
 
     void Update()
     {
+        if (lastDialogDisplayed)
+        {
+            move.SetActive(true);
+        }
+
         if (inTrigger && Input.GetKeyDown(KeyCode.E))
         {
             if (!isPrinting)
@@ -32,7 +38,6 @@ public class DialogManager : MonoBehaviour
 
                 if (lastDialogDisplayed)
                 {
-                    // 마지막 대화가 출력되면 출력 끝
                     return;
                 }
                 else
@@ -41,13 +46,14 @@ public class DialogManager : MonoBehaviour
                 }
             }
         }
+
     }
 
     private void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("Player"))
         {
-            canvas.gameObject.SetActive(true);
+            text.gameObject.SetActive(true);
 
             if (dialogRoutine != null) StopCoroutine(dialogRoutine);
             dialogRoutine = StartCoroutine(PrintDialog(dialogs)); // 첫 번째 대화 목록부터 시작
@@ -58,7 +64,7 @@ public class DialogManager : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            canvas.gameObject.SetActive(false);
+            text.gameObject.SetActive(false);
             inTrigger = false;
         }
     }
