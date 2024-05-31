@@ -16,5 +16,5 @@ MonoBehaviour:
   currentHp: 100
   speed: 2
   damage: 1
-  targetRadius: 0.5
-  targetRange: 0.5
+  targetRadius: 1
+  targetRange: 1

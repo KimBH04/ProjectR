@@ -32,12 +32,20 @@ public class SuicideSkull : Enemy
         explosionEffect.SetActive(true);
         bombs[0].SetActive(false);
         bombs.Remove(bombs[0]);
-        RaycastHit[] rayHits =Physics.SphereCastAll(transform.position,5,Vector3.up,0f,LayerMask.GetMask("Player"));
+        RaycastHit[] rayHits =Physics.SphereCastAll(transform.position,5,Vector3.up,0f,LayerMask.GetMask("Player","Enemy"));
         
         
         foreach (RaycastHit hitObj in rayHits)
         {
-            hitObj.transform.GetComponent<PlayerController>().Hp -= 2;
+            if(hitObj.transform.CompareTag("Player"))
+            {
+                hitObj.transform.GetComponent<PlayerController>().Hp -= 2;
+            }
+            else if (hitObj.transform.CompareTag("Enemy"))
+            {
+                hitObj.transform.GetComponent<Enemy>().TakeDamage(50f);
+            }
+            
         }
         
         yield return new WaitForSeconds(1.5f);
