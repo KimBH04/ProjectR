@@ -71,4 +71,6 @@ public class Trap : MonoBehaviour
         }
         
     }
+
+    
 }

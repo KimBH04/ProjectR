@@ -57,6 +57,8 @@ public class Item : MonoBehaviour
             }
         }
     }
+    
+   
 
     
 }

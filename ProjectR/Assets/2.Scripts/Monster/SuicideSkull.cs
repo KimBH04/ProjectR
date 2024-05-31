@@ -88,7 +88,6 @@ public class SuicideSkull : Enemy
     
     private void OnDrawGizmos()
     {
-        
         RaycastHit[] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,LayerMask.GetMask("Player"));
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 5f);
