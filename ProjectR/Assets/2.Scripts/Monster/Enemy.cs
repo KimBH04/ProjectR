@@ -212,7 +212,7 @@ public  abstract  class Enemy : MonoBehaviour
         
     }
 
-    protected IEnumerator OnDamage()
+    private IEnumerator OnDamage()
     {
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
