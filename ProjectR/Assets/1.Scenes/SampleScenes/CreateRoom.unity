@@ -1356,6 +1356,11 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5781331706022423722, guid: 0e88bc72e7ca66645bb92843bac8bca8,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6449706118182181942, guid: 0e88bc72e7ca66645bb92843bac8bca8,
         type: 3}
       propertyPath: m_Name
@@ -3330,6 +3335,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2529626139150339248, guid: 298a65b70e6421c439d964322c520b7f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1336c3bb5f7c0ad41bf6a3eb6a7af441,
+        type: 3}
+    - target: {fileID: 2529626139150339248, guid: 298a65b70e6421c439d964322c520b7f,
+        type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2852332246819969897, guid: 298a65b70e6421c439d964322c520b7f,
         type: 3}
       propertyPath: m_Pivot.x
