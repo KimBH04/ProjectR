@@ -36,6 +36,7 @@ public class RoomData : MonoBehaviour
                     data.movedHere.AddListener(() =>
                     {
                         var enemy = EnemyPools.AppearObject(waveContainer[index], transform.position).GetComponent<Enemy>();
+                        enemy.onDieEvent.RemoveAllListeners();
                         enemy.onDieEvent.AddListener(EnemyCounter);
                     });
                 }

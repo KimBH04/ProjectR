@@ -70,7 +70,7 @@ public class CreateRoom : MonoBehaviour
         rooms = new Room[roomMaxSize, roomMaxSize];
 
         float startTime = Time.time;
-        Application.targetFrameRate = 1000;
+        Application.targetFrameRate = int.MaxValue;
 
         yield return StartCoroutine(SettingRooms());
 
