@@ -37,6 +37,11 @@ public class PlayerControllerEditor : Editor
             {
                 inspector.Hp--;
             }
+
+            if (GUILayout.Button("Can Skill"))
+            {
+                PlayerController.canSkill ^= true;
+            }
         }
     }
 }
