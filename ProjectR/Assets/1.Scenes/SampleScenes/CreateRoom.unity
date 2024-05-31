@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028383, g: 0.22571409, b: 0.30692282, a: 1}
+  m_IndirectSpecularColor: {r: 0.17757908, g: 0.22232299, b: 0.30451858, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -521,13 +521,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 234704014}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: 0.23456976, z: -0.10938167, w: 0.8754261}
+  m_LocalRotation: {x: 0.7848856, y: 0.21130908, z: -0.36599815, w: 0.45315382}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: 30, z: 0}
+  m_LocalEulerAnglesHint: {x: 120, y: 50, z: 0}
 --- !u!114 &234704017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2632,37 +2632,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1418261274}
     m_Modifications:
-    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: skills.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: skills.Array.data[0].skillObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37,
-        type: 2}
-    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_Name
-      value: Wizard
-      objectReference: {fileID: 0}
-    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_SlopeLimit
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_StepOffset
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2053551364944616166, guid: 9fb075671779d6d4e9899ac270555f0e,
         type: 3}
       propertyPath: m_Name
@@ -2721,6 +2690,37 @@ PrefabInstance:
     - target: {fileID: 8465101296794089910, guid: 9fb075671779d6d4e9899ac270555f0e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: skills.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: skills.Array.data[0].skillObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37,
+        type: 2}
+    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_Name
+      value: Wizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_SlopeLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_StepOffset
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
