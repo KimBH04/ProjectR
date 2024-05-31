@@ -16,8 +16,16 @@ public class Trap : MonoBehaviour
         Thorn,
         Fire,
     }
-    
-    
+
+    private void Start()
+    {
+        if (_trapType == ETrapType.Fire)
+        {
+            StartCoroutine(HaveFire());
+        }
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if ((other.CompareTag("Enemy") || other.CompareTag("Player")) && !_kanban && _trapType == ETrapType.Thorn)
@@ -48,13 +56,19 @@ public class Trap : MonoBehaviour
 
     private IEnumerator HaveFire()
     {
-        _kanban = true;
-        thorn.SetActive(true);
-        thorn.transform.DOLocalMoveY(0.2f, 1f).SetEase(Ease.OutBounce);
-        yield return new WaitForSeconds(3f);
-        thorn.transform.DOLocalMoveY(-0.6f, 1f).SetEase(Ease.OutBounce);
-        yield return new WaitForSeconds(1f);
-        thorn.SetActive(false);
-        _kanban = false;
+        while (true)
+        {
+            _kanban = true;
+            thorn.SetActive(true);
+            thorn.transform.DOLocalMoveY(0.12f, 2f);
+            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
+            thorn.transform.DOLocalMoveY(-5f, 2f);
+            yield return new WaitForSeconds(1f);
+            thorn.SetActive(false);
+            _kanban = false;
+            yield return new WaitForSeconds(3f);
+        }
+        
     }
 }
