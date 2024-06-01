@@ -229,7 +229,7 @@ public sealed class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         lastFixedPos = nextFixedPos;
-        nextFixedPos = speed * speedScale * Time.fixedDeltaTime * new Vector3(horizontal, 0f, vertical);
+        nextFixedPos = speed * speedScale * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
     }
 
     #region New Input Systems
