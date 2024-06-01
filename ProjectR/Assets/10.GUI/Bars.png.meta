@@ -123,11 +123,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bars_0
+      name: EXP Bar
       rect:
         serializedVersion: 2
         x: 0
-        y: 230
+        y: 348
         width: 750
         height: 50
       alignment: 0
@@ -137,18 +137,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: edd371237f4cee54490ecb5f57a7b084
-      internalID: -1491711456
+      spriteID: 8b25a11dfc5105d47849d9468dc12804
+      internalID: 1889572452
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bars_1
+      name: EXP Bar 2
       rect:
         serializedVersion: 2
         x: 0
-        y: 158
+        y: 276
         width: 750
         height: 50
       alignment: 0
@@ -158,18 +158,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17cd06d9791a4194aaa63f467d8c38ea
-      internalID: -1472525377
+      spriteID: 34426533cf49e7843940f0eb38709c61
+      internalID: -1358800289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bars_2
+      name: Stamina Bar
       rect:
         serializedVersion: 2
         x: 0
-        y: 85
+        y: 203
         width: 650
         height: 50
       alignment: 0
@@ -179,18 +179,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ed9d6dc32d88c64e8c72d0d7de201c1
-      internalID: -1399561905
+      spriteID: 6c23df9170c77b24babecdc8890842e7
+      internalID: -1280668066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bars_3
+      name: Stamina Bar 2
       rect:
         serializedVersion: 2
         x: 0
-        y: 18
+        y: 136
         width: 650
         height: 50
       alignment: 0
@@ -200,8 +200,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1891713181a800b43886df85d3dd4d1c
-      internalID: -1513238569
+      spriteID: 4417fc7e46dccd74196b96d69647760f
+      internalID: 1870960036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HP Bar
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 67
+        width: 598
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a78849a42eecc794fa3da108605988be
+      internalID: -1934471499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HP Bar 2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 598
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 068f93ad7b4a78f469cfb45fd3e64c1d
+      internalID: -969521692
       vertices: []
       indices: 
       edges: []
@@ -209,7 +251,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 1bc8567ab68d2e64496e2ae1f7c10c0d
+    spriteID: cf2bab8e29d053443bce35a878215225
     internalID: 0
     vertices: []
     indices: 
@@ -217,10 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bars_0: -1491711456
-      Bars_1: -1472525377
-      Bars_2: -1399561905
-      Bars_3: -1513238569
+      EXP Bar: 1889572452
+      EXP Bar 2: -1358800289
+      HP Bar: -1934471499
+      HP Bar 2: -969521692
+      Stamina Bar: -1280668066
+      Stamina Bar 2: 1870960036
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
