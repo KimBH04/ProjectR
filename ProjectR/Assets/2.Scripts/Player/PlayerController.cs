@@ -37,6 +37,11 @@ public class PlayerControllerEditor : Editor
             {
                 inspector.Hp--;
             }
+
+            if (GUILayout.Button("Can Skill"))
+            {
+                PlayerController.canSkill ^= true;
+            }
         }
     }
 }
@@ -46,8 +51,9 @@ public sealed class PlayerController : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] private int atk;
-    [SerializeField] private int hp = 3;
+    [SerializeField] private int maxHp = 3;
     [SerializeField] private float speed = 4f;
+    [SerializeField, Min(0f)] private float rotSpeed = 10f;
     [SerializeField] private float maxStamina = 20f;
     [SerializeField] private float staminaSpeed = 1f;
     [Space]
@@ -57,8 +63,9 @@ public sealed class PlayerController : MonoBehaviour
     // current status
     private int level = 1;
     private bool didLevelUp = false;
-    private float stamina;
     private int exp = 0;
+    private float stamina;
+    private int hp;
 
     private static bool canControl = true;
     public static bool canSkill = false;
@@ -67,8 +74,7 @@ public sealed class PlayerController : MonoBehaviour
 
     private bool isDodge;
     private bool isDodgeCoolDown = true;
-    private float rotationScale = 1f;
-    private Quaternion dodgeRotate;
+    private float rotScale = 1f;
 
     private static PlayerInput playerInput;
     private CharacterController controller;
@@ -87,6 +93,7 @@ public sealed class PlayerController : MonoBehaviour
     [SerializeField] private Transform pointer;
     private Plane plane;
 
+    #region Status properties
     public int Level
     {
         get
@@ -127,13 +134,15 @@ public sealed class PlayerController : MonoBehaviour
         set
         {
             hp = value;
-            hp = Mathf.Clamp(hp, 0, 6);
+            hp = Mathf.Clamp(hp, 0, maxHp);
            
             if (hp == 0)
             {
-                Debug.Log("Dead");
+                CanControl = false;
+                canSkill = false;
+                pAnimator.PlayDie();
             }
-            StatusUI.SetHpUI(hp);
+            StatusUI.SetHpUI(hp, maxHp);
         }
     }
 
@@ -155,10 +164,12 @@ public sealed class PlayerController : MonoBehaviour
             }
         }
     }
+    #endregion
 
     private void Awake()
     {
         stamina = maxStamina;
+        hp = maxHp;
 
         RoomData.roomClearEvent.AddListener(() =>
         {
@@ -190,7 +201,7 @@ public sealed class PlayerController : MonoBehaviour
 
         StatusUI.SetExpUI(0, NeedExp);
         StatusUI.SetStaminaUI(stamina, maxStamina);
-        StatusUI.SetHpUI(hp);
+        StatusUI.SetHpUI(hp, maxHp);
     }
 
     private void Update()
@@ -204,27 +215,14 @@ public sealed class PlayerController : MonoBehaviour
             float interpolation = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
 #pragma warning restore UNT0004 // Time.fixedDeltaTime used with Update
             controller.Move(Vector3.Lerp(lastFixedPos, nextFixedPos, interpolation));
-        }
 
-        //rotation
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (plane.Raycast(ray, out float enter) && canControl)
-        {
-            Vector3 point = ray.GetPoint(enter);
-
-            if (!isDodge)
+            if (horizontal != 0f || vertical != 0f)
             {
-                Quaternion rotation = Quaternion.LookRotation(point - transform.position);
-                transform.rotation = Quaternion.Lerp(dodgeRotate, rotation, rotationScale);
-
-                Vector3 normal = (point - transform.position).normalized;
-                Vector3 nonInterMove = new Vector3(horizontal, 0f, vertical);
-                float dot = Vector3.Dot(normal, nonInterMove);
-
-                pAnimator.SetMovementValue(Vector3.Cross(normal, nonInterMove).y, dot);
+                transform.rotation = Quaternion.Lerp(
+                    transform.rotation,
+                    Quaternion.LookRotation(new Vector3(horizontal, 0f, vertical)),
+                    rotScale * rotSpeed * Time.deltaTime);
             }
-
-            point.y += 0.1f;
         }
 
         stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime * staminaSpeed);
@@ -242,6 +240,8 @@ public sealed class PlayerController : MonoBehaviour
         Vector2 v2 = context.ReadValue<Vector2>();
         horizontal = v2.x;
         vertical = v2.y;
+
+        pAnimator.SetMovementValue(0f, horizontal != 0f || vertical != 0f ? 1f : 0f);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -270,7 +270,7 @@ public sealed class PlayerController : MonoBehaviour
         {
             isDodge = true;
             isDodgeCoolDown = false;
-            rotationScale = 0f;
+            rotScale = 0f;
 
             pAnimator.PlayDodge();
 
@@ -283,7 +283,6 @@ public sealed class PlayerController : MonoBehaviour
     private IEnumerator Dodge(Vector3 endPos, float time)
     {
         transform.LookAt(endPos);
-        dodgeRotate = transform.rotation;
 
         Vector3 startPos = transform.position;
 
@@ -310,10 +309,10 @@ public sealed class PlayerController : MonoBehaviour
 
         isDodge = false;
         
-        // 구르기 끝났을 때 마우스 부드럽게 바라보기
-        while (rotationScale < 1f)
+        // 구르기 끝났을 때 부드럽게 회전
+        while (rotScale < 1f)
         {
-            rotationScale += Time.deltaTime * 3f;
+            rotScale += Time.deltaTime * rotSpeed;
 
             yield return null;
         }
