@@ -50,6 +50,7 @@ public class StatusUI : MonoBehaviour
     {
         isClicked = (false, false);
         Time.timeScale = 1f;
+        PlayerController.CanControl = true;
         gameObject.SetActive(false);
     }
 
@@ -59,7 +60,7 @@ public class StatusUI : MonoBehaviour
         if (instance == null) return;
 
         Time.timeScale = 0f;
-        Debug.Log("Level Up! Lv." + level);
+        PlayerController.CanControl = false;
         instance.propertiesPanel.SetActive(true);
     }
 

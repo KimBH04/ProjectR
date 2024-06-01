@@ -3,8 +3,6 @@ using UnityEngine.Events;
 
 public class RoomData : MonoBehaviour
 {
-    public static UnityEvent roomClearEvent = new UnityEvent();
-
     [SerializeField] private WaveContainer[] waves;
 
     [SerializeField] private Room data;
@@ -74,7 +72,6 @@ public class RoomData : MonoBehaviour
                 data[Room.FRONT] != null,
                 data[Room.RIGHT] != null,
                 data[Room.BACK] != null);
-            roomClearEvent.Invoke();
         }
     }
 }

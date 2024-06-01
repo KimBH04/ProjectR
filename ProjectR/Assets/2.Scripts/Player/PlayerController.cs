@@ -23,11 +23,6 @@ public class PlayerControllerEditor : Editor
                 inspector.Exp += 10;
             }
 
-            if (GUILayout.Button("Raise room clear event"))
-            {
-                RoomData.roomClearEvent.Invoke();
-            }
-
             if (GUILayout.Button("Heal"))
             {
                 inspector.Hp++;
@@ -62,7 +57,6 @@ public sealed class PlayerController : MonoBehaviour
 
     // current status
     private int level = 1;
-    private bool didLevelUp = false;
     private int exp = 0;
     private float stamina;
     private int hp;
@@ -119,7 +113,7 @@ public sealed class PlayerController : MonoBehaviour
             {
                 exp -= NeedExp;
                 level++;
-                didLevelUp = true;
+                StatusUI.PopUpSelectProperties(level);
             }
             StatusUI.SetExpUI(exp, NeedExp);
         }
@@ -156,12 +150,8 @@ public sealed class PlayerController : MonoBehaviour
         }
         set
         {
-            canControl = value;
+            canControl = canSkill = value;
             playerInput.enabled = canControl;
-            if (!canControl)
-            {
-                pAnimator.SetMovementValue(0f, 0f);
-            }
         }
     }
     #endregion
@@ -170,15 +160,6 @@ public sealed class PlayerController : MonoBehaviour
     {
         stamina = maxStamina;
         hp = maxHp;
-
-        RoomData.roomClearEvent.AddListener(() =>
-        {
-            if (didLevelUp)
-            {
-                StatusUI.PopUpSelectProperties(level);
-                didLevelUp = false;
-            }
-        });
 
         playerInput = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
@@ -237,6 +218,8 @@ public sealed class PlayerController : MonoBehaviour
     #region New Input Systems
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!canControl) return;
+
         Vector2 v2 = context.ReadValue<Vector2>();
         horizontal = v2.x;
         vertical = v2.y;
