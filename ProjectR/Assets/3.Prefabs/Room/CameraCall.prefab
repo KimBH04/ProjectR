@@ -47,13 +47,13 @@ BoxCollider:
     m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2147483767
+    m_Bits: 3221225591
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 79, y: 1, z: 49}
+  m_Size: {x: 75, y: 1, z: 45}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &919553165091860293
 MonoBehaviour:

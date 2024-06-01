@@ -32,6 +32,8 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private GameObject frontEffect;
     [SerializeField] private GameObject rightEffect;
     [SerializeField] private GameObject backEffect;
+    [Space]
+    [SerializeField] private Transform navPlane;
 
     private static CreateRoom instance;
 
@@ -70,7 +72,7 @@ public class CreateRoom : MonoBehaviour
         rooms = new Room[roomMaxSize, roomMaxSize];
 
         float startTime = Time.time;
-        Application.targetFrameRate = 1000;
+        Application.targetFrameRate = int.MaxValue;
 
         yield return StartCoroutine(SettingRooms());
 
@@ -159,6 +161,12 @@ public class CreateRoom : MonoBehaviour
                 if (rooms[z, x] != null)
                 {
                     int xpos = x - roomCount, zpos = z - roomCount;
+                    Vector3 pos = new Vector3(
+                        xpos * 10f * standardScale.x,
+                        0f, // 10 : Default plane size
+                        zpos * 10f * standardScale.z);
+                    rooms[z, x].movedHere.AddListener(() => navPlane.position = pos);
+
                     Instantiate(
                         rooms[z, x].type switch
                         {
@@ -168,11 +176,8 @@ public class CreateRoom : MonoBehaviour
                             Room.RoomType.Boss => bossRoom,
                             _ => throw new UnityException($"Uknown Room Type: {xpos} {zpos}")
                         },
-                        new Vector3(
-                            xpos * 10f * standardScale.x,
-                            0f, // 10 : Default plane size
-                            zpos * 10f * standardScale.z),
-                            Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
+                        pos,
+                        Quaternion.identity).GetComponentInChildren<RoomData>().Data = rooms[z, x];
                     yield return null;
                 }
             }

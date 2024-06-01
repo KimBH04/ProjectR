@@ -12,7 +12,8 @@ public class StatusUI : MonoBehaviour
     [SerializeField] private Image staminaBar;
     [SerializeField] private TMP_Text staminaText;
     [Space]
-    [SerializeField] private RectTransform hpImage;
+    //[SerializeField] private RectTransform hpImage;
+    [SerializeField] private Image hpBar;
     [Space]
     [SerializeField] private GameObject propertiesPanel;
 
@@ -49,6 +50,7 @@ public class StatusUI : MonoBehaviour
     {
         isClicked = (false, false);
         Time.timeScale = 1f;
+        PlayerController.CanControl = true;
         gameObject.SetActive(false);
     }
 
@@ -58,7 +60,7 @@ public class StatusUI : MonoBehaviour
         if (instance == null) return;
 
         Time.timeScale = 0f;
-        Debug.Log("Level Up! Lv." + level);
+        PlayerController.CanControl = false;
         instance.propertiesPanel.SetActive(true);
     }
 
@@ -78,11 +80,12 @@ public class StatusUI : MonoBehaviour
         instance.staminaText.text = $"{(int)stamina} / {maxStamina}";
     }
 
-    public static void SetHpUI(int hp)
+    public static void SetHpUI(int hp, int maxHp)
     {
         if (instance == null) return;
 
-        instance.hpImage.sizeDelta = new Vector2(hp * 50f, 100f);
+        //instance.hpImage.sizeDelta = new Vector2(hp * 50f, 100f);
+        instance.hpBar.fillAmount = (float)hp / maxHp;
     }
     #endregion
 }

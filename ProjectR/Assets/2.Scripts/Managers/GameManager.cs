@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
 
+    public static bool IsStop => Time.timeScale == 0f;
+
     public static GameManager Instance
     {
         get

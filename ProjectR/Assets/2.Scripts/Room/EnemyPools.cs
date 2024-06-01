@@ -40,6 +40,7 @@ public class EnemyPools : MonoBehaviour
     {
         GameObject obj = poolDict[name].Get();
         obj.transform.SetPositionAndRotation(position, rotation);
+        obj.SetActive(true);
         return obj;
     }
 
@@ -71,7 +72,7 @@ public class EnemyPools : MonoBehaviour
 
         public static void TakePoolItem(GameObject obj)
         {
-            obj.SetActive(true);
+            //obj.SetActive(true);
         }
 
         public static void ReleasePoolItem(GameObject obj)

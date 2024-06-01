@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6229b843a27afa148a5af5793ef3a2d5
+guid: be1c9907d60bf2d44b0bfe40ff0a8e56
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -207,6 +207,90 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: W Key
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 828
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b29e42438649bf044a6831abcefafc28
+      internalID: -1671482017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A Key
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 669
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cef7c7949936e6b4bb97884b3893829d
+      internalID: -2131287087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: S Key
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 672
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be249d714cee20b4ba0a346065e5fc07
+      internalID: -1359079454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D Key
+      rect:
+        serializedVersion: 2
+        x: 1383
+        y: 669
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18aa93659b6ff0943a5a3ab7c62b2025
+      internalID: 1761250615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: Papyrus
       rect:
         serializedVersion: 2
@@ -232,7 +316,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1067
-        y: 472
+        y: 473
         width: 128
         height: 128
       alignment: 0
@@ -253,7 +337,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1225
-        y: 472
+        y: 471
         width: 384
         height: 128
       alignment: 0
@@ -273,10 +357,10 @@ TextureImporter:
       name: Line
       rect:
         serializedVersion: 2
-        x: 1665
-        y: 522
-        width: 383
-        height: 502
+        x: 1662
+        y: 523
+        width: 386
+        height: 486
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -479,27 +563,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Move Key
-      rect:
-        serializedVersion: 2
-        x: 1067
-        y: 669
-        width: 451
-        height: 299
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a1aa056c9970fe4f997a88400696434
-      internalID: -2131287087
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -511,18 +574,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      A Key: -2131287087
       D Key: 1761250615
       E Key: 360868102
-      GUI_1: 1144815147
       GUI_10: 84425781
       GUI_11: 1136051673
       GUI_16: -188327742
       GUI_5: 928840791
       GUI_6: 619521062
-      GUI_7: 1171908340
-      GUI_8: -1336244552
       Line: 1714796362
-      Move Key: -2131287087
       Papyrus: 485266349
       S Key: -1359079454
       SPACE Key: 1591082049
@@ -539,7 +599,7 @@ TextureImporter:
       Trait Level Filled: 1576440177
       Trait Select Button: -1657263591
       Trait Slot Empty: -1746306561
-      W Key: 124351782
+      W Key: -1671482017
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
