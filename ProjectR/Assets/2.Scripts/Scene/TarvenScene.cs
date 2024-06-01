@@ -7,12 +7,10 @@ public class TarvenScene : MonoBehaviour
 {
     public GameObject player;
     public Transform doorTr;
-    
-    
     private void Awake()
     {
-        player = GameObject.FindWithTag("Player");
-        player.transform.position = doorTr.position;
-    
+       
+            player = GameObject.FindWithTag("Player");
+            player.transform.position = doorTr.position;
     }
 }
