@@ -11,6 +11,8 @@ public class SuicideSkull : Enemy
 
     [SerializeField] private List<GameObject> bombs;
     
+    public float radius=5f;
+    
    
 
     protected override void Awake()
@@ -88,15 +90,7 @@ public class SuicideSkull : Enemy
     
     private void OnDrawGizmos()
     {
-        RaycastHit[] rayHits =Physics.SphereCastAll(transform.position,15,Vector3.up,0f,LayerMask.GetMask("Player"));
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 5f);
-
-        // Draw lines to all hits
-        Gizmos.color = Color.green;
-        foreach (RaycastHit hit in rayHits)
-        {
-            Gizmos.DrawLine(transform.position, hit.point);
-        }
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

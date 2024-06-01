@@ -189,6 +189,7 @@ public  abstract  class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        
         _model.CurrentHp-= damage;
         if(_model.CurrentHp <= 0)
         {
@@ -207,6 +208,7 @@ public  abstract  class Enemy : MonoBehaviour
         }
         else
         {
+            
             StartCoroutine(OnDamage());
         }
         
@@ -214,6 +216,7 @@ public  abstract  class Enemy : MonoBehaviour
 
     private IEnumerator OnDamage()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyHit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;

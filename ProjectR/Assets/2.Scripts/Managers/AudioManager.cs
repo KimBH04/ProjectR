@@ -44,6 +44,8 @@ public class AudioManager : MonoBehaviour
         Slash1,
         Slash2,
         TakeDamage,
+        ButtonClick,
+        ButtonHover,
     }
 
     void Awake()
@@ -192,4 +194,16 @@ public class AudioManager : MonoBehaviour
             break;
         }
     }
+    
+    
+    public void PlayButtonHover()
+    {
+        PlaySfx(ESfx.ButtonHover);
+    }
+    
+    public void PlayButtonClick()
+    {
+        PlaySfx(ESfx.ButtonClick);
+    }
+    
 }

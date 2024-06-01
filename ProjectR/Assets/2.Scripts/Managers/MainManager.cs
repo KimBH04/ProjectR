@@ -8,6 +8,7 @@ public class MainManager : MonoBehaviour
 
     public void StartGame()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.ButtonClick);
         MySceneManager.Instance.ChangeScene("TavernPrologue");
     }
 
@@ -15,6 +16,7 @@ public class MainManager : MonoBehaviour
 
     public void EndGame()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.ButtonClick);
         Application.Quit();
     }
 }

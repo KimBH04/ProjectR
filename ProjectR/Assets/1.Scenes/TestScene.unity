@@ -235,6 +235,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1822346427937732958, guid: e77c731ffbf7e425389f408a5f8ae1ec,
+        type: 3}
+      propertyPath: type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5855954772047569053, guid: e77c731ffbf7e425389f408a5f8ae1ec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -289,6 +294,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: lightning fruit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489501770939005479, guid: e77c731ffbf7e425389f408a5f8ae1ec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6165,7 +6175,7 @@ PrefabInstance:
     - target: {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7072,6 +7082,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wind Fruit
       objectReference: {fileID: 0}
+    - target: {fileID: 5469335382972066665, guid: 6ca80b1773edf4e0cbc1b78e88ca03c0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7164,6 +7179,7 @@ MonoBehaviour:
       m_Calls: []
   explosionEffect: {fileID: 1306729953}
   bombs: []
+  radius: 5
 --- !u!136 &1217812671
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7808,6 +7824,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bomb Fruit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516589555726860764, guid: 0c5c0afc8a4074842a8f10415267ffc4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8616,21 +8637,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
-        type: 3}
-      propertyPath: bgmClip.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
-        type: 3}
-      propertyPath: bgmClip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 5d233c0b341b84f53a889788f25a4473, type: 3}
-    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
-        type: 3}
-      propertyPath: bgmClip.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: c094fd999e88c4afaa230503fce43002, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -11,6 +11,7 @@ public class Fruit : MonoBehaviour
         Wind,
         Tingling
     }
+    public float radius=5f;
     public EType type;
     public float value;
     public GameObject head;
@@ -89,7 +90,7 @@ public class Fruit : MonoBehaviour
         head.SetActive(false);
         effect.SetActive(true);
         int layerMask = LayerMask.GetMask("Enemy", "Player");
-        RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,5,Vector3.up,0f,layerMask);
+        RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,radius,Vector3.up,0f,layerMask);
         
         foreach (RaycastHit hitObj in rayHits)
         {
@@ -111,15 +112,7 @@ public class Fruit : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        RaycastHit[] rayHits =Physics.SphereCastAll(transform.position,5,Vector3.up,0f,LayerMask.GetMask("Player"));
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 5f);
-
-        // Draw lines to all hits
-        Gizmos.color = Color.green;
-        foreach (RaycastHit hit in rayHits)
-        {
-            Gizmos.DrawLine(transform.position, hit.point);
-        }
+       Gizmos.color = Color.red;
+       Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
