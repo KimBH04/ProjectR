@@ -51,7 +51,7 @@ public sealed class PlayerController : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] private int atk;
-    [SerializeField] private int hp = 3;
+    [SerializeField] private int maxHp = 3;
     [SerializeField] private float speed = 4f;
     [SerializeField, Min(0f)] private float rotSpeed = 10f;
     [SerializeField] private float maxStamina = 20f;
@@ -63,8 +63,9 @@ public sealed class PlayerController : MonoBehaviour
     // current status
     private int level = 1;
     private bool didLevelUp = false;
-    private float stamina;
     private int exp = 0;
+    private float stamina;
+    private int hp;
 
     private static bool canControl = true;
     public static bool canSkill = false;
@@ -133,7 +134,7 @@ public sealed class PlayerController : MonoBehaviour
         set
         {
             hp = value;
-            hp = Mathf.Clamp(hp, 0, 6);
+            hp = Mathf.Clamp(hp, 0, maxHp);
            
             if (hp == 0)
             {
@@ -141,7 +142,7 @@ public sealed class PlayerController : MonoBehaviour
                 canSkill = false;
                 pAnimator.PlayDie();
             }
-            StatusUI.SetHpUI(hp);
+            StatusUI.SetHpUI(hp, maxHp);
         }
     }
 
@@ -168,6 +169,7 @@ public sealed class PlayerController : MonoBehaviour
     private void Awake()
     {
         stamina = maxStamina;
+        hp = maxHp;
 
         RoomData.roomClearEvent.AddListener(() =>
         {
@@ -199,7 +201,7 @@ public sealed class PlayerController : MonoBehaviour
 
         StatusUI.SetExpUI(0, NeedExp);
         StatusUI.SetStaminaUI(stamina, maxStamina);
-        StatusUI.SetHpUI(hp);
+        StatusUI.SetHpUI(hp, maxHp);
     }
 
     private void Update()
