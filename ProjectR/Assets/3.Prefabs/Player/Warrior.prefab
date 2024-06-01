@@ -49,8 +49,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atk: 10
-  hp: 6
+  maxHp: 6
   speed: 15
+  rotSpeed: 25
   maxStamina: 20
   staminaSpeed: 1.8
   dodgeForce: 10

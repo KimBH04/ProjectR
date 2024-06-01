@@ -1231,7 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbeed4b96975f4003a72bc7cefed3619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: CreateRoom
+  sceneName: Stage 1
 --- !u!65 &628801296
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1251,8 +1251,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.0079384, y: 5.083903, z: 1}
-  m_Center: {x: 0.1422875, y: 2.041952, z: 0}
+  m_Size: {x: 4.0079384, y: 5.083903, z: 20.726585}
+  m_Center: {x: 0.14228742, y: 2.041952, z: 9.863293}
 --- !u!4 &628801297
 Transform:
   m_ObjectHideFlags: 0
