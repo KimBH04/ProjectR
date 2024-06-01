@@ -11,7 +11,15 @@ public class BaseScene : MonoBehaviour
    
     private void OnTriggerEnter(Collider other)
     {
-        MySceneManager.Instance.ChangeScene(sceneName);
+        if (sceneName == "HomeScene" || sceneName == "TavernScene")
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            MySceneManager.Instance.ChangeScene(sceneName);
+        }
+
     }
 
 }
