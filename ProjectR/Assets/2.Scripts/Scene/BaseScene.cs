@@ -20,6 +20,12 @@ public class BaseScene : MonoBehaviour
             MySceneManager.Instance.ChangeScene(sceneName);
         }
 
+        // if (sceneName == "Stage 1")
+        // {
+        //     AudioManager.Instance.PlayBgm(AudioManager.EBgm.Stage1);
+        //     SceneManager.LoadScene(sceneName);
+        // }
+
     }
 
 }

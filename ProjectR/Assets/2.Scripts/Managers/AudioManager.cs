@@ -31,7 +31,11 @@ public class AudioManager : MonoBehaviour
 
     public enum EBgm
     {
-        Maple
+        Main,
+        Shop,
+        Stage1,
+        Stage1Boss,
+        Tavern,
     }
     
     public enum ESfx
@@ -46,6 +50,12 @@ public class AudioManager : MonoBehaviour
         TakeDamage,
         ButtonClick,
         ButtonHover,
+        ElectricFruit,
+        ShopPurchase,
+        PlayerDead,
+        PlayerFootstepStage1,
+        PlayerLevelUp,
+        PlayerRoll,
     }
 
     void Awake()
@@ -53,6 +63,7 @@ public class AudioManager : MonoBehaviour
         Singleton();
         Init();
         
+        PlayBgm(EBgm.Main);
     }
 
     void Init()

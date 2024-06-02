@@ -46,6 +46,7 @@ public class MySceneManager : MonoBehaviour
 
         if (currentSceneIndex == 1)
         {
+            AudioManager.Instance.PlayBgm(AudioManager.EBgm.Tavern);
             Debug.Log("Prologue");
             Fade_img.DOFade(0, prologueFadeDuration)
             .OnStart(() =>
@@ -59,6 +60,7 @@ public class MySceneManager : MonoBehaviour
         }
         else
         {
+            AudioManager.Instance.PlayBgm(AudioManager.EBgm.Main);
             Debug.Log("Normal");
             Fade_img.DOFade(0, fadeDuration)
             .OnStart(() => {
