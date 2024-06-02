@@ -55,7 +55,7 @@ MonoBehaviour:
   maxStamina: 20
   staminaSpeed: 1.8
   dodgeForce: 10
-  dodgeCoolTime: 5
+  dodgeCoolTime: 1
   skills:
   - skillObject: {fileID: 11400000, guid: 8572c5e7a30814e4fbe27354d80a6989, type: 2}
     AttackEndedEvent:

@@ -682,6 +682,10 @@ MonoBehaviour:
     enemyObject: {fileID: 4015811296826361122, guid: 512ac9401f53c4199aa724a72297e7b7,
       type: 3}
     initCount: 5
+  - name: Smallime
+    enemyObject: {fileID: 3245609559898788388, guid: 35f833abf24ef408e8fc05b0e1f70de6,
+      type: 3}
+    initCount: 5
   - name: Skeleton Bomb
     enemyObject: {fileID: 8633929970743539060, guid: e4d05de807b3d4dbb9383511f6681c03,
       type: 3}
@@ -1335,6 +1339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 420812699091083851, guid: 0e88bc72e7ca66645bb92843bac8bca8,
+        type: 3}
+      propertyPath: maxHp
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6449706118182181942, guid: 0e88bc72e7ca66645bb92843bac8bca8,
         type: 3}
