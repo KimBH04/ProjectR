@@ -34,6 +34,7 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private GameObject backEffect;
     [Space]
     [SerializeField] private Transform navPlane;
+    [Space]
 
     private static CreateRoom instance;
 
@@ -252,6 +253,7 @@ public class CreateRoom : MonoBehaviour
 
     public static void OpenWalls(bool left, bool front, bool right, bool back)
     {
+        Camera.main.DOShakePosition(0.5f, 0.8f, 30, 90, true, randomnessMode: ShakeRandomnessMode.Harmonic).SetEase(Ease.OutCubic);
         if (left)
         {
             walls[0].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);

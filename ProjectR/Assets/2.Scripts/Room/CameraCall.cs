@@ -13,7 +13,7 @@ public class CameraCall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Camera.main.transform.DOMove(cameraPos.position, 0.5f).SetEase(Ease.Linear);
+        Camera.main.transform.DOMove(cameraPos.position, 0.5f).SetEase(Ease.OutQuart);
         roomData.MovedHere();
     }
 }
