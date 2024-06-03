@@ -338,6 +338,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: cfe1e458a1db77a4aaf3e13628700e27,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cfe1e458a1db77a4aaf3e13628700e27,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cfe1e458a1db77a4aaf3e13628700e27,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cfe1e458a1db77a4aaf3e13628700e27,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -385,6 +400,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cfe1e458a1db77a4aaf3e13628700e27,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cfe1e458a1db77a4aaf3e13628700e27,
         type: 3}
@@ -538,7 +558,7 @@ MonoBehaviour:
   onDieEvent:
     m_PersistentCalls:
       m_Calls: []
-  fireBall: {fileID: 3468055567472640745, guid: 7f5807f74afc44947873ef8e67ab885b,
+  fireBall: {fileID: 5300567854549801060, guid: adcee79dd16f4684f855f632260db11a,
     type: 3}
   firePos: {fileID: 5763975965128939449}
 --- !u!136 &2747611944717388509

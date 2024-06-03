@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6425048971216255089}
   - component: {fileID: 5466424531139543152}
   m_Layer: 0
-  m_Name: RoomFloor
+  m_Name: St2 RoomFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88862f651c46a964c96386045bf20ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoints: []
   waves:
   - {fileID: 11400000, guid: bb507648e37d90c408ee9cd2eeb8d623, type: 2}
   data:
@@ -202,7 +203,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e8f0c04891f43c94baf9ee2de3d15f2d, type: 2}
+  - {fileID: 2100000, guid: f66591af11d63dc4b9a8a1b0aadf36b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

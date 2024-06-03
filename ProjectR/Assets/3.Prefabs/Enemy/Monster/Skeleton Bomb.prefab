@@ -826,6 +826,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a1a3cf8d906104b44bdc0697ee7b03ab,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a1a3cf8d906104b44bdc0697ee7b03ab,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a1a3cf8d906104b44bdc0697ee7b03ab,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a1a3cf8d906104b44bdc0697ee7b03ab,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -873,6 +888,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a1a3cf8d906104b44bdc0697ee7b03ab,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 812947928087963621, guid: a1a3cf8d906104b44bdc0697ee7b03ab,
         type: 3}
@@ -1031,8 +1051,6 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 68189528073f74192af0e82a9c76fc83, type: 2}
   expStone:
   - {fileID: 7305807324600889075, guid: 17f2c2477692f4caba13608dbfcfb1a5, type: 3}
-  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
-  - {fileID: 4625493888230279316, guid: 6cabeb1946d1743b7807f46aa4e295eb, type: 3}
   hpBar: {fileID: 2681447802124385950}
   damageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
     type: 3}
@@ -1047,6 +1065,7 @@ MonoBehaviour:
   bombs:
   - {fileID: 6054168208594116149}
   - {fileID: 6140894494885379589}
+  radius: 5
 --- !u!95 &2413379476251772419
 Animator:
   serializedVersion: 5

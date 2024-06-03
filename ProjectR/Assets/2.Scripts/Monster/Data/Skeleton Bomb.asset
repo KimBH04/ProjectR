@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 416ccf0365e6ae840a631a43b621d624, type: 3}
-  m_Name: Container1
+  m_Script: {fileID: 11500000, guid: 40ea3f36f2ac548d0aa62ed79e505dc1, type: 3}
+  m_Name: Skeleton Bomb
   m_EditorClassIdentifier: 
-  monsterNames:
-  - Warrior Goblin
-  - Shield Goblin
-  - Archer Goblin
-  - Biglime
+  maxHp: 100
+  currentHp: 100
+  speed: 12
+  damage: 1
+  targetRadius: 2
+  targetRange: 1
+  spawnProbability: 20

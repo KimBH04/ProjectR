@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5851000180340928997}
   m_Layer: 0
-  m_Name: BattleRoom03
+  m_Name: St1 BattleRoom03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -18,3 +18,4 @@ MonoBehaviour:
   damage: 10
   targetRadius: 0.5
   targetRange: 0.5
+  spawnProbability: 15

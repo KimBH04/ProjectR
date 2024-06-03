@@ -674,7 +674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3824523015849036751}
   m_Layer: 0
-  m_Name: BattleRoom01
+  m_Name: St1 BattleRoom01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

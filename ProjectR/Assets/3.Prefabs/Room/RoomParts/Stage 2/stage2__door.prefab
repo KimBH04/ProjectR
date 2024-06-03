@@ -79,17 +79,10 @@ PrefabInstance:
       value: stage2__door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -7515429101286732190, guid: 04942f53bb3f0454785c65ed80ee0581, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: -7515429101286732190, guid: 04942f53bb3f0454785c65ed80ee0581,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3589515836506365338}
-    - targetCorrespondingSourceObject: {fileID: -7515429101286732190, guid: 04942f53bb3f0454785c65ed80ee0581,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7664824773528977812}
     - targetCorrespondingSourceObject: {fileID: 9141816029861474070, guid: 04942f53bb3f0454785c65ed80ee0581,
         type: 3}
       insertIndex: -1
@@ -167,46 +160,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06215014, y: 0.06567173, z: 0.10502427}
   m_Center: {x: 0.05248045, y: -0.00070748554, z: 0.053601503}
---- !u!1 &5211227909468179911 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -7515429101286732190, guid: 04942f53bb3f0454785c65ed80ee0581,
-    type: 3}
-  m_PrefabInstance: {fileID: 6909037642690069413}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &3589515836506365338
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211227909468179911}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.050008137, y: 0.015236708, z: 0.068409815}
-  m_Center: {x: 0.0004519429, y: -0.0010365357, z: 0.035522833}
---- !u!208 &7664824773528977812
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211227909468179911}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.025, y: 0.008, z: 0.034}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: -0.001, z: 0.036000002}
-  m_TimeToStationary: 0.5
