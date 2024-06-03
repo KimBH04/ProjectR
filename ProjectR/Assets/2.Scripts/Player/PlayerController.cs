@@ -115,7 +115,7 @@ public sealed class PlayerController : MonoBehaviour
                 level++;
                 StatusUI.PopUpSelectProperties(level);
             }
-            StatusUI.SetExpUI(exp, NeedExp);
+            StatusUI.SetExpUI(exp, NeedExp, level);
         }
     }
 
@@ -180,7 +180,7 @@ public sealed class PlayerController : MonoBehaviour
 
         pAnimator = GetComponentInChildren<PlayerAnimator>();
 
-        StatusUI.SetExpUI(0, NeedExp);
+        StatusUI.SetExpUI(0, NeedExp, 1);
         StatusUI.SetStaminaUI(stamina, maxStamina);
         StatusUI.SetHpUI(hp, maxHp);
     }

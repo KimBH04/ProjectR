@@ -8,6 +8,7 @@ public class StatusUI : MonoBehaviour
     [Space]
     [SerializeField] private Image expBar;
     [SerializeField] private TMP_Text expText;
+    [SerializeField] private TMP_Text levelText;
     [Space]
     [SerializeField] private Image staminaBar;
     [SerializeField] private TMP_Text staminaText;
@@ -64,12 +65,13 @@ public class StatusUI : MonoBehaviour
         instance.propertiesPanel.SetActive(true);
     }
 
-    public static void SetExpUI(int exp, int needExp)
+    public static void SetExpUI(int exp, int needExp, int level)
     {
         if (instance == null) return;
 
         instance.expBar.fillAmount = (float)exp / needExp;
         instance.expText.text = $"{exp} / {needExp}";
+        instance.levelText.text = $"Lv. {level}";
     }
 
     public static void SetStaminaUI(float stamina, float maxStamina)
