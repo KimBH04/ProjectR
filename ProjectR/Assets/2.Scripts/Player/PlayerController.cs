@@ -218,9 +218,7 @@ public sealed class PlayerController : MonoBehaviour
     #region New Input Systems
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!canControl) return;
-
-        Vector2 v2 = context.ReadValue<Vector2>();
+        Vector2 v2 = CanControl ? context.ReadValue<Vector2>() : Vector2.zero;
         horizontal = v2.x;
         vertical = v2.y;
 
