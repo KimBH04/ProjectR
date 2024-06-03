@@ -5,9 +5,11 @@ using System.Collections;
 [CreateAssetMenu(fileName = "Wave Container")]
 public class WaveContainer : ScriptableObject
 {
-    [SerializeField] private string[] monsterNames;
+    [SerializeField] private EnemyData[] monsterNames;
     
-    public string this[int index] => monsterNames[index];   // 1
+    public EnemyData[] Enemies => monsterNames;
+    
+    public EnemyData this[int index] => monsterNames[index]; 
     public int Count => monsterNames.Length;
     
 }

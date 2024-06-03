@@ -52,7 +52,8 @@ public class RoomData : MonoBehaviour
                         Transform spawnPoint = _availableSpawnPoints[spawnIndex];
                         _availableSpawnPoints.RemoveAt(spawnIndex);
                         
-                        var enemy = EnemyPools.AppearObject(waveContainer[index], spawnPoint.position).GetComponent<Enemy>();
+                        string monsterName = GetRandomMonster(waveContainer);
+                        var enemy = EnemyPools.AppearObject(monsterName, spawnPoint.position).GetComponent<Enemy>();
                         enemy.onDieEvent.RemoveAllListeners();
                         enemy.onDieEvent.AddListener(EnemyCounter);
 
@@ -70,6 +71,31 @@ public class RoomData : MonoBehaviour
                 }
             }
         }
+    }
+    
+    private string GetRandomMonster(WaveContainer waveContainer)
+    {
+        float totalProbability = 0f;
+        foreach (var enemy in waveContainer.Enemies)
+        {
+            totalProbability += enemy.spawnProbability;
+        }
+
+        float randomPoint = Random.value * totalProbability;
+
+        foreach (var enemy in waveContainer.Enemies)
+        {
+            if (randomPoint < enemy.spawnProbability)
+            {
+                return enemy.name;
+            }
+            else
+            {
+                randomPoint -= enemy.spawnProbability;
+            }
+        }
+
+        return waveContainer.Enemies[waveContainer.Count - 1].name;
     }
 
     
