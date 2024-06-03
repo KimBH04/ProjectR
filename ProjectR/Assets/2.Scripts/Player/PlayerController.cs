@@ -61,6 +61,7 @@ public sealed class PlayerController : MonoBehaviour
     private float stamina;
     private int hp;
     private bool isUnbeatable = false;
+    private bool isBeaten = false;
 
     private static bool canControl = true;
     public static bool canSkill = false;
@@ -128,7 +129,12 @@ public sealed class PlayerController : MonoBehaviour
         }
         set
         {
-            if (isUnbeatable) return;
+            if (isUnbeatable || isBeaten) return;
+
+            if (hp > value)
+            {
+                StartCoroutine(Unbeatable());
+            }
 
             hp = value;
             hp = Mathf.Clamp(hp, 0, maxHp);
@@ -264,6 +270,7 @@ public sealed class PlayerController : MonoBehaviour
     }
     #endregion
 
+    #region Coroutine Methods
     private IEnumerator Dodge(Vector3 endPos, float time)
     {
         transform.LookAt(endPos);
@@ -310,6 +317,14 @@ public sealed class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dodgeCoolTime);
         isDodgeCoolDown = true;
     }
+
+    private IEnumerator Unbeatable()
+    {
+        isBeaten = true;
+        yield return new WaitForSeconds(1f);
+        isBeaten = false;
+    }
+    #endregion
 
     [System.Serializable]
     private class Skill
