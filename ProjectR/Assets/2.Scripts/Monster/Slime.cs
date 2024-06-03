@@ -8,12 +8,12 @@ public class Slime : Enemy
 
     [HideInInspector] public SplitSlime[] mini = new SplitSlime[2];
 
-    private new void Start()
+    private new void Awake()
     {
-        base.Start();
+        base.Awake();
 
-        GameObject go1 = EnemyPools.AppearObject("Smallime", transform.position);
-        GameObject go2 = EnemyPools.AppearObject("Smallime", transform.position);
+        GameObject go1 = EnemyPools.AppearObject("Smallime");
+        GameObject go2 = EnemyPools.AppearObject("Smallime");
         go1.SetActive(false);
         go2.SetActive(false);
         mini[0] = go1.GetComponent<SplitSlime>();
@@ -31,6 +31,8 @@ public class Slime : Enemy
     {
         base.DieEnemy();
 
+        mini[0].transform.position = transform.position;
+        mini[1].transform.position = transform.position;
         mini[0].gameObject.SetActive(true);
         mini[1].gameObject.SetActive(true);
     }
