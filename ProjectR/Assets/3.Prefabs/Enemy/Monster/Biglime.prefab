@@ -543,7 +543,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &7034762296026590272
 MonoBehaviour:
@@ -573,6 +573,9 @@ MonoBehaviour:
       m_Calls: []
   splitSlime: {fileID: 3245609559898788388, guid: 35f833abf24ef408e8fc05b0e1f70de6,
     type: 3}
+  mini:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!65 &293186438715551889
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -592,8 +595,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 5, z: 3}
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 3, y: 8.616758, z: 3}
+  m_Center: {x: 0, y: 4.255284, z: 0}
 --- !u!4 &4391246811539857304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 468211077e2b9cf438220b9aa56ef172,

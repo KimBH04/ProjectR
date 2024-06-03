@@ -9,5 +9,6 @@ public class EnemyData :ScriptableObject
     public float damage;
     public float targetRadius;
     public float targetRange;
+    public float spawnProbability;
     
 }

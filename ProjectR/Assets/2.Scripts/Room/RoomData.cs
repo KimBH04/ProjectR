@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class RoomData : MonoBehaviour
 {
+    [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private WaveContainer[] waves;
 
     [SerializeField] private Room data;
@@ -12,6 +16,13 @@ public class RoomData : MonoBehaviour
 
     private bool visited = false;
     private int enemyCount = 0;
+
+    private List<Transform> _availableSpawnPoints;
+
+    private void Awake()
+    {
+        _availableSpawnPoints = new List<Transform>(spawnPoints);
+    }
 
     public Room Data
     {
@@ -33,7 +44,15 @@ public class RoomData : MonoBehaviour
                     int index = i;  // handling variable capture
                     data.movedHere.AddListener(() =>
                     {
-                        var enemy = EnemyPools.AppearObject(waveContainer[index], transform.position).GetComponent<Enemy>();
+                        if(_availableSpawnPoints.Count == 0)
+                        {
+                            return;
+                        }
+                        int spawnIndex = Random.Range(0, _availableSpawnPoints.Count);
+                        Transform spawnPoint = _availableSpawnPoints[spawnIndex];
+                        _availableSpawnPoints.RemoveAt(spawnIndex);
+                        
+                        var enemy = EnemyPools.AppearObject(waveContainer[index], spawnPoint.position).GetComponent<Enemy>();
                         enemy.onDieEvent.RemoveAllListeners();
                         enemy.onDieEvent.AddListener(EnemyCounter);
 
@@ -52,6 +71,8 @@ public class RoomData : MonoBehaviour
             }
         }
     }
+
+    
 
     public void MovedHere()
     {
