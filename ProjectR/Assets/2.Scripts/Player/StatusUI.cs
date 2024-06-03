@@ -51,7 +51,7 @@ public class StatusUI : MonoBehaviour
         isClicked = (false, false);
         Time.timeScale = 1f;
         PlayerController.CanControl = true;
-        gameObject.SetActive(false);
+        propertiesPanel.SetActive(false);
     }
 
     #region Static methods
