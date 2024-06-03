@@ -36,6 +36,17 @@ public class RoomData : MonoBehaviour
                         var enemy = EnemyPools.AppearObject(waveContainer[index], transform.position).GetComponent<Enemy>();
                         enemy.onDieEvent.RemoveAllListeners();
                         enemy.onDieEvent.AddListener(EnemyCounter);
+
+                        if (enemy is Slime biglime)
+                        {
+                            enemyCount += 2;
+
+                            biglime.mini[0].onDieEvent.RemoveAllListeners();
+                            biglime.mini[0].onDieEvent.AddListener(EnemyCounter);
+
+                            biglime.mini[1].onDieEvent.RemoveAllListeners();
+                            biglime.mini[1].onDieEvent.AddListener(EnemyCounter);
+                        }
                     });
                 }
             }

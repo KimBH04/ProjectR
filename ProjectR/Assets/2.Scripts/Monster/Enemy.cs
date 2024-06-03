@@ -73,7 +73,7 @@ public  abstract  class Enemy : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected void Start()
     {
         StartCoroutine(IsHeal());
         if (!isBoss && _agent.enabled) 
