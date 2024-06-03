@@ -111,11 +111,12 @@ public class SkillContainer : SkillObject
 
         var (_, ps) = SkillEffects.Instance.GetParticleObject(fx);
         var collider = ps.GetComponent<SphereCollider>();
+        yield return new WaitForSeconds(0.2f);
         collider.enabled = true;
         switch (disableMode)
         {
             case DisableMode.Blink:
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.1f);
                 break;
 
             case DisableMode.LifeTime:

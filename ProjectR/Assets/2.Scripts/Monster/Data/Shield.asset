@@ -15,6 +15,6 @@ MonoBehaviour:
   maxHp: 70
   currentHp: 70
   speed: 6
-  damage: 20
+  damage: 10
   targetRadius: 2
   targetRange: 2
