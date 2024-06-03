@@ -560,7 +560,7 @@ MonoBehaviour:
   meleeArea: {fileID: 4043089207918307956}
   data: {fileID: 11400000, guid: cd2c5cde6870d4dc3a285133d9413daf, type: 2}
   expStone:
-  - {fileID: 7064901182366038912, guid: 3a7df3e691531454ea1c27a1ac64ef15, type: 3}
+  - {fileID: 7064901182366038912, guid: 8bba86737d821465d8d7cee833cafdde, type: 3}
   hpBar: {fileID: 5076663113183368080}
   damageText: {fileID: 5902579987487781072, guid: e0c17b2a156ca4c5383564caef6750bb,
     type: 3}

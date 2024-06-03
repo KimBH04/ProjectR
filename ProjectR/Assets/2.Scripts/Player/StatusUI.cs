@@ -17,6 +17,7 @@ public class StatusUI : MonoBehaviour
     [Space]
     [SerializeField] private GameObject propertiesPanel;
 
+
     private (bool stat, bool trait) isClicked = (false, false);
 
     private void Awake()
@@ -51,7 +52,7 @@ public class StatusUI : MonoBehaviour
         isClicked = (false, false);
         Time.timeScale = 1f;
         PlayerController.CanControl = true;
-        gameObject.SetActive(false);
+        propertiesPanel.SetActive(false);
     }
 
     #region Static methods
