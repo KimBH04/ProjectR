@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
 
 public class RoomData : MonoBehaviour
 {
@@ -16,6 +14,8 @@ public class RoomData : MonoBehaviour
 
     private bool visited = false;
     private int enemyCount = 0;
+    
+    public int EnemyCount => enemyCount;
 
     private List<Transform> _availableSpawnPoints;
 

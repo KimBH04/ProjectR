@@ -13,13 +13,34 @@ public class Item : MonoBehaviour
         Shield,
         Exp,
     }
+
+    private Transform _playerTr;
     
     public EType type;
     public int value;
-    
+    public float moveSpeed = 10f;
+    public float attractRange = 10f;
+
+
+    private void Awake()
+    {
+        if(type == EType.Exp)
+            _playerTr = GameObject.FindWithTag("Player").transform;
+        
+    }
 
     private void Update()
     {
+        if (type == EType.Exp)
+        {
+            float distance = Vector3.Distance(transform.position, _playerTr.position);
+            if (distance < attractRange)
+            {
+                Vector3 direction = (_playerTr.position - transform.position).normalized;
+                transform.position += direction * moveSpeed * Time.deltaTime;
+            }
+        }
+            
             //transform.Rotate(Vector3.up * 20 * Time.deltaTime);
     }
 
