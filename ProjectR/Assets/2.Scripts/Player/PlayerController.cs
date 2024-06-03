@@ -60,6 +60,7 @@ public sealed class PlayerController : MonoBehaviour
     private int exp = 0;
     private float stamina;
     private int hp;
+    private bool isUnbeatable = false;
 
     private static bool canControl = true;
     public static bool canSkill = false;
@@ -127,6 +128,8 @@ public sealed class PlayerController : MonoBehaviour
         }
         set
         {
+            if (isUnbeatable) return;
+
             hp = value;
             hp = Mathf.Clamp(hp, 0, maxHp);
            
@@ -264,6 +267,7 @@ public sealed class PlayerController : MonoBehaviour
     private IEnumerator Dodge(Vector3 endPos, float time)
     {
         transform.LookAt(endPos);
+        isUnbeatable = true;
 
         Vector3 startPos = transform.position;
 
@@ -276,6 +280,8 @@ public sealed class PlayerController : MonoBehaviour
 
             yield return null;
         }
+
+        isUnbeatable = false;
 
         // roll
         var (newStartPos, newEndPos) = (endPos, (endPos - startPos).normalized * 3f + endPos);
