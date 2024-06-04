@@ -60,6 +60,8 @@ public sealed class PlayerController : MonoBehaviour
     private int exp = 0;
     private float stamina;
     private int hp;
+    private bool isUnbeatable = false;
+    private bool isBeaten = false;
 
     private static bool canControl = true;
     public static bool canSkill = false;
@@ -115,7 +117,7 @@ public sealed class PlayerController : MonoBehaviour
                 level++;
                 StatusUI.PopUpSelectProperties(level);
             }
-            StatusUI.SetExpUI(exp, NeedExp);
+            StatusUI.SetExpUI(exp, NeedExp, level);
         }
     }
 
@@ -127,6 +129,13 @@ public sealed class PlayerController : MonoBehaviour
         }
         set
         {
+            if (isUnbeatable || isBeaten) return;
+
+            if (hp > value)
+            {
+                StartCoroutine(Unbeatable());
+            }
+
             hp = value;
             hp = Mathf.Clamp(hp, 0, maxHp);
            
@@ -180,7 +189,7 @@ public sealed class PlayerController : MonoBehaviour
 
         pAnimator = GetComponentInChildren<PlayerAnimator>();
 
-        StatusUI.SetExpUI(0, NeedExp);
+        StatusUI.SetExpUI(0, NeedExp, 1);
         StatusUI.SetStaminaUI(stamina, maxStamina);
         StatusUI.SetHpUI(hp, maxHp);
     }
@@ -218,9 +227,7 @@ public sealed class PlayerController : MonoBehaviour
     #region New Input Systems
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!canControl) return;
-
-        Vector2 v2 = context.ReadValue<Vector2>();
+        Vector2 v2 = CanControl ? context.ReadValue<Vector2>() : Vector2.zero;
         horizontal = v2.x;
         vertical = v2.y;
 
@@ -263,9 +270,11 @@ public sealed class PlayerController : MonoBehaviour
     }
     #endregion
 
+    #region Coroutine Methods
     private IEnumerator Dodge(Vector3 endPos, float time)
     {
         transform.LookAt(endPos);
+        isUnbeatable = true;
 
         Vector3 startPos = transform.position;
 
@@ -278,6 +287,8 @@ public sealed class PlayerController : MonoBehaviour
 
             yield return null;
         }
+
+        isUnbeatable = false;
 
         // roll
         var (newStartPos, newEndPos) = (endPos, (endPos - startPos).normalized * 3f + endPos);
@@ -306,6 +317,14 @@ public sealed class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dodgeCoolTime);
         isDodgeCoolDown = true;
     }
+
+    private IEnumerator Unbeatable()
+    {
+        isBeaten = true;
+        yield return new WaitForSeconds(1f);
+        isBeaten = false;
+    }
+    #endregion
 
     [System.Serializable]
     private class Skill
