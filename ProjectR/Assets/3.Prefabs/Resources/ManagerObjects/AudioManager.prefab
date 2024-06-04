@@ -70,4 +70,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2262d46ce06121741b67e0f1dafe32d7, type: 3}
   - {fileID: 8300000, guid: bad5fee44f3effe43aa78fd99c6b52e0, type: 3}
   - {fileID: 8300000, guid: c53a8d1599ff00b44b9d4bfa18717632, type: 3}
+  - {fileID: 8300000, guid: 848df3845a5b6af4f98c21a2c085a5db, type: 3}
+  - {fileID: 8300000, guid: fb869f0ad1bc9c94cad381ce1c094782, type: 3}
+  - {fileID: 8300000, guid: 479c0f9820995264087226186eb20fc3, type: 3}
+  - {fileID: 8300000, guid: 70c4d03763c514ad881364e44a112297, type: 3}
+  - {fileID: 8300000, guid: 16dbae183297e8c469c8d69b0635c957, type: 3}
+  - {fileID: 8300000, guid: 9569189b2bc4633469fe9bc6f4b32731, type: 3}
   channels: 10

@@ -116,6 +116,7 @@ public sealed class PlayerController : MonoBehaviour
                 exp -= NeedExp;
                 level++;
                 StatusUI.PopUpSelectProperties(level);
+                AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerLevelUp);
             }
             StatusUI.SetExpUI(exp, NeedExp, level);
         }
@@ -143,6 +144,7 @@ public sealed class PlayerController : MonoBehaviour
             {
                 CanControl = false;
                 canSkill = false;
+                AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerDead);
                 pAnimator.PlayDie();
             }
             StatusUI.SetHpUI(hp, maxHp);
@@ -227,6 +229,7 @@ public sealed class PlayerController : MonoBehaviour
     #region New Input Systems
     public void OnMove(InputAction.CallbackContext context)
     {
+        //AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerFootstepStage1);
         Vector2 v2 = CanControl ? context.ReadValue<Vector2>() : Vector2.zero;
         horizontal = v2.x;
         vertical = v2.y;
@@ -256,8 +259,10 @@ public sealed class PlayerController : MonoBehaviour
 
     public void OnDodge(InputAction.CallbackContext context)
     {
+       
         if (context.started && isDodgeCoolDown && (horizontal != 0f || vertical != 0f))
         {
+            AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerRoll);
             isDodge = true;
             isDodgeCoolDown = false;
             rotScale = 0f;
@@ -341,7 +346,7 @@ public sealed class PlayerController : MonoBehaviour
         {
             if (skillObject is ComboContainer)
             {
-                
+                AudioManager.Instance.PlaySfx(AudioManager.ESfx.Slash1);
                 return new IEnumerator[]
                 {
                     CoolDown(),

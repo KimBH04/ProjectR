@@ -56,6 +56,12 @@ public class AudioManager : MonoBehaviour
         PlayerFootstepStage1,
         PlayerLevelUp,
         PlayerRoll,
+        WarriorGoblinAttack,
+        SlimeMove,
+        SkeletonBombExplosion,
+        SkeletonBombBeep,
+        ShieldGoblinAttack,
+        GoblinSound
     }
 
     void Awake()
@@ -215,6 +221,12 @@ public class AudioManager : MonoBehaviour
     public void PlayButtonClick()
     {
         PlaySfx(ESfx.ButtonClick);
+    }
+    
+    public IEnumerator PlayerFootstepStage1()
+    {
+        PlaySfx(ESfx.PlayerFootstepStage1);
+        yield return new WaitForSeconds(0.5f);
     }
     
 }

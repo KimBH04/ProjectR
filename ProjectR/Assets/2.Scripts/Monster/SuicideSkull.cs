@@ -26,10 +26,11 @@ public class SuicideSkull : Enemy
         {
             yield break;
         }
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.SkeletonBombBeep);
         IsAttack = true;
         StartCoroutine(CountExplosion());
         yield return new WaitForSeconds(3f);
-        
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.SkeletonBombExplosion);
         
         explosionEffect.SetActive(true);
         bombs[0].SetActive(false);

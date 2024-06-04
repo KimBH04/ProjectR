@@ -10,6 +10,7 @@ public class Shield : Enemy
         IsChase = false;
         IsAttack = true;
         Animator.SetBool(Attack,true);
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.ShieldGoblinAttack);
         yield return new WaitForSeconds(1.4f);
         if (IsTingling)
         {
