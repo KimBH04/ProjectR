@@ -161,6 +161,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2869655916757843077}
     m_Modifications:
+    - target: {fileID: 1189001522138363063, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189001522138363063, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189001522138363063, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189001522138363063, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189001522138363063, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189001522138363063, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189001522138363063, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime2
+      value: 51079
+      objectReference: {fileID: 0}
     - target: {fileID: 4369794202214795370, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
         type: 3}
       propertyPath: m_Name
@@ -179,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 7136804739105705678, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.44
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 7136804739105705678, guid: 2d4d1e5014ef1fa4c8540df7a19ea7b4,
         type: 3}
