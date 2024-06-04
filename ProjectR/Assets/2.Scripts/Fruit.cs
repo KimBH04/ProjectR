@@ -32,7 +32,8 @@ public class Fruit : MonoBehaviour
                     StartCoroutine(Wind());
                     break;
                 case EType.Tingling:
-                    //AudioManager.Instance.PlaySfx(AudioManager.ESfx.ElectricFruit); 재생길이가 길다
+                    print("fdf");
+                    AudioManager.Instance.PlaySfx(AudioManager.ESfx.ElectricFruit); 
                     StartCoroutine(Tingling());
                     break;
             }

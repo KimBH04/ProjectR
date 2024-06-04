@@ -62,6 +62,7 @@ public sealed class PlayerController : MonoBehaviour
     private int hp;
     private bool isUnbeatable = false;
     private bool isBeaten = false;
+    private bool isFootstep = false;
 
     private static bool canControl = true;
     public static bool canSkill = false;
@@ -229,12 +230,21 @@ public sealed class PlayerController : MonoBehaviour
     #region New Input Systems
     public void OnMove(InputAction.CallbackContext context)
     {
-        //AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerFootstepStage1);
         Vector2 v2 = CanControl ? context.ReadValue<Vector2>() : Vector2.zero;
         horizontal = v2.x;
         vertical = v2.y;
 
         pAnimator.SetMovementValue(0f, horizontal != 0f || vertical != 0f ? 1f : 0f);
+        if(!isFootstep)
+            StartCoroutine(PlayFootstepSound());
+    }
+
+    private IEnumerator PlayFootstepSound()
+    {
+        isFootstep = true;
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerFootstepStage1);
+        yield return new WaitForSeconds(2.4f);
+        isFootstep = false;
     }
 
     public void OnAttack(InputAction.CallbackContext context)

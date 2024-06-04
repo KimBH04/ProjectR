@@ -78,6 +78,7 @@ public  abstract  class Enemy : MonoBehaviour
         StartCoroutine(IsHeal());
         if (!isBoss && _agent.enabled) 
         {
+            // AudioManager.Instance.PlaySfx(AudioManager.ESfx.GoblinSound); 헉
             Invoke(nameof(ChaseStart), 1f);
         }
     }

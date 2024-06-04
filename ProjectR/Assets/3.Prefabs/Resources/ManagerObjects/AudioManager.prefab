@@ -64,7 +64,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 17d254c376a9e6d4fba491300955bff5, type: 3}
   - {fileID: 8300000, guid: 20d0ac445cc8e8e438a8ba9932ab6fce, type: 3}
   - {fileID: 8300000, guid: f2f3b5fa3ae47074984a8f46bf5f50fa, type: 3}
-  - {fileID: 8300000, guid: caf1bc5d10a30cb4d9e5f13127fb5347, type: 3}
+  - {fileID: 8300000, guid: 94d1df393a49c4b7c9c4cdfc6881d5cf, type: 3}
   - {fileID: 8300000, guid: e8370af3144bc804287c04ed45f4c32e, type: 3}
   - {fileID: 8300000, guid: ed34d5292069f6d4e8016171dc5991dd, type: 3}
   - {fileID: 8300000, guid: 2262d46ce06121741b67e0f1dafe32d7, type: 3}
@@ -76,4 +76,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 70c4d03763c514ad881364e44a112297, type: 3}
   - {fileID: 8300000, guid: 16dbae183297e8c469c8d69b0635c957, type: 3}
   - {fileID: 8300000, guid: 9569189b2bc4633469fe9bc6f4b32731, type: 3}
-  channels: 10
+  channels: 15
