@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Rendering;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CreateRoom : MonoBehaviour
 {
@@ -254,26 +256,56 @@ public class CreateRoom : MonoBehaviour
     public static void OpenWalls(bool left, bool front, bool right, bool back)
     {
         Camera.main.DOShakePosition(0.5f, 0.8f, 30, 90, true, randomnessMode: ShakeRandomnessMode.Harmonic).SetEase(Ease.OutCubic);
-        if (left)
+
+
+        if (SceneManager.GetActiveScene().name == "Stage 1")
         {
-            walls[0].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
-            effects[0].SetActive(true);
+            if (left)
+            {
+                walls[0].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
+                effects[0].SetActive(true);
+            }
+            if (front)
+            {
+                walls[1].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
+                effects[1].SetActive(true);
+            }
+            if (right)
+            {
+                walls[2].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
+                effects[2].SetActive(true);
+            }
+            if (back)
+            {
+                walls[3].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
+                effects[3].SetActive(true);
+            }
         }
-        if (front)
+
+        if (SceneManager.GetActiveScene().name == "Stage 2")
         {
-            walls[1].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
-            effects[1].SetActive(true);
+            if (left)
+            {
+                walls[0].DOMoveY(4.9f, 1f).SetEase(Ease.OutSine);
+                effects[0].SetActive(true);
+            }
+            if (front)
+            {
+                walls[1].DOMoveY(4.9f, 1f).SetEase(Ease.OutSine);
+                effects[1].SetActive(true);
+            }
+            if (right)
+            {
+                walls[2].DOMoveY(4.9f, 1f).SetEase(Ease.OutSine);
+                effects[2].SetActive(true);
+            }
+            if (back)
+            {
+                walls[3].DOMoveY(4.9f, 1f).SetEase(Ease.OutSine);
+                effects[3].SetActive(true);
+            }
         }
-        if (right)
-        {
-            walls[2].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
-            effects[2].SetActive(true);
-        }
-        if (back)
-        {
-            walls[3].DOMoveY(-20f, 2.3f).SetEase(Ease.OutSine);
-            effects[3].SetActive(true);
-        }
+        
     }
 
     public static void CloseWalls(Vector3 position, bool left, bool front, bool right, bool back)
