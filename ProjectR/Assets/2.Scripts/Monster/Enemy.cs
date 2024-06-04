@@ -201,7 +201,8 @@ public  abstract  class Enemy : MonoBehaviour
         }
         UpdateHpBar(_model.CurrentHp,_model.MaxHp);
         ShowDamageText(damage);
-        
+
+        print(_model.CurrentHp);
         if (_model.CurrentHp <= 0)
         {
             DieEnemy();

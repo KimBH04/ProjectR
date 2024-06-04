@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ea3f36f2ac548d0aa62ed79e505dc1, type: 3}
   m_Name: Skeleton Bomb
   m_EditorClassIdentifier: 
-  maxHp: 99
-  currentHp: 99
+  maxHp: 95
+  currentHp: 95
   speed: 15
   damage: 1
   targetRadius: 5

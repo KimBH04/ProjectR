@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17757908, g: 0.22232299, b: 0.30451858, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -396,7 +396,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -406,7 +406,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.4
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -455,13 +455,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 234704014}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7848856, y: 0.21130908, z: -0.36599815, w: 0.45315382}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 120, y: 50, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
 --- !u!114 &234704017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2971,10 +2971,10 @@ MonoBehaviour:
     type: 3}
   battleRooms:
   - {fileID: 5876589704210915324, guid: 92cd1f511c717f94a823d389571f9d16, type: 3}
-  - {fileID: 1917793879660191987, guid: 5235f4b3ab149c441b24fe8815f64659, type: 3}
-  - {fileID: 1917793879660191987, guid: e4d18e15258275c4e80096c25e96f429, type: 3}
-  - {fileID: 3768906580579615561, guid: 1c1f645ca97dc804f8f1a80289e15c3a, type: 3}
-  - {fileID: 3652397007537422574, guid: b28b98704eea91044ad2b39281528c96, type: 3}
+  - {fileID: 5876589704210915324, guid: 69fc352a1290956448f15b22569ab6c4, type: 3}
+  - {fileID: 5876589704210915324, guid: da6963019d7eb3044ae8c5e002ae565d, type: 3}
+  - {fileID: 5876589704210915324, guid: 732b96faa57b6694580ef47a4fc2fbf4, type: 3}
+  - {fileID: 5876589704210915324, guid: 47d33d664606bff4687c8f08cf79b531, type: 3}
   bossRoom: {fileID: 5855880335816749955, guid: e1fc3edd884d3cc4885bcef2b980b311,
     type: 3}
   shopRoom: {fileID: 8985497996073968837, guid: 63c14af0d2c51b243b07d0b4e8852bb4,
