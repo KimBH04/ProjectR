@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FXPlayInSkill: 0
   fx: 2
-  startClip: {fileID: 0}
-  destroyClip: {fileID: 0}
+  startEsfx: 5
+  destroyEsfx: 0
   animationKey: 3
   atk: 10
   startTime: 0.25

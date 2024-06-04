@@ -37,8 +37,8 @@ public class SkillContainer : SkillObject
     [Space]
     [SerializeField] protected SkillEffects.FX fx;
     [Space]
-    [SerializeField] private AudioClip startClip;
-    [SerializeField] private AudioClip destroyClip;
+    [SerializeField] private AudioManager.ESfx startEsfx;
+    [SerializeField] private AudioManager.ESfx destroyEsfx;
     [Space]
     [SerializeField] private int animationKey;
 
@@ -86,12 +86,12 @@ public class SkillContainer : SkillObject
     /// <summary>
     /// 스킬 시작 오디오 클립
     /// </summary>
-    public AudioClip StartClip => startClip;
+    public AudioManager.ESfx StartEsfx => startEsfx;
 
     /// <summary>
     /// 스킬 소멸/파괴 오디오 클립
     /// </summary>
-    public AudioClip EndClip => destroyClip;
+    public AudioManager.ESfx EndEsfx => destroyEsfx;
 
     /// <summary>
     /// 소멸 이펙트
@@ -109,6 +109,7 @@ public class SkillContainer : SkillObject
              SkillEffects.Instance.PlayEffect(fx);
         }
 
+        AudioManager.Instance.PlaySfx(startEsfx);
         var (_, ps) = SkillEffects.Instance.GetParticleObject(fx);
         var collider = ps.GetComponent<SphereCollider>();
         yield return new WaitForSeconds(0.2f);

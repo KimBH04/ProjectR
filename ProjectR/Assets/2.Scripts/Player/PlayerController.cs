@@ -252,17 +252,21 @@ public sealed class PlayerController : MonoBehaviour
         if (canSkill && context.started)
         {
             int idx = (int)context.ReadValue<float>();
-            if (idx < skills.Length && skills[idx].AttackCoolDown && stamina >= skills[idx].SkillObject.CurrentContainer.NeedStamina)
+            if (idx < skills.Length && skills[idx].AttackCoolDown)
             {
-                speedScale = 0.5f;
-                stamina -= skills[idx].SkillObject.CurrentContainer.NeedStamina;
-
-                foreach (var routine in skills[idx].GetDoSkill())
+                SkillContainer container = skills[idx].SkillObject.CurrentContainer;
+                if (stamina >= container.NeedStamina)
                 {
-                    StartCoroutine(routine);
-                }
+                    speedScale = 0.5f;
+                    stamina -= container.NeedStamina;
 
-                pAnimator.PlayAttack(skills[idx].SkillObject.CurrentContainer.AnimationKey);
+                    foreach (var routine in skills[idx].GetDoSkillCoroutines())
+                    {
+                        StartCoroutine(routine);
+                    }
+
+                    pAnimator.PlayAttack(container.AnimationKey);
+                }
             }
         }
     }
@@ -352,11 +356,10 @@ public sealed class PlayerController : MonoBehaviour
 
         public bool AttackCoolDown { get; private set; } = true;
 
-        public IEnumerator[] GetDoSkill()
+        public IEnumerator[] GetDoSkillCoroutines()
         {
             if (skillObject is ComboContainer)
             {
-                AudioManager.Instance.PlaySfx(AudioManager.ESfx.Slash1);
                 return new IEnumerator[]
                 {
                     CoolDown(),

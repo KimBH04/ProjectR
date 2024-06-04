@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FXPlayInSkill: 0
   fx: 1
-  startClip: {fileID: 8300000, guid: 3145127cbee4ecb42b141ac36c4322dc, type: 3}
-  destroyClip: {fileID: 0}
+  startEsfx: 5
+  destroyEsfx: 0
   animationKey: 2
   atk: 10
   startTime: 0.3
   coolTime: 1
+  needStamina: 1
   disableMode: 0
   disableTime: 0
   destroyFx: 0
