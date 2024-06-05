@@ -9,7 +9,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "09d8613f-1489-4277-ba5c-bf4d11dd1d3b",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -92,7 +92,7 @@
                 {
                     "name": "",
                     "id": "9b3ec068-5c11-4b2a-b2fb-237a4759ecf4",
-                    "path": "<Keyboard>/k",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "Scale(factor=0)",
                     "groups": "",
@@ -103,7 +103,7 @@
                 {
                     "name": "",
                     "id": "6e35eb51-d4ed-46d4-b3be-390658454ff4",
-                    "path": "<Keyboard>/l",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

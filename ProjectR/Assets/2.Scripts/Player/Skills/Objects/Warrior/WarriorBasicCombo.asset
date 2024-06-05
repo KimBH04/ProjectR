@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: WarriorBasicCombo
   m_EditorClassIdentifier: 
   comboSkills:
-  - {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37, type: 2}
+  - {fileID: 11400000, guid: deeeafefac95f11428c424f54d07dea2, type: 2}
+  - {fileID: 11400000, guid: 1973e58ce325b304a88b64c642a2af2b, type: 2}
   comboEndTime: 1
