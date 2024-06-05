@@ -37,7 +37,7 @@ public  abstract  class Enemy : MonoBehaviour
     protected static readonly int Idle = Animator.StringToHash("Idle");
     protected static readonly int Attack = Animator.StringToHash("Attack");
     protected static readonly int Chase = Animator.StringToHash("Chase");
-    private static readonly int Die = Animator.StringToHash("Die");
+    protected static readonly int Die = Animator.StringToHash("Die");
     
     [HideInInspector]
     public UnityEvent onDieEvent = new UnityEvent();

@@ -37,34 +37,43 @@ public class Minotaur : Enemy
     {
         base.Update();
 
-        if (isLook)
+        if (_isDead)
         {
-            Vector3 direction = _playerTr.position - transform.position;
-            direction.y = 0;
-            
-            if(direction.magnitude > 0.1f)
+            return;
+        }
+        else
+        {
+
+
+            if (isLook)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = targetRotation;
+                Vector3 direction = _playerTr.position - transform.position;
+                direction.y = 0;
+
+                if (direction.magnitude > 0.1f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = targetRotation;
+                }
+            }
+
+            if (IsChase && !isMoveSound && !isRush)
+            {
+                StartCoroutine(MoveSound());
+            }
+
+            if (!IsAttack)
+            {
+                timeSinceLastAttack += Time.deltaTime;
+            }
+
+
+            if (!IsAttack && timeSinceLastAttack > 2.0f)
+            {
+                StartCoroutine(AttackPattern());
             }
         }
 
-        if (IsChase && !isMoveSound && !isRush)
-        {
-            StartCoroutine(MoveSound());
-        }
-
-        if (!IsAttack)
-        {
-            timeSinceLastAttack += Time.deltaTime;
-        }
-        
-        
-        if (!IsAttack && timeSinceLastAttack > 2.0f)
-        {
-            StartCoroutine(AttackPattern());
-        }
-        
     }
     
     private IEnumerator MoveSound()
@@ -246,6 +255,19 @@ public class Minotaur : Enemy
                 print(hitObj.transform.GetComponent<PlayerController>().Hp);
             }
         }
+    }
+
+    protected override void DieEnemy()
+    {
+        StopAllCoroutines();
+        Animator.SetTrigger(Die);
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoDead);
+        IsChase = false;
+        IsAttack = false;
+        _isDead = true;
+        _agent.enabled = false;
+        _rb.isKinematic = true;
+        Destroy(gameObject,3f);
     }
 
     private void OnDrawGizmos()
