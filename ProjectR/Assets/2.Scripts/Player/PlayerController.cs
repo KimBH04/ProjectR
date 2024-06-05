@@ -63,6 +63,7 @@ public sealed class PlayerController : MonoBehaviour
     private bool isUnbeatable = false;
     private bool isBeaten = false;
     private bool isFootstep = false;
+    private int skillCount = 0;
 
     private static bool canControl = true;
     public static bool canSkill = false;
@@ -184,7 +185,11 @@ public sealed class PlayerController : MonoBehaviour
             skill.SkillObject.Init();
             skill.AttackEndedEvent.AddListener(() =>
             {
-                speedScale = 1f;
+                skillCount--;
+                if (skillCount == 0)
+                {
+                    speedScale = 1f;
+                }
             });
         }
     }
@@ -279,7 +284,7 @@ public sealed class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (canSkill && context.started)
+        if (context.started && canSkill)
         {
             int idx = (int)context.ReadValue<float>();
             if (idx < skills.Length && skills[idx].AttackCoolDown)
@@ -287,6 +292,7 @@ public sealed class PlayerController : MonoBehaviour
                 SkillContainer container = skills[idx].SkillObject.CurrentContainer;
                 if (stamina >= container.NeedStamina)
                 {
+                    skillCount++;
                     speedScale = 0.5f;
                     stamina -= container.NeedStamina;
 
@@ -303,8 +309,7 @@ public sealed class PlayerController : MonoBehaviour
 
     public void OnDodge(InputAction.CallbackContext context)
     {
-       
-        if (context.started && isDodgeCoolDown && (horizontal != 0f || vertical != 0f))
+        if (context.started && isDodgeCoolDown && skillCount == 0 && (horizontal != 0f || vertical != 0f))
         {
             AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerRoll);
             isDodge = true;
@@ -414,6 +419,7 @@ public sealed class PlayerController : MonoBehaviour
             AttackCoolDown = false;
             yield return new WaitForSeconds(skillObject.CurrentContainer.CoolTime);
             AttackCoolDown = true;
+            yield return new WaitForSeconds(0.2f);
             AttackEndedEvent.Invoke();
         }
     }

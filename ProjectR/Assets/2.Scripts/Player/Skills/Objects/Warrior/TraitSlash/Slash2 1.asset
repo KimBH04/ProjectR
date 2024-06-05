@@ -21,6 +21,5 @@ MonoBehaviour:
   startTime: 0.3
   coolTime: 1
   needStamina: 1
-  disableMode: 0
-  disableTime: 0
-  destroyFx: 0
+  disableTime: 0.1
+  destroyFx: 4
