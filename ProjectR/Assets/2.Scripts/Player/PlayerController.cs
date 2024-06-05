@@ -131,10 +131,12 @@ public sealed class PlayerController : MonoBehaviour
         }
         set
         {
-            if (isUnbeatable || isBeaten) return;
-
             if (hp > value)
             {
+                if (isUnbeatable || isBeaten)
+                {
+                    return;
+                }
                 StartCoroutine(Unbeatable());
             }
 
@@ -162,8 +164,7 @@ public sealed class PlayerController : MonoBehaviour
         }
         set
         {
-            canControl = canSkill = value;
-            playerInput.enabled = canControl;
+            playerInput.enabled = canControl = canSkill = value;
         }
     }
     #endregion
@@ -199,6 +200,25 @@ public sealed class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Movement();
+
+        stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime * staminaSpeed);
+        StatusUI.SetStaminaUI(stamina, maxStamina);
+    }
+
+    private void FixedUpdate()
+    {
+        lastFixedPos = nextFixedPos;
+        nextFixedPos = speed * speedScale * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
+    }
+
+    private void Movement()
+    {
+        if (Time.timeScale < float.Epsilon)
+        {
+            return;
+        }
+
         plane = new Plane(Vector3.up, transform.position);
 
         if (!isDodge)
@@ -217,20 +237,17 @@ public sealed class PlayerController : MonoBehaviour
                     rotScale * rotSpeed * Time.deltaTime);
             }
         }
-
-        stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime * staminaSpeed);
-        StatusUI.SetStaminaUI(stamina, maxStamina);
-    }
-    private void FixedUpdate()
-    {
-        lastFixedPos = nextFixedPos;
-        nextFixedPos = speed * speedScale * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
     }
 
     #region New Input Systems
     public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 v2 = CanControl ? context.ReadValue<Vector2>() : Vector2.zero;
+        if (!CanControl)
+        {
+            return;
+        }
+
+        Vector2 v2 = context.ReadValue<Vector2>();
         horizontal = v2.x;
         vertical = v2.y;
 
