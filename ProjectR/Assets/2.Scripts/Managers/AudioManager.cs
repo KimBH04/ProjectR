@@ -61,7 +61,12 @@ public class AudioManager : MonoBehaviour
         SkeletonBombExplosion,
         SkeletonBombBeep,
         ShieldGoblinAttack,
-        GoblinSound
+        GoblinSound,
+        MinoAttack,
+        MinoDead,
+        MinoEarthquake,
+        MinoMove,
+        MinoRoar,
     }
 
     void Awake()

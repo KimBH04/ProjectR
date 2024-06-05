@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+
 public class Minotaur : Enemy
 {
+    [SerializeField] private Transform attackCollision;
     [SerializeField] private GameObject _Effect;
     private Transform _cameraTr;
     
@@ -11,6 +13,8 @@ public class Minotaur : Enemy
     private Vector3 _lookVec;
 
     private bool isLook;
+    private bool isMoveSound;
+    private bool isRush;
     
     
     private static readonly int Rush = Animator.StringToHash("Rush");
@@ -45,6 +49,11 @@ public class Minotaur : Enemy
             }
         }
 
+        if (IsChase && !isMoveSound && !isRush)
+        {
+            StartCoroutine(MoveSound());
+        }
+
         if (!IsAttack)
         {
             timeSinceLastAttack += Time.deltaTime;
@@ -56,6 +65,14 @@ public class Minotaur : Enemy
             StartCoroutine(AttackPattern());
         }
         
+    }
+    
+    private IEnumerator MoveSound()
+    {
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoMove);
+        isMoveSound = true;
+        yield return new WaitForSeconds(0.7f);
+        isMoveSound = false;
     }
     
 
@@ -88,8 +105,10 @@ public class Minotaur : Enemy
     private IEnumerator HitPattern1()
     {
         Animator.SetBool(Attack,true);
-       
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(0.5f);
+        //AttackCollision();
+        //AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoAttack);
+        yield return new WaitForSeconds(2f);
        
         Animator.SetBool(Attack,false);
         IsAttack = false;
@@ -100,7 +119,10 @@ public class Minotaur : Enemy
     private IEnumerator HitPattern2()
     {
         Animator.SetBool(Attack2,true);
-        yield return new WaitForSeconds(2.2f);
+        yield return new WaitForSeconds(0.5f);
+        //AttackCollision();
+        //AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoAttack);
+        yield return new WaitForSeconds(1.7f);
         Animator.SetBool(Attack2,false);
         IsAttack = false;
         IsChase = true;
@@ -120,7 +142,13 @@ public class Minotaur : Enemy
     {
         Animator.SetBool(Attack4,true);
        
-        yield return new WaitForSeconds(4.7f);
+        yield return new WaitForSeconds(1.4f);
+        //AttackCollision();
+        //AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoAttack);
+        yield return new WaitForSeconds(1.0f);
+        //AttackCollision();
+        //AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoAttack);
+        yield return new WaitForSeconds(2.7f);
        
         Animator.SetBool(Attack4,false);
         IsAttack = false;
@@ -151,6 +179,7 @@ public class Minotaur : Enemy
 
     private IEnumerator SkillAttack1()
     {
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoRoar);
         isLook = true;
         Animator.SetTrigger(Scream);
        
@@ -160,6 +189,7 @@ public class Minotaur : Enemy
        
         
         yield return new WaitForSeconds(1.8f);
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoEarthquake);
         isLook = false;
         _Effect.SetActive(true);
         _cameraTr.transform.DOShakePosition(1, 1, 10, 90);
@@ -177,6 +207,7 @@ public class Minotaur : Enemy
     
     private IEnumerator SkillAttack2()
     {
+        isRush = true;
         Animator.SetBool(Rush,true);
         _agent.speed = 20f;
         yield return new WaitForSeconds(2f);
@@ -184,8 +215,43 @@ public class Minotaur : Enemy
         _agent.speed = 5f;
         IsAttack = false;
         timeSinceLastAttack = 0;
+        isRush = false;
     }
     
+
+    private void AttackCollision()
+    {
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoAttack);
+        int layerMask = LayerMask.GetMask("Player");
+        RaycastHit[] rayHits = Physics.SphereCastAll(attackCollision.position, 5, Vector3.up, 0f, layerMask);
+        foreach (RaycastHit hitObj in rayHits)
+        {
+            if (hitObj.transform.CompareTag("Player"))
+            {
+                hitObj.transform.GetComponent<PlayerController>().Hp -= 1;
+                print(hitObj.transform.GetComponent<PlayerController>().Hp);
+            }
+        }
+    }
     
+    private void AttackCollision1()
+    {
+        int layerMask = LayerMask.GetMask("Player");
+        RaycastHit[] rayHits = Physics.SphereCastAll(attackCollision.position, 5, Vector3.up, 0f, layerMask);
+        foreach (RaycastHit hitObj in rayHits)
+        {
+            if (hitObj.transform.CompareTag("Player"))
+            {
+                hitObj.transform.GetComponent<PlayerController>().Hp -= 2;
+                print(hitObj.transform.GetComponent<PlayerController>().Hp);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackCollision.position, 5);
+    }
 }
 

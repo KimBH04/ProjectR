@@ -76,4 +76,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 70c4d03763c514ad881364e44a112297, type: 3}
   - {fileID: 8300000, guid: 16dbae183297e8c469c8d69b0635c957, type: 3}
   - {fileID: 8300000, guid: 9569189b2bc4633469fe9bc6f4b32731, type: 3}
+  - {fileID: 8300000, guid: f8b4ab00644794ebb9861dbde3eb8355, type: 3}
+  - {fileID: 8300000, guid: 8b156f20fcaaf4594a4ab18bf7b5e102, type: 3}
+  - {fileID: 8300000, guid: 620939369dcfe40bfaff0f396c6fdfc2, type: 3}
+  - {fileID: 8300000, guid: 61f5d3670132a45b387ea08355ea17a0, type: 3}
+  - {fileID: 8300000, guid: 190d30534746046458abdd56ea3d4302, type: 3}
   channels: 15
