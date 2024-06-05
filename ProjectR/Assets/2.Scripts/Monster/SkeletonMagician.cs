@@ -16,7 +16,7 @@ public class SkeletonMagician : Enemy
         yield return new WaitForSeconds(0.7f);
         GameObject instanceFireBall = Instantiate(fireBall, firePos.position, firePos.rotation);
         Rigidbody fireBallRb = instanceFireBall.GetComponent<Rigidbody>();
-        fireBallRb.velocity = firePos.forward * 10f;
+        fireBallRb.velocity = firePos.forward * 20f;
         yield return new WaitForSeconds(1.9f);
         IsChase = true;
         IsAttack = false;
