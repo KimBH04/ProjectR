@@ -1,34 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-
-[CustomEditor(typeof(SkillContainer), true), CanEditMultipleObjects]
-class SkillContainerEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-
-        serializedObject.Update();
-
-        var mode = (SkillContainer.DisableMode)serializedObject.FindProperty("disableMode").intValue;
-        if (mode == SkillContainer.DisableMode.LifeTime)
-        {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("disableTime"));
-        }
-        else if (mode == SkillContainer.DisableMode.CollisionOrLifeTime)
-        {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("disableTime"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("destroyFx"));
-        }
-
-        serializedObject.ApplyModifiedProperties();
-    }
-}
-#endif
-
 [CreateAssetMenu(menuName = "Skill Container/Default")]
 public class SkillContainer : SkillObject
 {
@@ -49,9 +21,8 @@ public class SkillContainer : SkillObject
     [SerializeField] private float needStamina = 1f;
 
     [Header("Trigger")]
-    [SerializeField] private DisableMode disableMode;
-    [HideInInspector, SerializeField] private float disableTime;
-    [HideInInspector, SerializeField] private SkillEffects.FX destroyFx;
+    [SerializeField] private float disableTime;
+    [SerializeField] private SkillEffects.FX destroyFx;
 
     /// <summary>
     /// 공격력
@@ -67,11 +38,6 @@ public class SkillContainer : SkillObject
     /// 필요한 스태미나 / 마나
     /// </summary>
     public float NeedStamina => needStamina;
-
-    /// <summary>
-    /// 오브젝트 비활성화 방식
-    /// </summary>
-    public DisableMode Mode => disableMode;
 
     /// <summary>
     /// 활성화 시간
@@ -113,39 +79,9 @@ public class SkillContainer : SkillObject
         var (_, ps) = SkillEffects.Instance.GetParticleObject(fx);
         var collider = ps.GetComponent<SphereCollider>();
         yield return new WaitForSeconds(0.2f);
+
         collider.enabled = true;
-        switch (disableMode)
-        {
-            case DisableMode.Blink:
-                yield return new WaitForSeconds(0.1f);
-                break;
-
-            case DisableMode.LifeTime:
-            case DisableMode.CollisionOrLifeTime:
-                yield return new WaitForSeconds(disableTime);
-                break;
-        }
+        yield return new WaitForSeconds(disableTime);
         collider.enabled = false;
-    }
-
-    /// <summary>
-    /// 공격 콜라이더가 특정 액션에 비활성화 되게 하는 모드
-    /// </summary>
-    public enum DisableMode
-    {
-        /// <summary>
-        /// 콜라이더가 0.1초동안 나타났다 사라집나다.
-        /// </summary>
-        Blink,
-
-        /// <summary>
-        /// 콜라이더가 일정 시간이 지나면 사라집니다.
-        /// </summary>
-        LifeTime,
-
-        /// <summary>
-        /// 콜라이더가 오브젝트에 부딪히거나 일정 시간이 지나면 사라집니다.
-        /// </summary>
-        CollisionOrLifeTime,
     }
 }
