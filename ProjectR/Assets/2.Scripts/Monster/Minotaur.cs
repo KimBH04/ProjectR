@@ -22,7 +22,7 @@ public class Minotaur : Enemy
 
     private void Update()
     {
-        if (IsDead)
+        if (_isDead)
         {
             StopAllCoroutines();
             return;

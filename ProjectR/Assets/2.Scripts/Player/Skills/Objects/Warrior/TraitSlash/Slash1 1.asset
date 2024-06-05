@@ -19,7 +19,7 @@ MonoBehaviour:
   animationKey: 1
   atk: 10
   startTime: 0.1
-  coolTime: 0.3
+  coolTime: 0.1
   needStamina: 1
   disableMode: 0
   disableTime: 0

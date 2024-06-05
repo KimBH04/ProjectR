@@ -28,10 +28,9 @@ public  abstract  class Enemy : MonoBehaviour
     public Material dissolveMaterial;
 
     public bool isBoss;
-    protected bool IsDead;
     protected bool IsChase;
     protected bool IsAttack;
-    private bool _isDead;
+    protected bool _isDead;
     public bool _isHeal;
     protected bool IsTingling;
     
@@ -146,11 +145,15 @@ public  abstract  class Enemy : MonoBehaviour
             {
                 _model.CurrentHp += 10;
             }
+            
+           
         }
+        
         if (_isDead)
         {
             yield break;
         }
+        
     }
     
     public void SetSpeed(float speed)

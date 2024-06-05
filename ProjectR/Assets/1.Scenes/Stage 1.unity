@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17757861, g: 0.22232245, b: 0.30451736, a: 1}
+  m_IndirectSpecularColor: {r: 0.17757908, g: 0.22232299, b: 0.30451858, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -328,12 +328,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!20 &89344092
 Camera:
   m_ObjectHideFlags: 0
@@ -686,18 +686,6 @@ MonoBehaviour:
     enemyObject: {fileID: 4015811296826361122, guid: 512ac9401f53c4199aa724a72297e7b7,
       type: 3}
     initCount: 5
-  - name: Skeleton Bomb
-    enemyObject: {fileID: 8633929970743539060, guid: e4d05de807b3d4dbb9383511f6681c03,
-      type: 3}
-    initCount: 5
-  - name: Skeleton Magician
-    enemyObject: {fileID: 6587627032684455779, guid: 519673bb9f2f74caca23a211254a89a3,
-      type: 3}
-    initCount: 5
-  - name: Skeleton Sword
-    enemyObject: {fileID: 8861132662305184861, guid: 462d52b0acbf8408994a21829f3b9460,
-      type: 3}
-    initCount: 5
 --- !u!4 &440042231
 Transform:
   m_ObjectHideFlags: 0
@@ -776,10 +764,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Sword_Slash 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3407164112765549062, guid: c39fd250568c2dc499180bd1f9e7146b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996771779264652365, guid: c39fd250568c2dc499180bd1f9e7146b,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7069953075389163481, guid: c39fd250568c2dc499180bd1f9e7146b,
         type: 3}
       propertyPath: m_Radius
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229411017828060095, guid: c39fd250568c2dc499180bd1f9e7146b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229411017828060095, guid: c39fd250568c2dc499180bd1f9e7146b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1585,12 +1593,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!81 &1381363264
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2007,6 +2015,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2052782657}
     m_Modifications:
+    - target: {fileID: 3937953582122542034, guid: 06b21d8b3a9eb2141b3b140052114b41,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937953582122542034, guid: 06b21d8b3a9eb2141b3b140052114b41,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4696149058213572623, guid: 06b21d8b3a9eb2141b3b140052114b41,
         type: 3}
       propertyPath: m_Radius
@@ -2086,6 +2104,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1418261274}
     m_Modifications:
+    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: skills.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: skills.Array.data[0].skillObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37,
+        type: 2}
+    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_Name
+      value: Wizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_SlopeLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_StepOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2053551364944616166, guid: 9fb075671779d6d4e9899ac270555f0e,
         type: 3}
       propertyPath: m_Name
@@ -2144,37 +2193,6 @@ PrefabInstance:
     - target: {fileID: 8465101296794089910, guid: 9fb075671779d6d4e9899ac270555f0e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: skills.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: skills.Array.data[0].skillObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37,
-        type: 2}
-    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_Name
-      value: Wizard
-      objectReference: {fileID: 0}
-    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_SlopeLimit
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_StepOffset
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

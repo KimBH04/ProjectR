@@ -72,6 +72,8 @@ public sealed class PlayerController : MonoBehaviour
     private bool isDodge;
     private bool isDodgeCoolDown = true;
     private float rotScale = 1f;
+    private float rotationScale = 1f;
+    private Quaternion dodgeRotate;
 
     private static PlayerInput playerInput;
     private CharacterController controller;
@@ -229,12 +231,23 @@ public sealed class PlayerController : MonoBehaviour
 #pragma warning restore UNT0004 // Time.fixedDeltaTime used with Update
             controller.Move(Vector3.Lerp(lastFixedPos, nextFixedPos, interpolation));
 
-            if (horizontal != 0f || vertical != 0f)
+            //rotation
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (plane.Raycast(ray, out float enter) && canControl)
             {
-                transform.rotation = Quaternion.Lerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(new Vector3(horizontal, 0f, vertical)),
-                    rotScale * rotSpeed * Time.deltaTime);
+                Vector3 point = ray.GetPoint(enter);
+
+                if (!isDodge)
+                {
+                    Quaternion rotation = Quaternion.LookRotation(point - transform.position);
+                    transform.rotation = Quaternion.Lerp(dodgeRotate, rotation, rotationScale);
+
+                    Vector3 normal = (point - transform.position).normalized;
+                    Vector3 nonInterMove = new Vector3(horizontal, 0f, vertical);
+                    float dot = Vector3.Dot(normal, nonInterMove);
+
+                    pAnimator.SetMovementValue(Vector3.Cross(normal, nonInterMove).y, dot);
+                }
             }
         }
     }

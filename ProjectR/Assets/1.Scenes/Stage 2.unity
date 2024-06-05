@@ -397,7 +397,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -406,7 +406,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.4
+    m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -2645,31 +2645,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
-        type: 3}
-      propertyPath: sfxClips.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
-        type: 3}
-      propertyPath: sfxClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 90f33341777b38f4ab2b937026373380, type: 3}
-    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
-        type: 3}
-      propertyPath: sfxClips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3145127cbee4ecb42b141ac36c4322dc, type: 3}
-    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
-        type: 3}
-      propertyPath: sfxClips.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: c3baf41bfc2439b4ab4ccec7c96599ba, type: 3}
-    - target: {fileID: 8900621099706058648, guid: 104dfde0d232840bfb6b7cbd319e8baf,
-        type: 3}
-      propertyPath: sfxClips.Array.data[7]
-      value: 
-      objectReference: {fileID: 8300000, guid: 17d254c376a9e6d4fba491300955bff5, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
