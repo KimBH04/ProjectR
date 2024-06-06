@@ -20,7 +20,6 @@ MonoBehaviour:
   atk: 10
   startTime: 0.2
   coolTime: 1
-  needStamina: 1
-  disableMode: 0
-  disableTime: 0
+  needStamina: 3
+  disableTime: 0.1
   destroyFx: 0

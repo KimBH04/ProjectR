@@ -9,7 +9,7 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI text;
     public TextMeshProUGUI dialogText;
     public string[] dialogs;
-    public Image ebutton;
+    public Image eButton;
     public GameObject move;
     private int currentDialogIndex = -1;
     private bool isPrinting = false;
@@ -34,7 +34,7 @@ public class DialogManager : MonoBehaviour
         {
             if (!isPrinting)
             {
-                ebutton.gameObject.SetActive(false);
+                eButton.gameObject.SetActive(false);
 
                 if (lastDialogDisplayed)
                 {
@@ -89,7 +89,7 @@ public class DialogManager : MonoBehaviour
             }
         }   // 마지막 대화 후 다음 대화시엔 다시 출력
 
-        ebutton.gameObject.SetActive(false);
+        eButton.gameObject.SetActive(false);
 
         // 한 글자씩 출력
         foreach (char letter in dialogList[currentDialogIndex].ToCharArray())
@@ -97,11 +97,11 @@ public class DialogManager : MonoBehaviour
             dialogText.text += letter;
             yield return new WaitForSeconds(0.07f); // 출력 속도 조절
         }
-        ebutton.gameObject.SetActive(false);
+        eButton.gameObject.SetActive(false);
 
         if(currentDialogIndex != dialogList.Length -1)
         {
-            ebutton.gameObject.SetActive(true);
+            eButton.gameObject.SetActive(true);
         }
 
         isPrinting = false;

@@ -53,7 +53,7 @@ MonoBehaviour:
   speed: 15
   rotSpeed: 25
   maxStamina: 20
-  staminaSpeed: 1.8
+  staminaSpeed: 2.5
   dodgeForce: 10
   dodgeCoolTime: 1
   skills:
