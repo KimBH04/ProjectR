@@ -19,10 +19,14 @@ public class EnemyPools : MonoBehaviour
                 Pool.DestroyPoolItem,
                 true, 10);
 
-            if (!poolDict.ContainsKey(pool.name))
-                {
-                    poolDict.Add(pool.name, temp);
-                }
+            if (poolDict.ContainsKey(pool.name))
+            {
+                poolDict[pool.name] = temp;
+            }
+            else
+            {
+                poolDict.Add(pool.name, temp);
+            }
             
 
             for (int i = 0; i < pool.initCount; i++)

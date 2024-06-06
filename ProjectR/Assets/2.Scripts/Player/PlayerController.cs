@@ -94,6 +94,8 @@ public sealed class PlayerController : MonoBehaviour
     [SerializeField] private Transform pointer;
     private Plane plane;
 
+    public bool isDie = false;
+
     #region Status properties
     public int Level
     {
@@ -149,15 +151,24 @@ public sealed class PlayerController : MonoBehaviour
            
             if (hp == 0)
             {
+                isDie = true;
                 CanControl = false;
                 canSkill = false;
                 AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerDead);
                 pAnimator.PlayDie();
-                new WaitForSeconds(2f);
-                MySceneManager.Instance.ChangeScene("Stage 1");
+                StartCoroutine(ResetStage());
             }
             StatusUI.SetHpUI(hp, maxHp);
         }
+    }
+
+    private IEnumerator ResetStage()
+    {
+
+        MySceneManager.Instance.ChangeScene("Stage 1");
+        hp = 60;
+        yield return new WaitForSeconds(2f);
+        isDie = false;
     }
 
     public int NeedExp => level * 50;

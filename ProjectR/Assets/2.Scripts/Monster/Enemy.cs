@@ -42,6 +42,8 @@ public  abstract  class Enemy : MonoBehaviour
     [HideInInspector]
     public UnityEvent onDieEvent = new UnityEvent();
 
+    private PlayerController playerController;
+
     protected virtual void Awake()
     {
         _playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -74,6 +76,8 @@ public  abstract  class Enemy : MonoBehaviour
 
     protected void Start()
     {
+        playerController = FindObjectOfType<PlayerController>();
+
         StartCoroutine(IsHeal());
         if (!isBoss && _agent.enabled) 
         {
@@ -114,6 +118,10 @@ public  abstract  class Enemy : MonoBehaviour
             if (hitCount > 0 && !IsAttack && !IsTingling)
             {
                 StartCoroutine(AttackPlayer());
+            }
+            else if (playerController != null && playerController.isDie)
+            {
+                Tingling();
             }
         }
     }
