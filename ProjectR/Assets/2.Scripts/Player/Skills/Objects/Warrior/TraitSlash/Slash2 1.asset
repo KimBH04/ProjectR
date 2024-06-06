@@ -18,8 +18,9 @@ MonoBehaviour:
   destroyEsfx: 0
   animationKey: 2
   atk: 10
-  startTime: 0.3
+  startTime: 0.2
   coolTime: 1
   needStamina: 1
-  disableTime: 0.1
-  destroyFx: 4
+  disableMode: 0
+  disableTime: 0
+  destroyFx: 0

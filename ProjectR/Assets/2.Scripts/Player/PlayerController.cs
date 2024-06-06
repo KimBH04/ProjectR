@@ -293,7 +293,7 @@ public sealed class PlayerController : MonoBehaviour
                 if (stamina >= container.NeedStamina)
                 {
                     skillCount++;
-                    speedScale = 0.5f;
+                    speedScale = 0.7f;
                     stamina -= container.NeedStamina;
 
                     foreach (var routine in skills[idx].GetDoSkillCoroutines())
