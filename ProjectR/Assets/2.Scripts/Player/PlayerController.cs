@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -152,6 +153,8 @@ public sealed class PlayerController : MonoBehaviour
                 canSkill = false;
                 AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerDead);
                 pAnimator.PlayDie();
+                new WaitForSeconds(2f);
+                MySceneManager.Instance.ChangeScene("Stage 1");
             }
             StatusUI.SetHpUI(hp, maxHp);
         }
@@ -200,9 +203,7 @@ public sealed class PlayerController : MonoBehaviour
 
         pAnimator = GetComponentInChildren<PlayerAnimator>();
 
-        StatusUI.SetExpUI(0, NeedExp, 1);
-        StatusUI.SetStaminaUI(stamina, maxStamina);
-        StatusUI.SetHpUI(hp, maxHp);
+        SceneManager.sceneLoaded += ResetStatus;
     }
 
     private void Update()
@@ -217,6 +218,21 @@ public sealed class PlayerController : MonoBehaviour
     {
         lastFixedPos = nextFixedPos;
         nextFixedPos = speed * speedScale * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
+    }
+
+    private void ResetStatus(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().name == "Stage 1")
+        {
+            StatusUI.SetExpUI(0, NeedExp, 1);
+            StatusUI.SetStaminaUI(stamina, maxStamina);
+            StatusUI.SetHpUI(hp, maxHp);
+        }
+
+    }
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= ResetStatus;
     }
 
     private void Movement()
