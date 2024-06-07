@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class StatusUI : MonoBehaviour
 {
@@ -61,9 +62,16 @@ public class StatusUI : MonoBehaviour
     {
         if (instance == null) return;
 
-        Time.timeScale = 0f;
-        PlayerController.CanControl = false;
+        // Time.timeScale = 0f;
+        // PlayerController.CanControl = false;
         instance.propertiesPanel.SetActive(true);
+
+        instance.transform.DOScale(Vector3.one, 1f).SetUpdate(true).OnComplete(() =>
+        {
+            Time.timeScale = 0f;
+            PlayerController.CanControl = false;
+        });
+
     }
 
     public static void SetExpUI(int exp, int needExp, int level)

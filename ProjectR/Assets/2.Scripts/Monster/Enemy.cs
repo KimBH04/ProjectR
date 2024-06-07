@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.AI;
@@ -5,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
@@ -12,7 +14,7 @@ public  abstract  class Enemy : MonoBehaviour
 {
     [SerializeField] protected Collider meleeArea;
     [SerializeField] protected EnemyData data;
-    [SerializeField] private GameObject[] expStone;
+    [SerializeField] protected GameObject[] expStone;
     [SerializeField] private Image hpBar;
     [SerializeField] private GameObject damageText;
     [SerializeField] private Transform damageTextPos;
@@ -101,6 +103,17 @@ public  abstract  class Enemy : MonoBehaviour
         FreezeVelocity();
     }
 
+    private void OnEnable()
+    {
+        _agent.enabled = true;
+    }
+    
+    private void OnDisable()
+    {
+        _agent.enabled = false;
+        onDieEvent.Invoke();
+    }
+
     private void ChaseStart()
     {
         IsChase = true;
@@ -183,10 +196,7 @@ public  abstract  class Enemy : MonoBehaviour
         }
     }
     
-    private void OnDisable()
-    {
-        onDieEvent.Invoke();
-    }
+    
 
     private void UpdateHpBar(float currentHp, float maxHp)
     {
@@ -256,11 +266,19 @@ public  abstract  class Enemy : MonoBehaviour
         _isDead = true;
         _agent.enabled = false;
         _rb.isKinematic = true;
-        Destroy(gameObject,2f);
+        Invoke(nameof(gameObjectSetActive),2f);
+        //gameObject.SetActive(false);
+        //Destroy(gameObject,2f);
         int randomIndex = Random.Range(0, expStone.Length);
         Vector3 spawnPosition = transform.position;
         spawnPosition.y += 2;
         Instantiate(expStone[randomIndex], spawnPosition, Quaternion.identity);
+    }
+    
+    
+    private void gameObjectSetActive()
+    {
+        gameObject.SetActive(false);
     }
     
     protected IEnumerator OnDie()
@@ -288,8 +306,8 @@ public  abstract  class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Skill") && !_isDead)
         {
-            // 임시 코드
-            TakeDamage(10f);
+            int randomDamage = Random.Range(8, 13);
+            TakeDamage(randomDamage);
             Vector3 hitDirection = (transform.position - other.transform.position).normalized;
             Vector3 knockbackPosition = transform.position + new Vector3(hitDirection.x, 0, hitDirection.z) * 2f;
             transform.DOMove

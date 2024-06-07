@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,15 +37,12 @@ public class Slime : Enemy
 
     protected override void DieEnemy()
     {
-        base.DieEnemy();
+       base.DieEnemy();
 
         mini[0].transform.position = transform.position;
         mini[1].transform.position = transform.position;
         mini[0].gameObject.SetActive(true);
         mini[1].gameObject.SetActive(true);
     }
-
-   
-
-   
+    
 }

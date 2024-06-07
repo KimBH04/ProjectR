@@ -267,7 +267,13 @@ public class Minotaur : Enemy
         _isDead = true;
         _agent.enabled = false;
         _rb.isKinematic = true;
-        Destroy(gameObject,3f);
+        Invoke(nameof(SetActive),3f);
+    }
+    
+    private void SetActive()
+    {
+        gameObject.SetActive(false);
+        MySceneManager.Instance.ChangeScene("MainScene");
     }
 
     private void OnDrawGizmos()
