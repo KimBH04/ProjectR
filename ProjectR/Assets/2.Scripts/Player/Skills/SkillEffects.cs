@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SkillEffects : MonoBehaviour
 {
@@ -34,7 +36,7 @@ public class SkillEffects : MonoBehaviour
     /// <param name="fx"> 이펙트 종류 </param>
     /// <param name="position"> 이펙트 플레이 위치 </param>
     /// <param name="rotation"> 이펙트 플레이 방향 </param>
-    public void PlayEffect(FX fx, Vector3 position = default, Quaternion rotation = default)
+    public void PlayEffect(FX fx, bool setPosAndRot = true, Vector3 position = default, Quaternion rotation = default)
     {
         if (fx == FX.None || !Enum.IsDefined(FXTYPE, fx) || !effects.ContainsKey(fx))
         {
@@ -42,8 +44,11 @@ public class SkillEffects : MonoBehaviour
         }
 
         (Transform tr, ParticleSystem effect) = effects[fx];
+        if (setPosAndRot)
+        {
+            tr.SetPositionAndRotation(position, rotation);
+        }
         tr.gameObject.SetActive(true);
-        tr.SetPositionAndRotation(position, rotation);
         effect.Play(true);
     }
 
@@ -51,6 +56,20 @@ public class SkillEffects : MonoBehaviour
     {
         (Transform tr, _) = effects[fx];
         tr.SetPositionAndRotation(position, rotation);
+    }
+
+    public IEnumerator FollowEffect(FX fx, Transform target, float time)
+    {
+        (Transform tr, _) = effects[fx];
+
+        float currentTime = 0f;
+        while (currentTime < time)
+        {
+            tr.SetPositionAndRotation(target.position, target.rotation);
+
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     public enum FX
