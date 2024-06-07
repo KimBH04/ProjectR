@@ -1980,6 +1980,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Elixir3_3
       objectReference: {fileID: 0}
+    - target: {fileID: 5271920950645433956, guid: 25857c68b24ac48609064bf15e862359,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

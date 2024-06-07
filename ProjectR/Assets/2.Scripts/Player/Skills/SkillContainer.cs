@@ -60,6 +60,11 @@ public class SkillContainer : SkillObject
     public AudioManager.ESfx EndEsfx => destroyEsfx;
 
     /// <summary>
+    /// 스킬 이펙트
+    /// </summary>
+    public SkillEffects.FX FX => fx;
+
+    /// <summary>
     /// 소멸 이펙트
     /// </summary>
     public SkillEffects.FX DestroyFx => destroyFx;
