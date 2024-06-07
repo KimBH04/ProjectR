@@ -301,6 +301,7 @@ public sealed class PlayerController : MonoBehaviour
                         StartCoroutine(routine);
                     }
 
+                    StartCoroutine(SkillEffects.Instance.FollowEffect(container.FX, transform, 1f));
                     pAnimator.PlayAttack(container.AnimationKey);
                 }
             }
