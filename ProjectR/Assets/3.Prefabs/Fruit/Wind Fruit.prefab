@@ -115,6 +115,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a460cb85c640f39429b9e36239c014b0,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a460cb85c640f39429b9e36239c014b0,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a460cb85c640f39429b9e36239c014b0,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a460cb85c640f39429b9e36239c014b0,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -162,6 +177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a460cb85c640f39429b9e36239c014b0,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8181712612116556150, guid: a460cb85c640f39429b9e36239c014b0,
         type: 3}
@@ -230,6 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b205cc9346f4ba1a4775e4e1a99bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radius: 5
   type: 1
   value: 1
   head: {fileID: 3875788916642898496}
