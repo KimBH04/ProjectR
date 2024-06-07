@@ -62,6 +62,7 @@ MonoBehaviour:
   - {fileID: 5469335382972066665, guid: 6ca80b1773edf4e0cbc1b78e88ca03c0, type: 3}
   - {fileID: 4516589555726860764, guid: 0c5c0afc8a4074842a8f10415267ffc4, type: 3}
   - {fileID: 6489501770939005479, guid: e77c731ffbf7e425389f408a5f8ae1ec, type: 3}
+  boss: {fileID: 7225849926734914589, guid: 6f3ba149ec81347c2917acf6f7533a2e, type: 3}
 --- !u!1 &5747577478321452745
 GameObject:
   m_ObjectHideFlags: 0

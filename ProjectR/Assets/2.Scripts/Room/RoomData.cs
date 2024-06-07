@@ -13,6 +13,7 @@ public class RoomData : MonoBehaviour
     [SerializeField] private MeshRenderer displayMesh;
 
     [SerializeField] private GameObject[] fruits;
+    [SerializeField] private GameObject boss;
 
     private bool visited = false;
     private int enemyCount = 0;
@@ -66,6 +67,16 @@ public class RoomData : MonoBehaviour
                         }
                     });
                 }
+            }
+            else if (data.type == Room.RoomType.Boss)
+            {
+                data.movedHere.AddListener(() =>
+                {
+                    Instantiate(boss, transform.position, Quaternion.identity)
+                        .GetComponent<Enemy>()
+                        .onDieEvent
+                        .AddListener(EnemyCounter);
+                });
             }
         }
     }
