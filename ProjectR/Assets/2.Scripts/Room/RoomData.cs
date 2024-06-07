@@ -12,6 +12,8 @@ public class RoomData : MonoBehaviour
     [SerializeField] private GameObject mapDisplay;
     [SerializeField] private MeshRenderer displayMesh;
 
+    [SerializeField] private GameObject[] fruits;
+
     private bool visited = false;
     private int enemyCount = 0;
     
@@ -44,28 +46,23 @@ public class RoomData : MonoBehaviour
                     int index = i;  // handling variable capture
                     data.movedHere.AddListener(() =>
                     {
-                        if(_availableSpawnPoints.Count == 0)
+                        if (TryGetRandomPoint(out Vector3 pos))
                         {
-                            return;
-                        }
-                        int spawnIndex = Random.Range(0, _availableSpawnPoints.Count);
-                        Transform spawnPoint = _availableSpawnPoints[spawnIndex];
-                        _availableSpawnPoints.RemoveAt(spawnIndex);
-                        
-                        string monsterName = GetRandomMonster(waveContainer);
-                        var enemy = EnemyPools.AppearObject(monsterName, spawnPoint.position).GetComponent<Enemy>();
-                        enemy.onDieEvent.RemoveAllListeners();
-                        enemy.onDieEvent.AddListener(EnemyCounter);
+                            string monsterName = GetRandomMonster(waveContainer);
+                            var enemy = EnemyPools.AppearObject(monsterName, pos).GetComponent<Enemy>();
+                            enemy.onDieEvent.RemoveAllListeners();
+                            enemy.onDieEvent.AddListener(EnemyCounter);
 
-                        if (enemy is Slime biglime)
-                        {
-                            enemyCount += 2;
+                            if (enemy is Slime biglime)
+                            {
+                                enemyCount += 2;
 
-                            biglime.mini[0].onDieEvent.RemoveAllListeners();
-                            biglime.mini[0].onDieEvent.AddListener(EnemyCounter);
+                                biglime.mini[0].onDieEvent.RemoveAllListeners();
+                                biglime.mini[0].onDieEvent.AddListener(EnemyCounter);
 
-                            biglime.mini[1].onDieEvent.RemoveAllListeners();
-                            biglime.mini[1].onDieEvent.AddListener(EnemyCounter);
+                                biglime.mini[1].onDieEvent.RemoveAllListeners();
+                                biglime.mini[1].onDieEvent.AddListener(EnemyCounter);
+                            }
                         }
                     });
                 }
@@ -98,7 +95,20 @@ public class RoomData : MonoBehaviour
         return waveContainer.Enemies[waveContainer.Count - 1].name;
     }
 
-    
+    private bool TryGetRandomPoint(out Vector3 v)
+    {
+        int cnt = _availableSpawnPoints.Count;
+        if (cnt == 0)
+        {
+            v = Vector3.zero;
+            return false;
+        }
+
+        int randIdx = Random.Range(0, cnt);
+        v = _availableSpawnPoints[randIdx].position;
+        _availableSpawnPoints.RemoveAt(randIdx);
+        return true;
+    }
 
     public void MovedHere()
     {
@@ -106,8 +116,18 @@ public class RoomData : MonoBehaviour
         {
             return;
         }
+
         data.movedHere.Invoke();
         visited = true;
+
+        for (int i = 0; i < 2; i++)
+        {
+            if (TryGetRandomPoint(out Vector3 pos))
+            {
+                int randIdx = Random.Range(0, fruits.Length);
+                Instantiate(fruits[randIdx], pos, Quaternion.identity);
+            }
+        }
 
         if (data.type == Room.RoomType.Battle || data.type == Room.RoomType.Boss)
         {
