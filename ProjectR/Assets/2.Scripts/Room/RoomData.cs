@@ -65,6 +65,11 @@ public class RoomData : MonoBehaviour
                                 biglime.mini[1].onDieEvent.AddListener(EnemyCounter);
                             }
                         }
+                        else
+                        {
+                            Debug.LogWarning("No have spawnPoint");
+                            enemyCount--;
+                        }
                     });
                 }
             }
@@ -162,6 +167,7 @@ public class RoomData : MonoBehaviour
                 data[Room.RIGHT] != null,
                 data[Room.BACK] != null);
         }
+        Debug.Log(enemyCount);
     }
 }
 
@@ -202,8 +208,15 @@ public class Room
             to.dirForRooms[(dir + 2) % 4] = this; 
             movedHere.AddListener(() =>
             {
+                Debug.Log("Moved");
                 to.MapDisplay.SetActive(true);
                 DisplayMesh.material.color = Color.white;
+            });
+            to.movedHere.AddListener(() =>
+            {
+                Debug.Log("Moved");
+                MapDisplay.SetActive(true);
+                to.DisplayMesh.material.color = Color.white;
             });
             return true;
         }
