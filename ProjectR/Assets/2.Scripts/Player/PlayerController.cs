@@ -213,12 +213,6 @@ public sealed class PlayerController : MonoBehaviour
         StatusUI.SetStaminaUI(stamina, maxStamina);
     }
 
-    private void FixedUpdate()
-    {
-        lastFixedPos = nextFixedPos;
-        nextFixedPos = speed * speedScale * Time.fixedDeltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical);
-    }
-
     private void Movement()
     {
         if (Time.timeScale < float.Epsilon)
@@ -230,11 +224,7 @@ public sealed class PlayerController : MonoBehaviour
 
         if (!isDodge)
         {
-            //movement
-#pragma warning disable UNT0004 // Time.fixedDeltaTime used with Update
-            float interpolation = (Time.time - Time.fixedTime) / Time.fixedDeltaTime;
-#pragma warning restore UNT0004 // Time.fixedDeltaTime used with Update
-            controller.Move(Vector3.Lerp(lastFixedPos, nextFixedPos, interpolation));
+            controller.Move(speed * speedScale * Time.deltaTime * new Vector3(horizontal, controller.isGrounded ? 0f : -1f, vertical));
 
             //rotation
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
