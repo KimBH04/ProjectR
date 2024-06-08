@@ -44,7 +44,7 @@ public  abstract  class Enemy : MonoBehaviour
     [HideInInspector]
     public UnityEvent onDieEvent = new UnityEvent();
 
-    private PlayerController playerController;
+    protected PlayerController playerController;
 
     protected virtual void Awake()
     {
@@ -76,7 +76,7 @@ public  abstract  class Enemy : MonoBehaviour
         }
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
 
@@ -114,7 +114,7 @@ public  abstract  class Enemy : MonoBehaviour
         onDieEvent.Invoke();
     }
 
-    private void ChaseStart()
+    protected void ChaseStart()
     {
         IsChase = true;
         Animator.SetTrigger(Chase);
@@ -157,7 +157,7 @@ public  abstract  class Enemy : MonoBehaviour
     
     
     
-    private IEnumerator IsHeal()
+    protected IEnumerator IsHeal()
     {
         while (!_isDead)
         {
