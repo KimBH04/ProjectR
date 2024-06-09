@@ -65,6 +65,11 @@ public sealed class PlayerController : MonoBehaviour
     private bool isFootstep = false;
     private int skillCount = 0;
 
+    public int additionalAtk = 0;
+    public int additionalAtkSpeed = 0;          // 사용할 때 부동소수로 변환 후 10 나누기
+    public int additionalDefaultStamina = 0;
+    public int additionalStaminaSpeed = 0;
+
     private static bool canControl = true;
     public static bool canSkill = false;
 
@@ -209,7 +214,7 @@ public sealed class PlayerController : MonoBehaviour
     {
         Movement();
 
-        stamina = Mathf.Min(maxStamina, stamina + Time.deltaTime * staminaSpeed);
+        stamina = Mathf.Min(maxStamina + additionalDefaultStamina, stamina + Time.deltaTime * staminaSpeed + additionalStaminaSpeed);
         StatusUI.SetStaminaUI(stamina, maxStamina);
     }
 

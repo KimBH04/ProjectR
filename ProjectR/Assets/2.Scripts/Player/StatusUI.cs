@@ -18,17 +18,25 @@ public class StatusUI : MonoBehaviour
     [Space]
     [SerializeField] private GameObject propertiesPanel;
 
+    private PlayerController _playerController;
 
     private (bool stat, bool trait) isClicked = (false, false);
+    private (int stat, int trait) indexes;
 
     private void Awake()
     {
         instance = this;
     }
 
+    private void Start()
+    {
+        _playerController = FindObjectOfType<PlayerController>();
+    }
+
     public void StatClick(int index)
     {
         Debug.Log("Clicked stat : " + index);
+        indexes.stat = index;
         isClicked.stat = true;
 
         if (isClicked.stat && isClicked.trait)
@@ -40,6 +48,7 @@ public class StatusUI : MonoBehaviour
     public void TraitClick(int index)
     {
         Debug.Log("Clicked trait : " + index);
+        indexes.trait = index;
         isClicked.trait = true;
 
         if (isClicked.stat && isClicked.trait)
@@ -52,6 +61,34 @@ public class StatusUI : MonoBehaviour
     {
         isClicked = (false, false);
         Time.timeScale = 1f;
+
+        switch (indexes.stat)
+        {
+            case 0:
+                _playerController.additionalAtk += 3;
+                break;
+
+            case 1:
+                _playerController.additionalAtkSpeed += 2;
+                break;
+
+            case 2:
+                _playerController.additionalDefaultStamina += 5;
+                _playerController.additionalStaminaSpeed += 2;
+                break;
+
+            default:
+                Debug.LogError("Unassigned Index");
+                break;
+        }
+        
+        switch (indexes.trait)
+        {
+            default:
+                Debug.LogWarning("This is unssigned function");
+                break;
+        }
+
         PlayerController.CanControl = true;
         propertiesPanel.SetActive(false);
     }
