@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17757861, g: 0.22232245, b: 0.30451736, a: 1}
+  m_IndirectSpecularColor: {r: 0.17757908, g: 0.22232299, b: 0.30451858, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -669,23 +669,23 @@ MonoBehaviour:
   - name: Archer Goblin
     enemyObject: {fileID: 6024820008389741605, guid: c6a0da975670a4622a87664478317f84,
       type: 3}
-    initCount: 5
+    initCount: 15
   - name: Shield Goblin
     enemyObject: {fileID: 2237332390979399478, guid: fb84393b9b7af49f5957ea9f797e019f,
       type: 3}
-    initCount: 5
+    initCount: 15
   - name: Warrior Goblin
     enemyObject: {fileID: 3872889352609050197, guid: f651d8dda45104f8798c95ce8d944476,
       type: 3}
-    initCount: 5
+    initCount: 15
   - name: Smallime
     enemyObject: {fileID: 3245609559898788388, guid: 35f833abf24ef408e8fc05b0e1f70de6,
       type: 3}
-    initCount: 5
+    initCount: 15
   - name: Biglime
     enemyObject: {fileID: 4015811296826361122, guid: 512ac9401f53c4199aa724a72297e7b7,
       type: 3}
-    initCount: 5
+    initCount: 15
 --- !u!4 &440042231
 Transform:
   m_ObjectHideFlags: 0
@@ -2026,6 +2026,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1418261274}
     m_Modifications:
+    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: skills.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: skills.Array.data[0].skillObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37,
+        type: 2}
+    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_Name
+      value: Wizard
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_SlopeLimit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
+        type: 3}
+      propertyPath: m_StepOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2053551364944616166, guid: 9fb075671779d6d4e9899ac270555f0e,
         type: 3}
       propertyPath: m_Name
@@ -2084,37 +2115,6 @@ PrefabInstance:
     - target: {fileID: 8465101296794089910, guid: 9fb075671779d6d4e9899ac270555f0e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: skills.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3346502955286411235, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: skills.Array.data[0].skillObject
-      value: 
-      objectReference: {fileID: 11400000, guid: 735fdce43918f074595d9aad0adc3e37,
-        type: 2}
-    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_Name
-      value: Wizard
-      objectReference: {fileID: 0}
-    - target: {fileID: 3872462055679828586, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_SlopeLimit
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7328325552777570857, guid: ac880375317081e429b5b0dcd568423c,
-        type: 3}
-      propertyPath: m_StepOffset
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
