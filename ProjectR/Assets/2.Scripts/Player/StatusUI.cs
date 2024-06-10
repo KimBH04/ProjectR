@@ -61,6 +61,12 @@ public class StatusUI : MonoBehaviour
     private void CloseProperties()
     {
         isClicked = (false, false);
+        
+        PlayerController.CanControl = true; 
+        propertiesPanel.SetActive(false);
+
+        
+        
         Time.timeScale = 1f;
 
         switch (indexes.stat)
@@ -90,8 +96,8 @@ public class StatusUI : MonoBehaviour
                 break;
         }
 
-        PlayerController.CanControl = true;
-        propertiesPanel.SetActive(false);
+       
+        
     }
 
     #region Static methods
