@@ -166,7 +166,7 @@ public sealed class PlayerController : MonoBehaviour
     {
 
         MySceneManager.Instance.ChangeScene("Stage 1");
-        hp = 60;
+        hp = 200;
         yield return new WaitForSeconds(2f);
         isDie = false;
     }
