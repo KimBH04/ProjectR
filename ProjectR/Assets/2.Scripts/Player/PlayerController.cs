@@ -226,8 +226,8 @@ public sealed class PlayerController : MonoBehaviour
     {
         Movement();
 
-        stamina = Mathf.Min(maxStamina + additionalDefaultStamina, stamina + Time.deltaTime * staminaSpeed + additionalStaminaSpeed);
-        StatusUI.SetStaminaUI(stamina, maxStamina);
+        stamina = Mathf.Min(maxStamina + additionalDefaultStamina, stamina + Time.deltaTime * (staminaSpeed + additionalStaminaSpeed));
+        StatusUI.SetStaminaUI(stamina, maxStamina + additionalDefaultStamina);
     }
 
     private void FixedUpdate()
