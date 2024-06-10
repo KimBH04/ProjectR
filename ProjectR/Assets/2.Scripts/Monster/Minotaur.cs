@@ -232,7 +232,7 @@ public class Minotaur : Enemy
     {
         AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoAttack);
         int layerMask = LayerMask.GetMask("Player");
-        RaycastHit[] rayHits = Physics.SphereCastAll(attackCollision.position, 5, Vector3.up, 0f, layerMask);
+        RaycastHit[] rayHits = Physics.SphereCastAll(attackCollision.position, 9, Vector3.up, 0f, layerMask);
         foreach (RaycastHit hitObj in rayHits)
         {
             if (hitObj.transform.CompareTag("Player"))
@@ -246,7 +246,7 @@ public class Minotaur : Enemy
     private void AttackCollision1()
     {
         int layerMask = LayerMask.GetMask("Player");
-        RaycastHit[] rayHits = Physics.SphereCastAll(attackCollision.position, 5, Vector3.up, 0f, layerMask);
+        RaycastHit[] rayHits = Physics.SphereCastAll(_Effect.transform.position, 10, Vector3.up, 0f, layerMask);
         foreach (RaycastHit hitObj in rayHits)
         {
             if (hitObj.transform.CompareTag("Player"))
@@ -279,7 +279,7 @@ public class Minotaur : Enemy
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackCollision.position, 5);
+        Gizmos.DrawWireSphere(attackCollision.position, 9);
     }
 }
 
