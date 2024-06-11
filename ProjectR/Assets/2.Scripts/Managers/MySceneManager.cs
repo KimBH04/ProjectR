@@ -42,34 +42,68 @@ public class MySceneManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+       
 
-        if (currentSceneIndex == 1)
-        {
-            AudioManager.Instance.PlayBgm(AudioManager.EBgm.Tavern);
-            Debug.Log("Prologue");
-            Fade_img.DOFade(0, prologueFadeDuration)
-            .OnStart(() =>
-            {
-                Loading.SetActive(false);
-            }).SetEase(Ease.InQuint)
-            .OnComplete(() => {
-                Fade_img.blocksRaycasts = false;
-            });
 
-        }
-        else
-        {
-            AudioManager.Instance.PlayBgm(AudioManager.EBgm.Main);
-            Debug.Log("Normal");
-            Fade_img.DOFade(0, fadeDuration)
+        Fade_img.DOFade(0, fadeDuration)
             .OnStart(() => {
                 Loading.SetActive(false);
             })
             .OnComplete(() => {
                 Fade_img.blocksRaycasts = false;
             });
+        
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        
+        switch (currentSceneIndex)
+        {
+            case 0 :
+                AudioManager.Instance.PlayBgm(AudioManager.EBgm.Main);
+                break;
+            case 1 :
+                AudioManager.Instance.PlayBgm(AudioManager.EBgm.Tavern);
+                break;
+            case 2 :
+                AudioManager.Instance.PlayBgm(AudioManager.EBgm.Stage1);
+                break;
+            
         }
+        
+        // Fade_img.DOFade(0, fadeDuration)
+        //     .OnStart(() => {
+        //         Loading.SetActive(false);
+        //     })
+        //     .OnComplete(() => {
+        //         Fade_img.blocksRaycasts = false;
+        //     });
+        //
+        // if (currentSceneIndex == 0)
+        // {
+        //     AudioManager.Instance.PlayBgm(AudioManager.EBgm.Main);
+        //     Debug.Log("Normal");
+        //     Fade_img.DOFade(0, fadeDuration)
+        //         .OnStart(() => {
+        //             Loading.SetActive(false);
+        //         })
+        //         .OnComplete(() => {
+        //             Fade_img.blocksRaycasts = false;
+        //         });
+        // }
+        // else if (currentSceneIndex == 1)
+        // {
+        //     AudioManager.Instance.PlayBgm(AudioManager.EBgm.Tavern);
+        //     Debug.Log("Prologue");
+        //     Fade_img.DOFade(0, prologueFadeDuration)
+        //     .OnStart(() =>
+        //     {
+        //         Loading.SetActive(false);
+        //     }).SetEase(Ease.InQuint)
+        //     .OnComplete(() => {
+        //         Fade_img.blocksRaycasts = false;
+        //     });
+        //
+        // }
+        
 
     }
 
