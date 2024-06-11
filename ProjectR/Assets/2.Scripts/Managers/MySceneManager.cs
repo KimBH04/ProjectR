@@ -66,6 +66,9 @@ public class MySceneManager : MonoBehaviour
             case 2 :
                 AudioManager.Instance.PlayBgm(AudioManager.EBgm.Stage1);
                 break;
+            default:
+                AudioManager.Instance.PlayBgm(AudioManager.EBgm.Main);
+                break;
             
         }
         

@@ -17,6 +17,8 @@ public class RoomData : MonoBehaviour
 
     private bool visited = false;
     private int enemyCount = 0;
+
+    private static Room previousRoom;
     
     public int EnemyCount => enemyCount;
 
@@ -35,11 +37,17 @@ public class RoomData : MonoBehaviour
         }
         set
         {
+            if (data != null)
+            {
+                data.OnRoomLeave.Invoke();
+                data.OnRoomLeave.RemoveAllListeners();
+            }
             data = value;
             data.MapDisplay = mapDisplay;
             data.DisplayMesh = displayMesh;
             if (data.type == Room.RoomType.Battle && waves.Length > 0)
             {
+                AudioManager.Instance.PlayBgm(AudioManager.EBgm.Stage1);
                 WaveContainer waveContainer = waves[Random.Range(0, waves.Length)];
                 enemyCount = waveContainer.Count;
                 for (int i = 0; i < enemyCount; i++)
@@ -73,10 +81,26 @@ public class RoomData : MonoBehaviour
                     });
                 }
             }
-            else if (data.type == Room.RoomType.Boss)
+            else if(data.type == Room.RoomType.Shop)
             {
                 data.movedHere.AddListener(() =>
                 {
+                    AudioManager.Instance.PlayBgm(AudioManager.EBgm.Shop);
+                });
+                
+                data.OnRoomLeave.AddListener(() =>
+                {
+                    AudioManager.Instance.PlayBgm(AudioManager.EBgm.Stage1);
+                });
+                
+                
+            }
+            else if (data.type == Room.RoomType.Boss)
+            {
+               
+                data.movedHere.AddListener(() =>
+                {
+                    AudioManager.Instance.PlayBgm(AudioManager.EBgm.Stage1Boss);
                     Instantiate(boss, transform.position, Quaternion.identity)
                         .GetComponent<Enemy>()
                         .onDieEvent
@@ -132,6 +156,11 @@ public class RoomData : MonoBehaviour
         {
             return;
         }
+        
+        if (previousRoom != null && previousRoom.type == Room.RoomType.Shop)
+        {
+            previousRoom.OnRoomLeave.Invoke();
+        }
 
         data.movedHere.Invoke();
         visited = true;
@@ -154,6 +183,10 @@ public class RoomData : MonoBehaviour
                 data[Room.RIGHT] != null,
                 data[Room.BACK] != null);
         }
+
+        
+
+        previousRoom = data;
     }
     
     private void EnemyCounter()
@@ -178,6 +211,7 @@ public class Room
     public int depth = 0;
 
     public UnityEvent movedHere = new UnityEvent();
+    public UnityEvent OnRoomLeave = new UnityEvent();
 
     public GameObject MapDisplay { get; set; }
     public MeshRenderer DisplayMesh { get; set; }
