@@ -273,7 +273,7 @@ public class Minotaur : Enemy
     private void SetActive()
     {
         gameObject.SetActive(false);
-        MySceneManager.Instance.ChangeScene("MainScene");
+        MySceneManager.Instance.ChangeScene("Stage 2");
     }
 
     private void OnDrawGizmos()

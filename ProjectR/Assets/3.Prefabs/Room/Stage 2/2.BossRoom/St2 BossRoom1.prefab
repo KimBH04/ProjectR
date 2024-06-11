@@ -45,6 +45,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: St2 RoomFloor
       objectReference: {fileID: 0}
+    - target: {fileID: 5466424531139543152, guid: e1da24895402d6d47ba7651b19725f50,
+        type: 3}
+      propertyPath: boss
+      value: 
+      objectReference: {fileID: 29516245964163215, guid: 9b0f18e46bedb44219f378dd3fb9c4cf,
+        type: 3}
     - target: {fileID: 6425048971216255089, guid: e1da24895402d6d47ba7651b19725f50,
         type: 3}
       propertyPath: m_LocalScale.x
