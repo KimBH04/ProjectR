@@ -11,6 +11,7 @@ public class DialogManager : MonoBehaviour
     public string[] dialogs;
     public Image eButton;
     public GameObject move;
+    private bool isSkip;
     private int currentDialogIndex = -1;
     private bool isPrinting = false;
     private bool inTrigger = false;
@@ -36,14 +37,15 @@ public class DialogManager : MonoBehaviour
             {
                 eButton.gameObject.SetActive(false);
 
-                if (lastDialogDisplayed)
+                if (!lastDialogDisplayed)
                 {
-                    return;
-                }
-                else
-                {
+                    isSkip = false;         // 다음 출력에 다시 초기화
                     StartCoroutine(PrintDialog(dialogs));
                 }
+            }
+            else
+            {
+                isSkip = true;              // 출력 도중 누르면 즉시 전부 출력
             }
         }
 
@@ -95,7 +97,10 @@ public class DialogManager : MonoBehaviour
         foreach (char letter in dialogList[currentDialogIndex].ToCharArray())
         {
             dialogText.text += letter;
-            yield return new WaitForSeconds(0.07f); // 출력 속도 조절
+            if (!isSkip)
+            {
+                yield return new WaitForSeconds(0.07f); // 출력 속도 조절
+            }
         }
         eButton.gameObject.SetActive(false);
 
