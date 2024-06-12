@@ -47,7 +47,6 @@ public class EnemyPools : MonoBehaviour
     /// <returns> 불러온 오브젝트 </returns>
     public static GameObject AppearObject(string name, Vector3 position = default, Quaternion rotation = default)
     {
-        print(name);
         GameObject obj = poolDict[name].Get();
         obj.transform.SetPositionAndRotation(position, rotation);
         obj.SetActive(true);

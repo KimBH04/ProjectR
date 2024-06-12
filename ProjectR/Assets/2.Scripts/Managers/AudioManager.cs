@@ -195,10 +195,6 @@ public class AudioManager : MonoBehaviour
             // _bgmPlayer.Play();
             StartCoroutine(FadeOutFadeInBGM(bgmIndex));
         }
-        else
-        {
-            Debug.LogWarning("헉");
-        }
     }
 
     public void PlaySfx(ESfx eSfx)

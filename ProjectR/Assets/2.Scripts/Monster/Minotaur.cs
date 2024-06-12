@@ -91,7 +91,6 @@ public class Minotaur : Enemy
         IsChase = false;
         int intAction = Random.Range(0, 4);
         
-        print(intAction);
         switch (intAction)
         {
             case 0:
@@ -171,7 +170,6 @@ public class Minotaur : Enemy
         
         int intAction = Random.Range(0, 2);
         
-        print(intAction);
         switch (intAction)
         {
             case 0:
@@ -252,7 +250,6 @@ public class Minotaur : Enemy
             if (hitObj.transform.CompareTag("Player"))
             {
                 hitObj.transform.GetComponent<PlayerController>().Hp -= 2;
-                print(hitObj.transform.GetComponent<PlayerController>().Hp);
             }
         }
     }

@@ -14,8 +14,6 @@ public class Arrow : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("플레이어에게 닿았다!");
-            
             Destroy(gameObject);
         }
     }

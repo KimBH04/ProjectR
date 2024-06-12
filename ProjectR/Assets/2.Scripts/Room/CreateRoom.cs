@@ -83,17 +83,12 @@ public class CreateRoom : MonoBehaviour
         yield return buildRoom; // 대기
 
         Application.targetFrameRate = 60;
-        Debug.Log($"Total {Time.time - startTime}'s");
 
         if (player != null)
         {
             player.transform.position = Vector3.up;
             player.SetActive(true);
             PlayerController.canSkill = true;
-        }
-        else
-        {
-            Debug.Log("It is debugging mode");
         }
     }
 

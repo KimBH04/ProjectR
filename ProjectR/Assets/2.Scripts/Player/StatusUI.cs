@@ -36,7 +36,6 @@ public class StatusUI : MonoBehaviour
 
     public void StatClick(int index)
     {
-        Debug.Log("Clicked stat : " + index);
         indexes.stat = index;
         isClicked.stat = true;
 
@@ -48,7 +47,6 @@ public class StatusUI : MonoBehaviour
 
     public void TraitClick(int index)
     {
-        Debug.Log("Clicked trait : " + index);
         indexes.trait = index;
         isClicked.trait = true;
 

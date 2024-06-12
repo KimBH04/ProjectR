@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
             {
                 instance = Instantiate(Resources.Load<GameObject>("ManagerObjects/GameManager")).GetComponent<GameManager>();
             }
-
-            Debug.Log("GameManager");
             return instance;
         }
     }

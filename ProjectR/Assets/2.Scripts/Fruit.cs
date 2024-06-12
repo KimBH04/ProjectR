@@ -32,7 +32,6 @@ public class Fruit : MonoBehaviour
                     StartCoroutine(Wind());
                     break;
                 case EType.Tingling:
-                    print("fdf");
                     AudioManager.Instance.PlaySfx(AudioManager.ESfx.ElectricFruit); 
                     StartCoroutine(Tingling());
                     break;
