@@ -101,7 +101,7 @@ public sealed class PlayerController : MonoBehaviour
 
     public bool isDie = false;
 
-    private Collider[] enemyColliders = new Collider[16];
+    private readonly Collider[] enemyColliders = new Collider[16];
 
     #region Status properties
     public int Level
@@ -155,7 +155,7 @@ public sealed class PlayerController : MonoBehaviour
 
             hp = value;
             hp = Mathf.Clamp(hp, 0, maxHp);
-           
+
             if (hp == 0)
             {
                 isDie = true;
@@ -301,7 +301,7 @@ public sealed class PlayerController : MonoBehaviour
         vertical = v2.y;
 
         pAnimator.SetMovementValue(0f, horizontal != 0f || vertical != 0f ? 1f : 0f);
-        if(!isFootstep)
+        if (!isFootstep)
             StartCoroutine(PlayFootstepSound());
     }
 
@@ -331,11 +331,11 @@ public sealed class PlayerController : MonoBehaviour
                     {
                         StartCoroutine(routine);
                     }
-                    StartCoroutine(
-                        PlaySkill(container.StartTime,
-                                  transform.position + GetRotatePosition(skills[idx].SpherePosition, transform.eulerAngles.y),
-                                  skills[idx].Radius,
-                                  container.ATK + additionalAtk));
+                    StartCoroutine(PlaySkill(
+                        container.StartTime,
+                        transform.position + transform.rotation * skills[idx].SpherePosition,
+                        skills[idx].Radius,
+                        container.ATK + additionalAtk));
 
                     StartCoroutine(SkillEffects.Instance.FollowEffect(container.FX, transform, 1f));
                     pAnimator.PlayAttack(container.AnimationKey);
@@ -369,7 +369,15 @@ public sealed class PlayerController : MonoBehaviour
         int cnt = Physics.OverlapSphereNonAlloc(pos, radius, enemyColliders, 1 << 6);
         for (int i = 0; i < cnt; i++)
         {
-            enemyColliders[i].GetComponent<Enemy>().TakeDamage(damage);
+            Debug.Log(enemyColliders[i].name);
+            if (enemyColliders[i].TryGetComponent(out Enemy enemy))
+            {
+                enemy.TakeDamage(damage);
+            }
+            else
+            {
+                Debug.LogError($"{{{enemyColliders[i].name}}} don't have Enemy component");
+            }
         }
     }
 
@@ -404,7 +412,7 @@ public sealed class PlayerController : MonoBehaviour
         }
 
         isDodge = false;
-        
+
         // 구르기 끝났을 때 부드럽게 회전
         while (rotScale < 1f)
         {
@@ -427,18 +435,6 @@ public sealed class PlayerController : MonoBehaviour
         isBeaten = false;
     }
     #endregion
-
-    private Vector3 GetRotatePosition(Vector3 offset, float degree)
-    {
-        float y = offset.y;
-        offset.y = 0f;
-        float radian = degree * Mathf.Deg2Rad;
-        float magni = offset.magnitude;
-
-        float x = Mathf.Cos(radian) / magni;
-        float z = Mathf.Sin(radian) / magni;
-        return new Vector3(x, y, z);
-    }
 
     [System.Serializable]
     private class Skill
@@ -465,7 +461,7 @@ public sealed class PlayerController : MonoBehaviour
                     skillObject.CurrentContainer.PlaySkill(), // 콤보 요소
                     skillObject.PlaySkill()                   // 콤보
                 };
-                
+
             }
             else
             {

@@ -56,12 +56,19 @@ MonoBehaviour:
   staminaSpeed: 2.5
   dodgeForce: 10
   dodgeCoolTime: 1
+  additionalAtk: 0
+  additionalAtkSpeed: 0
+  additionalDefaultStamina: 0
+  additionalStaminaSpeed: 0
   skills:
   - skillObject: {fileID: 11400000, guid: 8572c5e7a30814e4fbe27354d80a6989, type: 2}
+    spherePosition: {x: 0, y: 2, z: 2.5}
+    radius: 4
     AttackEndedEvent:
       m_PersistentCalls:
         m_Calls: []
   pointer: {fileID: 0}
+  isDie: 0
 --- !u!143 &8414330493695897125
 CharacterController:
   m_ObjectHideFlags: 0
