@@ -30,6 +30,11 @@ public class SkillContainer : SkillObject
     public int ATK => atk;
 
     /// <summary>
+    /// 시작 딜레이
+    /// </summary>
+    public float StartTime => startTime;
+
+    /// <summary>
     /// 쿨타임
     /// </summary>
     public float CoolTime => coolTime;
@@ -81,12 +86,5 @@ public class SkillContainer : SkillObject
         }
 
         AudioManager.Instance.PlaySfx(startEsfx);
-        var (_, ps) = SkillEffects.Instance.GetParticleObject(fx);
-        var collider = ps.GetComponent<SphereCollider>();
-        yield return new WaitForSeconds(0.2f);
-
-        collider.enabled = true;
-        yield return new WaitForSeconds(disableTime);
-        collider.enabled = false;
     }
 }

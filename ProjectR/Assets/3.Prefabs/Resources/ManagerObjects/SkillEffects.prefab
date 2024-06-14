@@ -114,7 +114,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4696149058213572623, guid: 06b21d8b3a9eb2141b3b140052114b41, type: 3}
+    - {fileID: 3216746943533297308, guid: 06b21d8b3a9eb2141b3b140052114b41, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -188,7 +190,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1206321920503974088, guid: ab916a8f3beca964da39cf06798ec764, type: 3}
+    - {fileID: 4415492702056710136, guid: ab916a8f3beca964da39cf06798ec764, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -262,7 +266,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Sword_Slash 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7069953075389163481, guid: c39fd250568c2dc499180bd1f9e7146b, type: 3}
+    - {fileID: 4396592043040880560, guid: c39fd250568c2dc499180bd1f9e7146b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -101,6 +101,8 @@ public sealed class PlayerController : MonoBehaviour
 
     public bool isDie = false;
 
+    private Collider[] enemyColliders = new Collider[16];
+
     #region Status properties
     public int Level
     {
@@ -328,6 +330,11 @@ public sealed class PlayerController : MonoBehaviour
                     {
                         StartCoroutine(routine);
                     }
+                    StartCoroutine(
+                        PlaySkill(container.StartTime,
+                                  transform.position + GetRotatePosition(skills[idx].SpherePosition, transform.eulerAngles.y),
+                                  skills[idx].Radius,
+                                  container.ATK + additionalAtk));
 
                     StartCoroutine(SkillEffects.Instance.FollowEffect(container.FX, transform, 1f));
                     pAnimator.PlayAttack(container.AnimationKey);
@@ -354,6 +361,17 @@ public sealed class PlayerController : MonoBehaviour
     #endregion
 
     #region Coroutine Methods
+    private IEnumerator PlaySkill(float startTime, Vector3 pos, float radius, int damage)
+    {
+        yield return new WaitForSeconds(startTime);
+
+        int cnt = Physics.OverlapSphereNonAlloc(pos, radius, enemyColliders, 1 << 6);
+        for (int i = 0; i < cnt; i++)
+        {
+            enemyColliders[i].GetComponent<Enemy>().TakeDamage(damage);
+        }
+    }
+
     private IEnumerator Dodge(Vector3 endPos, float time)
     {
         transform.LookAt(endPos);
@@ -409,14 +427,30 @@ public sealed class PlayerController : MonoBehaviour
     }
     #endregion
 
+    private Vector3 GetRotatePosition(Vector3 offset, float degree)
+    {
+        float y = offset.y;
+        offset.y = 0f;
+        float radian = degree * Mathf.Deg2Rad;
+        float magni = offset.magnitude;
+
+        float x = Mathf.Cos(radian) / magni;
+        float z = Mathf.Sin(radian) / magni;
+        return new Vector3(x, y, z);
+    }
+
     [System.Serializable]
     private class Skill
     {
         [SerializeField] private SkillObject skillObject;
-
+        [SerializeField] private Vector3 spherePosition;
+        [SerializeField] private float radius;
         [HideInInspector] public UnityEvent AttackEndedEvent;
 
         public SkillObject SkillObject => skillObject;
+
+        public Vector3 SpherePosition => spherePosition;
+        public float Radius => radius;
 
         public bool AttackCoolDown { get; private set; } = true;
 
