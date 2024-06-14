@@ -13,7 +13,7 @@ public class Fruit : MonoBehaviour
     }
     public float radius=5f;
     public EType type;
-    public float value;
+    public int value;
     public GameObject head;
     public GameObject effect;
 

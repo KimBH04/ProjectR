@@ -46,7 +46,7 @@ public class SuicideSkull : Enemy
             }
             else if (hitObj.transform.CompareTag("Enemy"))
             {
-                hitObj.transform.GetComponent<Enemy>().TakeDamage(50f);
+                hitObj.transform.GetComponent<Enemy>().TakeDamage(50);
             }
             
         }

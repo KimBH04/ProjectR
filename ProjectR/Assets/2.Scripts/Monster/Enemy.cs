@@ -209,7 +209,7 @@ public  abstract  class Enemy : MonoBehaviour
         text.GetComponent<DamageText>().damage= damage;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         
         _model.CurrentHp-= damage;
