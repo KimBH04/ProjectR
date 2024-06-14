@@ -246,8 +246,9 @@ public sealed class PlayerController : MonoBehaviour
             StatusUI.SetStaminaUI(stamina, maxStamina);
             StatusUI.SetHpUI(hp, maxHp);
         }
-
+        horizontal = vertical = 0f;
     }
+
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= ResetStatus;
