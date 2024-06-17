@@ -172,8 +172,10 @@ public sealed class PlayerController : MonoBehaviour
 
     private IEnumerator ResetStage()
     {
-
+        
         MySceneManager.Instance.ChangeScene("Stage 1");
+        level = 1;
+        Exp = 0;
         hp = 60;
         yield return new WaitForSeconds(2f);
         isDie = false;

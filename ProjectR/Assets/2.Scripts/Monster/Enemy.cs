@@ -145,8 +145,8 @@ public  abstract  class Enemy : MonoBehaviour
         IsAttack = false;
         IsChase = false;
         
-        Animator.SetBool(Attack,false);
-        Animator.SetBool(Chase,false);
+        // Animator.SetBool(Attack,false);
+        // Animator.SetBool(Chase,false);
     }
     
     public void EndTingling()
