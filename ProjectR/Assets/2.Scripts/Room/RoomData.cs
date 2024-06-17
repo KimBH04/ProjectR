@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class RoomData : MonoBehaviour
 {
@@ -170,7 +171,11 @@ public class RoomData : MonoBehaviour
             if (TryGetRandomPoint(out Vector3 pos))
             {
                 int randIdx = Random.Range(0, fruits.Length);
-                Instantiate(fruits[randIdx], pos, Quaternion.identity);
+                if(SceneManager.GetActiveScene().name == "Stage 1")
+                {
+                    Instantiate(fruits[randIdx], pos, Quaternion.identity);
+                }
+
             }
         }
 

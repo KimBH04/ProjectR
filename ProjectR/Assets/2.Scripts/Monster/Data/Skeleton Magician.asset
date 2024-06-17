@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHp: 100
   currentHp: 100
   speed: 5
-  damage: 1
+  damage: 10
   targetRadius: 1
   targetRange: 20
   spawnProbability: 25

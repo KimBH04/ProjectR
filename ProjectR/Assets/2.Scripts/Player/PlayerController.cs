@@ -131,6 +131,7 @@ public sealed class PlayerController : MonoBehaviour
                 level++;
                 StatusUI.PopUpSelectProperties(level);
                 AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerLevelUp);
+                hp += 30;
             }
             StatusUI.SetExpUI(exp, NeedExp, level);
         }
@@ -173,7 +174,7 @@ public sealed class PlayerController : MonoBehaviour
     {
 
         MySceneManager.Instance.ChangeScene("Stage 1");
-        hp = 200;
+        hp = 60;
         yield return new WaitForSeconds(2f);
         isDie = false;
     }
