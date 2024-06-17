@@ -144,6 +144,7 @@ public  abstract  class Enemy : MonoBehaviour
         IsTingling = true;
         IsAttack = false;
         IsChase = false;
+        
         Animator.SetBool(Attack,false);
         Animator.SetBool(Chase,false);
     }
@@ -211,6 +212,10 @@ public  abstract  class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (_isDead)
+        {
+            return;
+        }
         
         _model.CurrentHp-= damage;
         if(_model.CurrentHp <= 0)
@@ -230,7 +235,6 @@ public  abstract  class Enemy : MonoBehaviour
         }
         else
         {
-            
             StartCoroutine(OnDamage());
         }
         

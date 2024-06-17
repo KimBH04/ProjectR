@@ -36,12 +36,29 @@ public class Slime : Enemy
 
     protected override void DieEnemy()
     {
-       base.DieEnemy();
+        StopAllCoroutines();
+        StartCoroutine(OnDie());
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyDead);
+        IsChase = false;
+        IsAttack = false;
+        _isDead = true;
+        _agent.enabled = false;
+        _rb.isKinematic = true;
+        Invoke(nameof(gameObjectSetActive),2f);
+        int randomIndex = Random.Range(0, expStone.Length);
+        Vector3 spawnPosition = transform.position;
+        spawnPosition.y += 2;
+        Instantiate(expStone[randomIndex], spawnPosition, Quaternion.identity);
 
         mini[0].transform.position = transform.position;
         mini[1].transform.position = transform.position;
         mini[0].gameObject.SetActive(true);
         mini[1].gameObject.SetActive(true);
+    }
+    
+    private void gameObjectSetActive()
+    {
+        gameObject.SetActive(false);
     }
     
 }
