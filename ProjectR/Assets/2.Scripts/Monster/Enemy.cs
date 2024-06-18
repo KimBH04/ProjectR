@@ -48,10 +48,14 @@ public  abstract  class Enemy : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        if (!_playerTr)
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player == null)
         {
             print("플레이어 업성");
+        }
+        else
+        {
+            _playerTr = player.transform;
         }
 
         PlayerController playerController = _playerTr.GetComponent<PlayerController>();
