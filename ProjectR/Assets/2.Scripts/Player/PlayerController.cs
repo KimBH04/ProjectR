@@ -162,6 +162,7 @@ public sealed class PlayerController : MonoBehaviour
                 isDie = true;
                 CanControl = false;
                 canSkill = false;
+                horizontal = vertical = 0f;
                 AudioManager.Instance.PlaySfx(AudioManager.ESfx.PlayerDead);
                 pAnimator.PlayDie();
                 StartCoroutine(ResetStage());

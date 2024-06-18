@@ -74,6 +74,7 @@ public  abstract  class Enemy : MonoBehaviour
         _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         dissolveMaterial = new Material(dissolveMaterial);
         _agent.speed = _model.Speed;
+        _agent.enabled = false;
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             _originalMeshRenderers[mesh] = mesh.material.color;

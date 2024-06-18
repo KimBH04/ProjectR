@@ -33,7 +33,8 @@ public class CreateRoom : MonoBehaviour
     [SerializeField] private GameObject rightEffect;
     [SerializeField] private GameObject backEffect;
     [Space]
-    [SerializeField] private Transform navPlane;
+    //[SerializeField] private Transform navPlane;
+    [SerializeField] private GameObject pooler;
     [Space]
 
     private static CreateRoom instance;
@@ -90,6 +91,8 @@ public class CreateRoom : MonoBehaviour
             player.SetActive(true);
             PlayerController.canSkill = true;
         }
+
+        pooler.SetActive(true);
     }
 
     #region Room maker
@@ -161,7 +164,7 @@ public class CreateRoom : MonoBehaviour
                         xpos * 10f * standardScale.x,
                         0f, // 10 : Default plane size
                         zpos * 10f * standardScale.z);
-                    rooms[z, x].movedHere.AddListener(() => navPlane.position = pos);
+                    //rooms[z, x].movedHere.AddListener(() => navPlane.position = pos);
 
                     Instantiate(
                         rooms[z, x].type switch
