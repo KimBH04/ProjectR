@@ -236,7 +236,6 @@ public class Minotaur : Enemy
             if (hitObj.transform.CompareTag("Player"))
             {
                 hitObj.transform.GetComponent<PlayerController>().Hp -= 1;
-                print(hitObj.transform.GetComponent<PlayerController>().Hp);
             }
         }
     }

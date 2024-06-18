@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DeathKnights : Enemy
 {
@@ -177,5 +179,27 @@ public class DeathKnights : Enemy
     private void SetActive()
     {
         gameObject.SetActive(false);
+    }
+
+
+    private void AttackCollision()
+    {
+        int layerMask = LayerMask.GetMask("Player");
+        RaycastHit[] rayHits = Physics.SphereCastAll(attackCollision.position, 9, Vector3.up, 0f, layerMask);
+
+        foreach (RaycastHit hit in rayHits)
+        {
+            if(hit.transform.CompareTag("Player"))
+            {
+                hit.transform.GetComponent<PlayerController>().Hp -= 1;
+            }
+        }
+        
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackCollision.position, 9);
     }
 }
