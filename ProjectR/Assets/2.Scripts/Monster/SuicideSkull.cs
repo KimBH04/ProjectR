@@ -83,9 +83,18 @@ public class SuicideSkull : Enemy
     {
         if(bombs.Count==0) 
             return;
-        foreach (var mesh in bombs[0].GetComponentsInChildren<SkinnedMeshRenderer>())
+        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
-            mesh.material.color = _originalMeshRenderers[mesh];
+            if (_originalMeshRenderers.ContainsKey(mesh))
+            {
+                Material[] materials = mesh.materials;
+                Color[] originalColors = _originalMeshRenderers[mesh];
+            
+                for (int index = 0; index < materials.Length; index++)
+                {
+                    materials[index].color = originalColors[index]; 
+                }
+            }
         }
     }
     

@@ -139,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 8633929970743539060, guid: e4d05de807b3d4dbb9383511f6681c03,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8978542944163475406, guid: e4d05de807b3d4dbb9383511f6681c03,
         type: 3}
@@ -6673,6 +6673,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warrior
       objectReference: {fileID: 0}
+    - target: {fileID: 6449706118182181942, guid: 0e88bc72e7ca66645bb92843bac8bca8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7198,7 +7203,7 @@ PrefabInstance:
     - target: {fileID: 4015811296826361122, guid: 512ac9401f53c4199aa724a72297e7b7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4391246811539857304, guid: 512ac9401f53c4199aa724a72297e7b7,
         type: 3}
@@ -8987,7 +8992,7 @@ PrefabInstance:
     - target: {fileID: 7918638029306672854, guid: 6f3ba149ec81347c2917acf6f7533a2e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9164,10 +9169,10 @@ SceneRoots:
   - {fileID: 430717740439336734}
   - {fileID: 6112206290564485410}
   - {fileID: 1918066894}
-  - {fileID: 3216541}
-  - {fileID: 1686529868}
   - {fileID: 61195334}
   - {fileID: 1210440503}
+  - {fileID: 1686529868}
+  - {fileID: 3216541}
   - {fileID: 1188258452}
   - {fileID: 1200980992}
   - {fileID: 746872020}

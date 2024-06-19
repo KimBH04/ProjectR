@@ -896,6 +896,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 812947928087963621, guid: a1a3cf8d906104b44bdc0697ee7b03ab,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 812947928087963621, guid: a1a3cf8d906104b44bdc0697ee7b03ab,
+        type: 3}
       propertyPath: m_StaticShadowCaster
       value: 1
       objectReference: {fileID: 0}

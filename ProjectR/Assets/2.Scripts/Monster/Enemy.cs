@@ -25,7 +25,9 @@ public  abstract  class Enemy : MonoBehaviour
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
     protected SkinnedMeshRenderer[] _meshRenderers;
-    protected readonly Dictionary<SkinnedMeshRenderer, Color> _originalMeshRenderers = new Dictionary<SkinnedMeshRenderer, Color>();
+    
+
+    protected readonly Dictionary<SkinnedMeshRenderer, Color[]> _originalMeshRenderers = new Dictionary<SkinnedMeshRenderer, Color[]>();
     public Material dissolveMaterial;
 
     public bool isBoss;
@@ -74,10 +76,22 @@ public  abstract  class Enemy : MonoBehaviour
         dissolveMaterial = new Material(dissolveMaterial);
         _agent.speed = _model.Speed;
         _agent.enabled = false;
+        
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
-            _originalMeshRenderers[mesh] = mesh.material.color;
+            Material[] materials = mesh.materials;
+            Color[] originalColors = new Color[materials.Length];
+        
+            for (int index = 0; index < materials.Length; index++)
+            {
+                originalColors[index] = materials[index].color;
+            }
+        
+            _originalMeshRenderers[mesh] = originalColors;
         }
+        
+        
+        
     }
 
     protected virtual void Start()
@@ -256,16 +270,51 @@ public  abstract  class Enemy : MonoBehaviour
         AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyHit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
-            mesh.material.color = Color.red;
+            Material[] materials = mesh.materials;
+            
+            for(int index =0; index < materials.Length; index++)
+            {
+                materials[index].color = Color.red;
+            }
+            
+            
         }
+        
+     
         
         yield return new WaitForSeconds(0.1f);
         
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
-            mesh.material.color = _originalMeshRenderers[mesh];
+            if (_originalMeshRenderers.ContainsKey(mesh))
+            {
+                Material[] materials = mesh.materials;
+                Color[] originalColors = _originalMeshRenderers[mesh];
+            
+                for (int index = 0; index < materials.Length; index++)
+                {
+                    materials[index].color = originalColors[index]; 
+                }
+            }
         }
     }
+    
+    // foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
+    // {
+    //     Material[] materials = meshRenderer.materials;
+    //     
+    //     for(int index = 0; index < materials.Length; index++)
+    //     {
+    //         materials[index] = dissolveMaterial;
+    //     }
+    //     
+    //     meshRenderer.materials = materials;
+    //         
+    //     foreach (Material material in meshRenderer.materials)
+    //     {
+    //         material.DOFloat(1, "_Float", 2);
+    //     }
+    // }
 
     protected virtual void DieEnemy()
     {

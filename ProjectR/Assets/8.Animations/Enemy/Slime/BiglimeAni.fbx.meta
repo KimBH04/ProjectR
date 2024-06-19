@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Nucleus1
-    second: {fileID: 2100000, guid: 9b8dc814c23d3e044831f6ffa98eb504, type: 2}
+    second: {fileID: 2100000, guid: 437202387509d4e4d9073d5ecccbe617, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Nucleus2
-    second: {fileID: 2100000, guid: dfd7dd8e7a811e44f9ef6eb16e8ff60e, type: 2}
+    second: {fileID: 2100000, guid: 437202387509d4e4d9073d5ecccbe617, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -25,9 +25,9 @@ ModelImporter:
       name: Skin2
     second: {fileID: 2100000, guid: f37cafa336d301d498ddc91e3df7901e, type: 2}
   materials:
-    materialImportMode: 2
+    materialImportMode: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 0
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
@@ -116,7 +116,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
+    useSRGBMaterialColor: 0
     sortHierarchyByName: 1
     importPhysicalCameras: 1
     importVisibility: 1
@@ -148,7 +148,7 @@ ModelImporter:
     useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 0
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
