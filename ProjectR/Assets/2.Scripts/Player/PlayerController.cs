@@ -26,12 +26,12 @@ public class PlayerControllerEditor : Editor
 
             if (GUILayout.Button("Heal"))
             {
-                inspector.Hp++;
+                inspector.Hp += 100;
             }
 
             if (GUILayout.Button("Deal"))
             {
-                inspector.Hp--;
+                inspector.Hp -= 100;
             }
 
             if (GUILayout.Button("Can Skill"))
@@ -70,6 +70,10 @@ public sealed class PlayerController : MonoBehaviour
     public int additionalAtkSpeed = 0;          // 사용할 때 부동소수로 변환 후 10 나누기
     public int additionalDefaultStamina = 0;
     public int additionalStaminaSpeed = 0;
+
+    public int atkDamageBarValue = 0;
+    public int atkSpeedBarValue = 0;
+    public int staminaBarValue = 0;
 
     private static bool canControl = true;
     public static bool canSkill = false;
@@ -246,10 +250,28 @@ public sealed class PlayerController : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Stage 1")
         {
-            StatusUI.SetExpUI(0, NeedExp, 1);
-            StatusUI.SetStaminaUI(stamina, maxStamina);
-            StatusUI.SetHpUI(hp, maxHp);
+            additionalAtk = 0;
+            additionalAtkSpeed = 0;
+            additionalDefaultStamina = 0;
+            additionalStaminaSpeed = 0;
+            
+            atkDamageBarValue = 0;
+            atkSpeedBarValue = 0;
+            staminaBarValue = 0;
+
+            Level = 1;
+            Exp = 0;
+            stamina = maxStamina;
+            hp = maxHp;
+
+            isDie = false;
+            CanControl = true;
+            canSkill = true;
         }
+        StatusUI.SetExpUI(0, NeedExp, 1);
+        StatusUI.SetStaminaUI(stamina, maxStamina);
+        StatusUI.SetHpUI(hp, maxHp);
+
         horizontal = vertical = 0f;
     }
 
@@ -373,7 +395,6 @@ public sealed class PlayerController : MonoBehaviour
         int cnt = Physics.OverlapSphereNonAlloc(pos, radius, enemyColliders, 1 << 6);
         for (int i = 0; i < cnt; i++)
         {
-            Debug.Log(enemyColliders[i].name);
             if (enemyColliders[i].TryGetComponent(out Enemy enemy))
             {
                 enemy.TakeDamage(damage);

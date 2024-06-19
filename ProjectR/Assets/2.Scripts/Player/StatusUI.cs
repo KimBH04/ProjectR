@@ -23,9 +23,6 @@ public class StatusUI : MonoBehaviour
     [SerializeField] private Image atkDamageBarImage;
     [SerializeField] private Image atkSpeedBarImage;
     [SerializeField] private Image staminaBarImage;
-    private int atkDamageBarValue = 0;
-    private int atkSpeedBarValue = 0;
-    private int staminaBarValue = 0;
 
     private const float MAX_VALUE = 5f;
 
@@ -71,34 +68,34 @@ public class StatusUI : MonoBehaviour
         switch (indexes.stat)
         {
             case 0:
-                if (atkDamageBarValue >= MAX_VALUE)
+                if (_playerController.atkDamageBarValue >= MAX_VALUE)
                 {
                     return;
                 }
 
-                atkDamageBarImage.fillAmount = ++atkDamageBarValue / MAX_VALUE;
+                atkDamageBarImage.fillAmount = ++_playerController.atkDamageBarValue / MAX_VALUE;
 
                 _playerController.additionalAtk += 3;
                 break;
 
             case 1:
-                if (atkSpeedBarValue >= MAX_VALUE)
+                if (_playerController.atkSpeedBarValue >= MAX_VALUE)
                 {
                     return;
                 }
 
-                atkSpeedBarImage.fillAmount = ++atkSpeedBarValue / MAX_VALUE;
+                atkSpeedBarImage.fillAmount = ++_playerController.atkSpeedBarValue / MAX_VALUE;
 
                 _playerController.additionalAtkSpeed += 2;
                 break;
 
             case 2:
-                if (staminaBarValue >= MAX_VALUE)
+                if (_playerController.staminaBarValue >= MAX_VALUE)
                 {
                     return;
                 }
 
-                staminaBarImage.fillAmount = ++staminaBarValue / MAX_VALUE;
+                staminaBarImage.fillAmount = ++_playerController.staminaBarValue / MAX_VALUE;
 
                 _playerController.additionalDefaultStamina += 5;
                 _playerController.additionalStaminaSpeed += 2;
