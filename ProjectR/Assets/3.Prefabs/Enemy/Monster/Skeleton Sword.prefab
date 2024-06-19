@@ -355,12 +355,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 173.502
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3f81f307dde94e147bb07163261d2ed7,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3f81f307dde94e147bb07163261d2ed7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 861b9b70d8ddf4f9497ca67a73a676bb, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 3f81f307dde94e147bb07163261d2ed7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd39e0bb0e4554fc5902ef756e37b627, type: 2}
     - target: {fileID: 919132149155446097, guid: 3f81f307dde94e147bb07163261d2ed7,
         type: 3}
       propertyPath: m_Name
       value: Skeleton Sword_Sword
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7511558181221131132, guid: 3f81f307dde94e147bb07163261d2ed7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -372,6 +388,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 347265085742607415}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3f81f307dde94e147bb07163261d2ed7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8299859401541942342}
   m_SourcePrefab: {fileID: 100100000, guid: 3f81f307dde94e147bb07163261d2ed7, type: 3}
 --- !u!4 &5036338377699332351 stripped
 Transform:
@@ -419,6 +439,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+--- !u!137 &8299859401541942342
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5669886514975197765}
+  m_Enabled: 1
+  m_CastShadows: 2
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 861b9b70d8ddf4f9497ca67a73a676bb, type: 2}
+  - {fileID: 2100000, guid: cd39e0bb0e4554fc5902ef756e37b627, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: -2232952877369940510, guid: 3f81f307dde94e147bb07163261d2ed7, type: 3}
+  m_Bones: []
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 0}
+  m_AABB:
+    m_Center: {x: 0, y: 1.1354244, z: 0}
+    m_Extent: {x: 0.08177446, y: 1.1340244, z: 0.25453797}
+  m_DirtyAABB: 0
 --- !u!1001 &8518691618507907340
 PrefabInstance:
   m_ObjectHideFlags: 0
