@@ -20,6 +20,7 @@ public class Minotaur : Enemy
     private static readonly int Rush = Animator.StringToHash("Rush");
     private static readonly int JumpAttack = Animator.StringToHash("JumpAttack");
     private static readonly int Scream = Animator.StringToHash("Scream");
+
     private static readonly int Attack2 = Animator.StringToHash("Attack2");
     private static readonly int Attack3 = Animator.StringToHash("Attack3");
     private static readonly int Attack4 = Animator.StringToHash("Attack4");

@@ -51,7 +51,7 @@ public class Fruit : MonoBehaviour
         {
             if (hitObj.transform.CompareTag("Enemy"))
             {
-                hitObj.transform.GetComponent<Enemy>().TakeDamage(value);
+                hitObj.transform.GetComponent<Enemy>().TakeDamage(value,transform.position);
             }
             
             else if (hitObj.transform.CompareTag("Player")) 

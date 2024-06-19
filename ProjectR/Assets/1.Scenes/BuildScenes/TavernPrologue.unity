@@ -3546,6 +3546,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3407164112765549062, guid: c39fd250568c2dc499180bd1f9e7146b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Skill
+      objectReference: {fileID: 0}
     - target: {fileID: 6996771779264652365, guid: c39fd250568c2dc499180bd1f9e7146b,
         type: 3}
       propertyPath: looping
@@ -4803,6 +4808,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Sword_Slash 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4628196095543352129, guid: ab916a8f3beca964da39cf06798ec764,
+        type: 3}
+      propertyPath: m_TagString
+      value: Skill
+      objectReference: {fileID: 0}
     - target: {fileID: 8454360503724339155, guid: ab916a8f3beca964da39cf06798ec764,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5573,6 +5583,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_Sword_Slash 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798642914844138009, guid: 06b21d8b3a9eb2141b3b140052114b41,
+        type: 3}
+      propertyPath: m_TagString
+      value: Skill
       objectReference: {fileID: 0}
     - target: {fileID: 9021836862426420835, guid: 06b21d8b3a9eb2141b3b140052114b41,
         type: 3}

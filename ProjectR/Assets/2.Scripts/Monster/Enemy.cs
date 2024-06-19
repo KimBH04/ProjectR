@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.AI;
@@ -6,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
+
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
@@ -215,7 +214,7 @@ public  abstract  class Enemy : MonoBehaviour
         text.GetComponent<DamageText>().damage= damage;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 tr)
     {
         if (_isDead)
         {
@@ -240,6 +239,11 @@ public  abstract  class Enemy : MonoBehaviour
         }
         else
         {
+            if (!isBoss)
+            {
+                ApplyKnockback(tr);
+            }
+            
             StartCoroutine(OnDamage());
         }
         
@@ -247,6 +251,8 @@ public  abstract  class Enemy : MonoBehaviour
 
     private IEnumerator OnDamage()
     {
+        
+        
         AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyHit);
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
@@ -312,20 +318,30 @@ public  abstract  class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Skill") && !_isDead)
-        {
-            int randomDamage = Random.Range(8, 13);
-            TakeDamage(randomDamage);
-            Vector3 hitDirection = (transform.position - other.transform.position).normalized;
-            Vector3 knockbackPosition = transform.position + new Vector3(hitDirection.x, 0, hitDirection.z) * 2f;
-            transform.DOMove
-            (new Vector3(
-                knockbackPosition.x, 
-                transform.position.y, 
-                knockbackPosition.z), 0.5f).SetEase(Ease.OutQuad);
-            
-        }
+        // if (other.CompareTag("Skill") && !_isDead)
+        // {
+        //     Vector3 hitDirection = (transform.position - other.transform.position).normalized;
+        //     Vector3 knockbackPosition = transform.position + new Vector3(hitDirection.x, 0, hitDirection.z) * 2f;
+        //     transform.DOMove
+        //     (new Vector3(
+        //         knockbackPosition.x, 
+        //         transform.position.y, 
+        //         knockbackPosition.z), 0.5f).SetEase(Ease.OutQuad);
+        //     // int randomDamage = Random.Range(8, 13);
+        //     // TakeDamage(randomDamage);
+        //     // ApplyKnockback(other.transform);
+        //     
+        // }
     }
+
+    private void ApplyKnockback(Vector3 sourcePosition)
+    {
+        Vector3 hitDirection = (transform.position - sourcePosition).normalized;
+        Vector3 knockbackPosition = transform.position + new Vector3(hitDirection.x,0,hitDirection.z) * 2f;
+        transform.DOMove(new Vector3(knockbackPosition.x, transform.position.y, knockbackPosition.z), 0.5f).SetEase(Ease.OutQuad);
+    }
+    
+    
 
     protected abstract IEnumerator AttackPlayer();
 }

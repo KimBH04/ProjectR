@@ -397,7 +397,7 @@ public sealed class PlayerController : MonoBehaviour
         {
             if (enemyColliders[i].TryGetComponent(out Enemy enemy))
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage, transform.position);
             }
             else
             {

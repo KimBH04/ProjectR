@@ -539,7 +539,7 @@ MonoBehaviour:
     type: 3}
   damageTextPos: {fileID: 7008711349137694191}
   dissolveMaterial: {fileID: 2100000, guid: 4d68af65b28157f4d94296f94e8f2e73, type: 2}
-  isBoss: 0
+  isBoss: 1
   _isHeal: 0
   onDieEvent:
     m_PersistentCalls:
