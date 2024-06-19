@@ -46,7 +46,7 @@ public class Fruit : MonoBehaviour
         effect.SetActive(true);
         int layerMask = LayerMask.GetMask("Enemy", "Player");
         RaycastHit [] rayHits =Physics.SphereCastAll(transform.position,5,Vector3.up,0f,layerMask);
-
+        AudioManager.Instance.PlaySfx(AudioManager.ESfx.SkeletonBombExplosion);
         foreach (RaycastHit hitObj in rayHits)
         {
             if (hitObj.transform.CompareTag("Enemy"))
