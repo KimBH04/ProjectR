@@ -85,7 +85,7 @@ public  abstract  class Enemy : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
 
         StartCoroutine(IsHeal());
-        if (!isBoss && _agent.enabled) 
+        if ( _agent.enabled) 
         {
             // AudioManager.Instance.PlaySfx(AudioManager.ESfx.GoblinSound); 헉
             Invoke(nameof(ChaseStart), 1f);
@@ -94,7 +94,7 @@ public  abstract  class Enemy : MonoBehaviour
 
     public virtual void Update()
     {
-        if (_agent.enabled && !IsTingling && !isBoss) 
+        if (_agent.enabled && !IsTingling) 
         {
             _agent.SetDestination(_playerTr.position);
             _agent.isStopped = !IsChase;
@@ -126,7 +126,7 @@ public  abstract  class Enemy : MonoBehaviour
 
     private void Targeting()
     {
-        if (!isBoss && !_isDead)
+        if ( !_isDead)
         {
             RaycastHit[] rayHits = new RaycastHit[10];
             int hitCount = Physics.SphereCastNonAlloc(transform.position, _model.TargetRadius, transform.forward,

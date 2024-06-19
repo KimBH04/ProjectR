@@ -8856,6 +8856,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathKnights
       objectReference: {fileID: 0}
+    - target: {fileID: 29516245964163215, guid: 9b0f18e46bedb44219f378dd3fb9c4cf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 802498842661245493, guid: 9b0f18e46bedb44219f378dd3fb9c4cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8982,7 +8987,7 @@ PrefabInstance:
     - target: {fileID: 7918638029306672854, guid: 6f3ba149ec81347c2917acf6f7533a2e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

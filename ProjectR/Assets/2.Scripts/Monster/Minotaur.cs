@@ -157,7 +157,7 @@ public class Minotaur : Enemy
         yield return new WaitForSeconds(1.0f);
         //AttackCollision();
         //AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoAttack);
-        yield return new WaitForSeconds(2.7f);
+        yield return new WaitForSeconds(2.4f);
        
         Animator.SetBool(Attack4,false);
         IsAttack = false;
