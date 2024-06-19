@@ -19,6 +19,16 @@ public class StatusUI : MonoBehaviour
     [Space]
     [SerializeField] private GameObject propertiesPanel;
 
+    [Header("Stats bar")]
+    [SerializeField] private Image atkDamageBarImage;
+    [SerializeField] private Image atkSpeedBarImage;
+    [SerializeField] private Image staminaBarImage;
+    private int atkDamageBarValue = 0;
+    private int atkSpeedBarValue = 0;
+    private int staminaBarValue = 0;
+
+    private const float MAX_VALUE = 5f;
+
     private PlayerController _playerController;
 
     private (bool stat, bool trait) isClicked = (false, false);
@@ -58,44 +68,60 @@ public class StatusUI : MonoBehaviour
 
     private void CloseProperties()
     {
-        isClicked = (false, false);
-        
-        PlayerController.CanControl = true; 
-        propertiesPanel.SetActive(false);
-
-        
-        
-        Time.timeScale = 1f;
-
         switch (indexes.stat)
         {
             case 0:
+                if (atkDamageBarValue >= MAX_VALUE)
+                {
+                    return;
+                }
+
+                atkDamageBarImage.fillAmount = ++atkDamageBarValue / MAX_VALUE;
+
                 _playerController.additionalAtk += 3;
                 break;
 
             case 1:
+                if (atkSpeedBarValue >= MAX_VALUE)
+                {
+                    return;
+                }
+
+                atkSpeedBarImage.fillAmount = ++atkSpeedBarValue / MAX_VALUE;
+
                 _playerController.additionalAtkSpeed += 2;
                 break;
 
             case 2:
+                if (staminaBarValue >= MAX_VALUE)
+                {
+                    return;
+                }
+
+                staminaBarImage.fillAmount = ++staminaBarValue / MAX_VALUE;
+
                 _playerController.additionalDefaultStamina += 5;
                 _playerController.additionalStaminaSpeed += 2;
                 break;
 
             default:
-                Debug.LogError("Unassigned Index");
+                Debug.LogError($"Unassigned Index : {indexes.stat}");
                 break;
         }
         
         switch (indexes.trait)
         {
             default:
-                Debug.LogWarning("This is unssigned function");
+                Debug.LogWarning("Trait features not implemented");
                 break;
         }
 
-       
-        
+        isClicked = (false, false);
+
+        PlayerController.CanControl = true;
+        propertiesPanel.SetActive(false);
+
+        Time.timeScale = 1f;
     }
 
     #region Static methods

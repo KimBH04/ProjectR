@@ -8101,6 +8101,9 @@ MonoBehaviour:
   staminaText: {fileID: 3353710883098390220}
   hpBar: {fileID: 6337890138378160899}
   propertiesPanel: {fileID: 8845600074705840713}
+  atkDamageBarImage: {fileID: 7825005196051961379}
+  atkSpeedBarImage: {fileID: 6744083978080231007}
+  staminaBarImage: {fileID: 8592678247009210363}
 --- !u!1 &8051833210330324288
 GameObject:
   m_ObjectHideFlags: 0
