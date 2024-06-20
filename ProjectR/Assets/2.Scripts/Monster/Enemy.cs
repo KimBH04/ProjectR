@@ -25,10 +25,11 @@ public  abstract  class Enemy : MonoBehaviour
     protected Rigidbody _rb;
     protected NavMeshAgent _agent;
     protected SkinnedMeshRenderer[] _meshRenderers;
-    
 
     protected readonly Dictionary<SkinnedMeshRenderer, Color[]> _originalMeshRenderers = new Dictionary<SkinnedMeshRenderer, Color[]>();
+    public readonly Dictionary<SkinnedMeshRenderer, Material[]> _originalMaterials = new Dictionary<SkinnedMeshRenderer, Material[]>();
     public Material dissolveMaterial;
+
 
     public bool isBoss;
     protected bool IsChase;
@@ -62,11 +63,11 @@ public  abstract  class Enemy : MonoBehaviour
         PlayerController playerController = _playerTr.GetComponent<PlayerController>();
         if (playerController != null)
         {
-            _model = new EnemyModel(data.maxHp + (playerController.Level * 2), data.damage, data.speed, data.targetRadius, data.targetRange);
+            _model = new EnemyModel(data.enemyName,data.maxHp + (playerController.Level * 2), data.damage, data.speed, data.targetRadius, data.targetRange);
         }
         else
         {
-            _model = new EnemyModel (data.maxHp, data.damage, data.speed, data.targetRadius, data.targetRange);
+            _model = new EnemyModel (data.enemyName,data.maxHp, data.damage, data.speed, data.targetRadius, data.targetRange);
         }
        
         Animator = GetComponent<Animator>();
@@ -77,14 +78,22 @@ public  abstract  class Enemy : MonoBehaviour
         _agent.speed = _model.Speed;
         _agent.enabled = false;
         
+        
+        foreach (var meshRenderer in _meshRenderers)
+        {
+            _originalMaterials[meshRenderer] = meshRenderer.materials;
+        }
+        
         foreach (SkinnedMeshRenderer mesh in _meshRenderers)
         {
             Material[] materials = mesh.materials;
             Color[] originalColors = new Color[materials.Length];
+            
         
             for (int index = 0; index < materials.Length; index++)
             {
                 originalColors[index] = materials[index].color;
+                
             }
         
             _originalMeshRenderers[mesh] = originalColors;
@@ -92,15 +101,20 @@ public  abstract  class Enemy : MonoBehaviour
         
         
         
+        
+        
     }
+    
 
     protected virtual void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        _agent.enabled = true;
 
-        StartCoroutine(IsHeal());
-        if ( _agent.enabled) 
+        // StartCoroutine(IsHeal());
+        if ( _agent.enabled)
         {
+            print("적이 생성되었습니다");
             // AudioManager.Instance.PlaySfx(AudioManager.ESfx.GoblinSound); 헉
             Invoke(nameof(ChaseStart), 1f);
         }
@@ -123,13 +137,48 @@ public  abstract  class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        _agent.enabled = true;
+        
+        if ( _agent.enabled) 
+        {
+            Invoke(nameof(ChaseStart), 1f);
+        }
+
+        if (_isDead)
+        {
+            Init();
+        }
+        
+        
+    }
+    
+    
+
+    protected void Init()
+    {
+        
+            print("죽은 적이 부활했습니다");
+            _isDead = false;
+            _agent.enabled = true;
+            IsChase = false;
+            IsAttack = false;
+            _isDead = false;
+            _agent.enabled = true;
+            _rb.isKinematic = false;
+        
+            _model.CurrentHp = _model.MaxHp;
+            UpdateHpBar(_model.CurrentHp,_model.MaxHp);
+            StartCoroutine(OnLife());
+            ChaseStart();
+
+
     }
     
     private void OnDisable()
     {
+        
         _agent.enabled = false;
         onDieEvent.Invoke();
+        
     }
 
     protected void ChaseStart()
@@ -176,25 +225,25 @@ public  abstract  class Enemy : MonoBehaviour
     
     
     
-    protected IEnumerator IsHeal()
-    {
-        while (!_isDead)
-        {
-            yield return new WaitForSeconds(1f);
-            if (_isHeal)
-            {
-                _model.CurrentHp += 10;
-            }
-            
-           
-        }
-        
-        if (_isDead)
-        {
-            yield break;
-        }
-        
-    }
+    // protected IEnumerator IsHeal()
+    // {
+    //     while (!_isDead)
+    //     {
+    //         yield return new WaitForSeconds(1f);
+    //         if (_isHeal)
+    //         {
+    //             _model.CurrentHp += 10;
+    //         }
+    //         
+    //        
+    //     }
+    //     
+    //     if (_isDead)
+    //     {
+    //         yield break;
+    //     }
+    //     
+    // }
     
     public void SetSpeed(float speed)
     {
@@ -320,6 +369,7 @@ public  abstract  class Enemy : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(OnDie());
+        
         AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyDead);
         Animator.SetBool(Attack,false);
         Animator.SetBool(Chase,false);
@@ -342,6 +392,7 @@ public  abstract  class Enemy : MonoBehaviour
     private void gameObjectSetActive()
     {
         gameObject.SetActive(false);
+        EnemyPools.ReleaseObject(_model.EnemyName, gameObject);
     }
     
     protected IEnumerator OnDie()
@@ -364,6 +415,52 @@ public  abstract  class Enemy : MonoBehaviour
         }
         yield break;
     }
+    
+    protected IEnumerator OnLife()
+    {
+        foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
+        {
+            foreach (Material material in meshRenderer.materials)
+            {
+                material.DOFloat(0, "_Float", 0);
+            }
+
+            foreach (var mesh in _meshRenderers)
+            {
+                print("작동중");
+                if (_originalMaterials.ContainsKey(mesh))
+                {
+                    meshRenderer.materials = _originalMaterials[meshRenderer];
+                }
+            }
+            
+            
+            
+           
+            
+        }
+        
+        
+        
+        // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+        // {
+        //     if (_originalMeshRenderers.ContainsKey(mesh))
+        //     {
+        //         Material[] materials = mesh.sharedMaterials;
+        //         Color[] originalColors = _originalMeshRenderers[mesh];
+        //
+        //         for (int index = 0; index < materials.Length; index++)
+        //         {
+        //             materials[index].color = originalColors[index];
+        //         }
+        //         mesh.sharedMaterials = materials;
+        //     }
+        // }
+
+        yield return null;
+    }
+    
+    
 
     private void OnTriggerEnter(Collider other)
     {

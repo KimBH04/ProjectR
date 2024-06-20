@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ea3f36f2ac548d0aa62ed79e505dc1, type: 3}
   m_Name: Archer Goblin
   m_EditorClassIdentifier: 
+  enemyName: Archer Goblin
   maxHp: 40
   currentHp: 40
   speed: 10

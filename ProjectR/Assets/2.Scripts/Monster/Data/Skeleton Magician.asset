@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ea3f36f2ac548d0aa62ed79e505dc1, type: 3}
   m_Name: Skeleton Magician
   m_EditorClassIdentifier: 
+  enemyName: Skeleton Magician
   maxHp: 100
   currentHp: 100
   speed: 5

@@ -17,7 +17,7 @@ public class EnemyPools : MonoBehaviour
                 Pool.TakePoolItem,
                 Pool.ReleasePoolItem,
                 Pool.DestroyPoolItem,
-                true, 10);
+                true, 10,5);
 
             if (poolDict.ContainsKey(pool.name))
             {
@@ -50,6 +50,7 @@ public class EnemyPools : MonoBehaviour
         GameObject obj = poolDict[name].Get();
         obj.transform.SetPositionAndRotation(position, rotation);
         obj.SetActive(true);
+        
         return obj;
     }
 
@@ -61,6 +62,7 @@ public class EnemyPools : MonoBehaviour
     public static void ReleaseObject(string name, GameObject obj)
     {
         poolDict[name].Release(obj);
+    
     }
 
     [System.Serializable]
@@ -69,7 +71,7 @@ public class EnemyPools : MonoBehaviour
         public string name;
         [Space]
         public GameObject enemyObject;
-        public int initCount = 10;
+        public int initCount = 5;
 
         #region Pool Methods
         public GameObject CreatePoolItem()
