@@ -79,6 +79,16 @@ public class SuicideSkull : Enemy
         }
     }
 
+    protected override void DieEnemy()
+    {
+        for(int index=0; index<bombs.Count; index++)
+        {
+            bombs[index].SetActive(true);
+        }
+        base.DieEnemy();
+        
+    }
+
     private void ResetBombColor()
     {
         if(bombs.Count==0) 

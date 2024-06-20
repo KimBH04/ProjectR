@@ -114,8 +114,6 @@ public  abstract  class Enemy : MonoBehaviour
         // StartCoroutine(IsHeal());
         if ( _agent.enabled)
         {
-            print("적이 생성되었습니다");
-            // AudioManager.Instance.PlaySfx(AudioManager.ESfx.GoblinSound); 헉
             Invoke(nameof(ChaseStart), 1f);
         }
     }
@@ -167,7 +165,22 @@ public  abstract  class Enemy : MonoBehaviour
         
             _model.CurrentHp = _model.MaxHp;
             UpdateHpBar(_model.CurrentHp,_model.MaxHp);
-            StartCoroutine(OnLife());
+            
+            foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
+            {
+                foreach (Material material in meshRenderer.materials)
+                {
+                    material.DOFloat(0, "_Float", 0);
+                }
+
+                foreach (var mesh in _meshRenderers)
+                {
+                    if (_originalMaterials.ContainsKey(mesh))
+                    {
+                        meshRenderer.materials = _originalMaterials[meshRenderer];
+                    }
+                }
+            }
             ChaseStart();
 
 
@@ -416,49 +429,7 @@ public  abstract  class Enemy : MonoBehaviour
         yield break;
     }
     
-    protected IEnumerator OnLife()
-    {
-        foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
-        {
-            foreach (Material material in meshRenderer.materials)
-            {
-                material.DOFloat(0, "_Float", 0);
-            }
-
-            foreach (var mesh in _meshRenderers)
-            {
-                print("작동중");
-                if (_originalMaterials.ContainsKey(mesh))
-                {
-                    meshRenderer.materials = _originalMaterials[meshRenderer];
-                }
-            }
-            
-            
-            
-           
-            
-        }
-        
-        
-        
-        // foreach (SkinnedMeshRenderer mesh in _meshRenderers)
-        // {
-        //     if (_originalMeshRenderers.ContainsKey(mesh))
-        //     {
-        //         Material[] materials = mesh.sharedMaterials;
-        //         Color[] originalColors = _originalMeshRenderers[mesh];
-        //
-        //         for (int index = 0; index < materials.Length; index++)
-        //         {
-        //             materials[index].color = originalColors[index];
-        //         }
-        //         mesh.sharedMaterials = materials;
-        //     }
-        // }
-
-        yield return null;
-    }
+    
     
     
 
