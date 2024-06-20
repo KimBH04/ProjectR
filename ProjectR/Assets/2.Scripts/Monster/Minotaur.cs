@@ -69,7 +69,7 @@ public class Minotaur : Enemy
             }
 
 
-            if (!IsAttack && timeSinceLastAttack > 2.0f)
+            if (!IsAttack && timeSinceLastAttack > 1.0f)
             {
                 StartCoroutine(AttackPattern());
             }
@@ -107,7 +107,8 @@ public class Minotaur : Enemy
                 StartCoroutine(HitPattern4());
                 break;
         }
-        timeSinceLastAttack = 0;
+
+        timeSinceLastAttack = 1;
         yield return null;
     }
 

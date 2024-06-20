@@ -94,7 +94,7 @@ public class DeathKnights : Enemy
                StartCoroutine(HitPattern2());
                break;
        }
-       timeSinceLastAttack = 0;
+       timeSinceLastAttack = 1;
        yield return null;
     }
 
