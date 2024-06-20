@@ -176,9 +176,11 @@ public class DeathKnights : Enemy
         Invoke(nameof(SetActive),3f);
     }
     
+    
     private void SetActive()
     {
         gameObject.SetActive(false);
+        MySceneManager.Instance.ChangeScene("MainScene");
     }
 
 
