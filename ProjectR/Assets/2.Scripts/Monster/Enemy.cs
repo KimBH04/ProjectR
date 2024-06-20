@@ -153,8 +153,6 @@ public  abstract  class Enemy : MonoBehaviour
 
     protected void Init()
     {
-        
-            print("죽은 적이 부활했습니다");
             _isDead = false;
             _agent.enabled = true;
             IsChase = false;
@@ -165,6 +163,8 @@ public  abstract  class Enemy : MonoBehaviour
         
             _model.CurrentHp = _model.MaxHp;
             UpdateHpBar(_model.CurrentHp,_model.MaxHp);
+            
+           
             
             foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
             {
@@ -386,7 +386,25 @@ public  abstract  class Enemy : MonoBehaviour
     protected virtual void DieEnemy()
     {
         StopAllCoroutines();
+        foreach (SkinnedMeshRenderer meshRenderer in _meshRenderers)
+        {
+            if (_originalMeshRenderers.ContainsKey(meshRenderer))
+            {
+                Material[] materials = meshRenderer.materials;
+                Color[] originalColors = _originalMeshRenderers[meshRenderer];
+
+                for (int index = 0; index < materials.Length; index++)
+                {
+                    materials[index].color = originalColors[index];
+                }
+
+                meshRenderer.materials = materials; 
+            }
+        }
         StartCoroutine(OnDie());
+        
+       
+        
         
         AudioManager.Instance.PlaySfx(AudioManager.ESfx.EnemyDead);
         Animator.SetBool(Attack,false);
