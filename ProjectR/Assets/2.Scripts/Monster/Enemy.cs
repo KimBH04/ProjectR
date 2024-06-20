@@ -307,7 +307,12 @@ public  abstract  class Enemy : MonoBehaviour
             _model.CurrentHp = _model.MaxHp;
         }
         UpdateHpBar(_model.CurrentHp,_model.MaxHp);
-        ShowDamageText(damage);
+
+        if (!isBoss)
+        {
+            ShowDamageText(damage);
+        }
+        
 
         if (_model.CurrentHp <= 0)
         {
