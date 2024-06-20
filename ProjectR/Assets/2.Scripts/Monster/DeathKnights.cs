@@ -23,20 +23,20 @@ public class DeathKnights : Enemy
     private static readonly int start = Animator.StringToHash("Start");
     private static readonly int start2 = Animator.StringToHash("Start2");
     
-    protected override void Start()
-    {
-        playerController = FindObjectOfType<PlayerController>();
-
-        StartCoroutine(IsHeal());
-        if (!isBoss && _agent.enabled) 
-        {
-            // Animator.SetTrigger(start);
-            // Animator.SetTrigger(start2);
-            Invoke(nameof(ChaseStart), 1f);
-        }
-        
-        
-    }
+    // protected override void Start()
+    // {
+    //     playerController = FindObjectOfType<PlayerController>();
+    //
+    //     StartCoroutine(IsHeal());
+    //     if (!isBoss && _agent.enabled) 
+    //     {
+    //         // Animator.SetTrigger(start);
+    //         // Animator.SetTrigger(start2);
+    //         Invoke(nameof(ChaseStart), 1f);
+    //     }
+    //     
+    //     
+    // }
 
 
     public override void Update()
