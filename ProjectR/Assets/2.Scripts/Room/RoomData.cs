@@ -65,8 +65,6 @@ public class RoomData : MonoBehaviour
 
                             if (enemy is Slime biglime)
                             {
-                                enemyCount += 2;
-
                                 biglime.mini[0].onDieEvent.RemoveAllListeners();
                                 biglime.mini[0].onDieEvent.AddListener(EnemyCounter);
 
@@ -77,7 +75,6 @@ public class RoomData : MonoBehaviour
                         else
                         {
                             Debug.LogWarning("No have spawnPoint");
-                            enemyCount--;
                         }
                     });
                 }
@@ -189,14 +186,14 @@ public class RoomData : MonoBehaviour
                 data[Room.BACK] != null);
         }
 
-        
+        Debug.Log($"left : {data[Room.LEFT] != null}\nfront : {data[Room.FRONT] != null}\nright : {data[Room.RIGHT] != null}\nback : {data[Room.BACK] != null}");
 
         previousRoom = data;
     }
     
     private void EnemyCounter()
     {
-        enemyCount--;
+        enemyCount = FindObjectsOfType<Enemy>().Length;
         if (enemyCount == 0)
         {
             CreateRoom.OpenWalls(
@@ -205,7 +202,6 @@ public class RoomData : MonoBehaviour
                 data[Room.RIGHT] != null,
                 data[Room.BACK] != null);
         }
-        Debug.Log(enemyCount);
     }
 }
 
