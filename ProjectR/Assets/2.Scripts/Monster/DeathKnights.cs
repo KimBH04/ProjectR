@@ -167,6 +167,19 @@ public class DeathKnights : Enemy
     protected override void DieEnemy()
     {
         StopAllCoroutines();
+        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+        {
+            if (_originalMeshRenderers.ContainsKey(mesh))
+            {
+                Material[] materials = mesh.materials;
+                Color[] originalColors = _originalMeshRenderers[mesh];
+            
+                for (int index = 0; index < materials.Length; index++)
+                {
+                    materials[index].color = originalColors[index]; 
+                }
+            }
+        }
         Animator.SetTrigger(Die);
         IsChase = false;
         IsAttack = false;

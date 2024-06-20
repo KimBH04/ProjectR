@@ -258,6 +258,21 @@ public class Minotaur : Enemy
     {
         StopAllCoroutines();
         Animator.SetTrigger(Die);
+        foreach (SkinnedMeshRenderer mesh in _meshRenderers)
+        {
+            if (_originalMeshRenderers.ContainsKey(mesh))
+            {
+                Material[] materials = mesh.materials;
+                Color[] originalColors = _originalMeshRenderers[mesh];
+            
+                for (int index = 0; index < materials.Length; index++)
+                {
+                    materials[index].color = originalColors[index]; 
+                }
+            }
+        }
+        
+        
         AudioManager.Instance.PlaySfx(AudioManager.ESfx.MinoDead);
         IsChase = false;
         IsAttack = false;
