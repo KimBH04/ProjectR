@@ -12,6 +12,8 @@ public class SuicideSkull : Enemy
     [SerializeField] private List<GameObject> bombs;
     
     public float radius=5f;
+
+    private int _bombCount = 2;
     
    
 
@@ -22,7 +24,7 @@ public class SuicideSkull : Enemy
     
     protected override IEnumerator AttackPlayer()
     {
-        if (bombs.Count == 0)
+        if (bombs.Count == -1)
         {
             yield break;
         }
@@ -33,8 +35,13 @@ public class SuicideSkull : Enemy
         AudioManager.Instance.PlaySfx(AudioManager.ESfx.SkeletonBombExplosion);
         
         explosionEffect.SetActive(true);
-        bombs[0].SetActive(false);
-        bombs.Remove(bombs[0]);
+
+        
+            bombs[_bombCount-1].SetActive(false);
+            _bombCount--;
+        
+        
+        
         RaycastHit[] rayHits =Physics.SphereCastAll(transform.position,5,Vector3.up,0f,LayerMask.GetMask("Player","Enemy"));
         
         
@@ -79,14 +86,21 @@ public class SuicideSkull : Enemy
         }
     }
 
-    protected override void DieEnemy()
+    
+    
+    private void OnDisable()
     {
-        for(int index=0; index<bombs.Count; index++)
+        if (_bombCount < bombs.Count)
         {
-            bombs[index].SetActive(true);
+            for (int i = _bombCount; i < bombs.Count; i++)
+            {
+                bombs[_bombCount].SetActive(true);
+                _bombCount++;
+            }
+           
         }
-        base.DieEnemy();
         
+        explosionEffect.SetActive(false);
     }
 
     private void ResetBombColor()
