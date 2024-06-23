@@ -18,7 +18,7 @@ public class Item : MonoBehaviour
     
     public EType type;
     public int value;
-    public float moveSpeed = 50f;
+    public float moveSpeed = 20f;
     public float attractRange = 50f;
 
 

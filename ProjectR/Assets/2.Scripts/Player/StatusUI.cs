@@ -23,6 +23,11 @@ public class StatusUI : MonoBehaviour
     [SerializeField] private Image atkDamageBarImage;
     [SerializeField] private Image atkSpeedBarImage;
     [SerializeField] private Image staminaBarImage;
+    
+    [Header("Stats Button")]
+    [SerializeField] private Toggle atkDamageToggle;
+    [SerializeField] private Toggle atkSpeedToggle;
+    [SerializeField] private Toggle staminaToggle;
 
     private const float MAX_VALUE = 5f;
 
@@ -77,7 +82,8 @@ public class StatusUI : MonoBehaviour
             case 0:
                 if (_playerController.atkDamageBarValue >= MAX_VALUE)
                 {
-                    return;
+                    atkDamageToggle.interactable = false;
+                    //return;
                 }
 
                 atkDamageBarImage.fillAmount = ++_playerController.atkDamageBarValue / MAX_VALUE;
@@ -88,7 +94,8 @@ public class StatusUI : MonoBehaviour
             case 1:
                 if (_playerController.atkSpeedBarValue >= MAX_VALUE)
                 {
-                    return;
+                    atkSpeedToggle.interactable = false;
+                    //return;
                 }
 
                 atkSpeedBarImage.fillAmount = ++_playerController.atkSpeedBarValue / MAX_VALUE;
@@ -99,7 +106,8 @@ public class StatusUI : MonoBehaviour
             case 2:
                 if (_playerController.staminaBarValue >= MAX_VALUE)
                 {
-                    return;
+                    staminaToggle.interactable = false;
+                    //return;
                 }
 
                 staminaBarImage.fillAmount = ++_playerController.staminaBarValue / MAX_VALUE;
